@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+// import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 // import DropDownMenu from 'material-ui/DropDownMenu';
 // import MenuItem from 'material-ui/MenuItem';
-var apiBaseUrl = "http://localhost:4000/api/";
-import axios from 'axios';
+// var apiBaseUrl = "http://localhost:4000/api/";
+// import axios from 'axios';
+import SideBar from './SideBar';
 import UploadPage from './UploadPage';
 class Login extends Component {
   constructor(props) {
@@ -101,9 +102,7 @@ class Login extends Component {
       return (
         <div>
           <MuiThemeProvider>
-            <AppBar
-              title="Login"
-            />
+            <SideBar></SideBar>
           </MuiThemeProvider>
   
           {this.state.loginComponent}
