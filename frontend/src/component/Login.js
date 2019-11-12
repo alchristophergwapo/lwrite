@@ -1,123 +1,135 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-// import DropDownMenu from 'material-ui/DropDownMenu';
-// import MenuItem from 'material-ui/MenuItem';
-// var apiBaseUrl = "http://localhost:4000/api/";
-// import axios from 'axios';
-import SideBar from './SideBar';
-import UploadPage from './UploadPage';
-class Login extends Component {
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+export default class Login extends Component {
   constructor(props) {
     super(props);
-    var localloginComponent = [];
-    localloginComponent.push(
-      <MuiThemeProvider key={"theme"}>
-        <div>
-          <TextField
-            hintText="Enter your Username"
-            floatingLabelText="Username"
-            onChange={(event, newValue) => this.setState({ username: newValue })}
-          />
-          <br />
-          <TextField
-            type="password"
-            hintText="Enter your Password"
-            floatingLabelText="Password"
-            onChange={(event, newValue) => this.setState({ password: newValue })}
-          />
-          <br />
-          <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
-        </div>
-      </MuiThemeProvider>
-    )
-    this.state = {
-      username: '',
-      password: '',
-      loginComponent: localloginComponent,
-      proceed: false
-    }
-  }
-  componentWillMount() {
-    // console.log("willmount prop values",this.props);
-    var localloginComponent = [];
-    localloginComponent.push(
-      <MuiThemeProvider>
-        <div>
-          <TextField
-            hintText="Enter your Username"
-            floatingLabelText="Username"
-            onChange={(event, newValue) => this.setState({ username: newValue })}
-          />
-          <br />
-          <TextField
-            type="password"
-            hintText="Enter your Password"
-            floatingLabelText="Password"
-            onChange={(event, newValue) => this.setState({ password: newValue })}
-          />
-          <br />
-          <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
-        </div>
-      </MuiThemeProvider>
-    )
-    this.setState({ loginComponent: localloginComponent })
-
-
-  }
-  handleClick(event) {
-    var self = this;
-    var payload = {
-      "userid": this.state.username,
-      "password": this.state.password,
-    }
-    this.setState({proceed: true})
-    // axios.post(apiBaseUrl + 'login', payload)
-    //   .then(function (response) {
-    //     console.log(response);
-    //     if (response.data.code == 200) {
-    //       console.log("Login successfull");
-    //       var uploadScreen = [];
-    //       uploadScreen.push(<UploadPage appContext={self.props.appContext} />)
-    //       self.props.appContext.setState({ loginPage: [], uploadScreen: uploadScreen })
-    //     }
-    //     else if (response.data.code == 204) {
-    //       console.log("Username password do not match");
-    //       alert(response.data.success)
-    //     }
-    //     else {
-    //       console.log("Username does not exists");
-    //       alert("Username does not exist");
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
 
+  Copyright = () => {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
+          Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
   render() {
-    if(!this.state.proceed) {
-      return (
-        <div>
-          <MuiThemeProvider>
-            <SideBar></SideBar>
-          </MuiThemeProvider>
-  
-          {this.state.loginComponent}
-        </div>
-      );
-    } else {
-      return(
-        <UploadPage></UploadPage>
-      )
+    const root = {
+      height: '100px'
     }
+
+    const image = {
+      backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    }
+    const paper = {
+      margin: theme.spacing(8, 4),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    const useStyles = makeStyles(theme => ({
+     
+      
+      avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+      },
+      form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+      },
+      submit: {
+        margin: theme.spacing(3, 0, 2),
+      },
+    }));
+    
+    return (
+      <Grid container component="main" style={root} >
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7}  />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div>
+            <Avatar>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+          </Typography>
+            <form>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
+                Sign In
+            </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <Box>
+                {this.Copyright}
+              </Box>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
+    )
   }
 }
 
-const style = {
-  margin: 15,
-};
-
-export default Login;
