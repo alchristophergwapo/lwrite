@@ -40,17 +40,22 @@ export default class Login extends Component {
   }
   handleSubmit = (e) => {
     const { username, password } = this.state;
-    if (username.length >= 1 && password.length >= 1) {
-      this.setState({ login: true })
+    if (username.length > 0 && password.length > 0) {
+      this.setState({ login: true });
+      console.log(this.state.login)
     } else if (username.length < 1 && password.length < 1) {
       alert("Some field are missing")
       this.setState({login: false})
     }
     console.log(this.state.login);
+    console.log(this.state.username);
+    console.log(this.state.password)
   }
 
   handleClick = (e) => {
-    this.setState({ register: true })
+    return(
+      <Register></Register>
+    )
   }
 
   render() {
@@ -96,7 +101,7 @@ export default class Login extends Component {
               <Typography component="h1" variant="h5">
                 Sign in
             </Typography>
-              <div style={form}>
+              <form style={form} onSubmit={e => this.handleSubmit(e)}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -107,7 +112,7 @@ export default class Login extends Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  onChange={e => this.setState({ username: e.target.value })}
+                  onChange={(e) => this.setState({ username: e.target.value })}
                 />
                 <TextField
                   variant="outlined"
@@ -119,7 +124,7 @@ export default class Login extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  onChange={e => this.setState({ username: e.target.value })}
+                  onChange={(e) => this.setState({ password: e.target.value })}
                 />
                 <div>
                   <FormControlLabel
@@ -132,7 +137,6 @@ export default class Login extends Component {
                   variant="contained"
                   color="primary"
                   style={submit}
-                  onClick = {e => this.handleSubmit(e)}
                 >
                   Sign In
               </Button>
@@ -143,29 +147,25 @@ export default class Login extends Component {
                   </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2" onClick={e => this.handleClick(e)}>
+                    <label href="#" variant="body2" >
                       {"Don't have an account? Sign Up"}
-                    </Link>
+                    </label>
+                    <Button onClick={(e) => this.handleClick(e)}>Register</Button>
                   </Grid>
-                  {/* <Switch> */}
-                  {/* <Route path="/register" render={() => <Register></Register>} /> */}
-                  {/* <Route path="/tab3" render={() => <div>Tab 3</div>} /> */}
-                  {/* <Route path="/" render={() => <div>Tab 1</div>} /> */}
-                  {/* </Switch> */}
                 </Grid>
                 <Box>
                   {this.Copyright}
                 </Box>
-              </div>
+              </form>
             </div>
           </Grid>
         </Grid>
       )
-    } else {
+    } else if(this.state.login === true) {
       return (
         <Dashboard></Dashboard>
       )
-    }
+    } 
   }
 }
 
