@@ -61,6 +61,7 @@ export default class Login extends Component {
   render() {
     const root = {
       height: "100vh",
+      textAlign: 'center'
     }
 
     const image = {
