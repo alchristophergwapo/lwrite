@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Dashboard from './Dashboard'
 import Register from './Register'
+import { Container } from '@material-ui/core';
 // import { Switch, Route, Link } from "react-router-dom";
 
 export default class Login extends Component {
@@ -22,7 +23,6 @@ export default class Login extends Component {
       username: '',
       password: '',
       login: false,
-      register: false
     }
   }
 
@@ -39,134 +39,117 @@ export default class Login extends Component {
     );
   }
   handleSubmit = (e) => {
+    e.preventDefault();
     const { username, password } = this.state;
     if (username.length > 0 && password.length > 0) {
       this.setState({ login: true });
       console.log(this.state.login)
-    } else if (username.length < 1 && password.length < 1) {
+    } else{
       alert("Some field are missing")
-      this.setState({login: false})
+      this.setState({ login: false })
     }
     console.log(this.state.login);
     console.log(this.state.username);
     console.log(this.state.password)
   }
 
-  handleClick = (e) => {
-    return(
-      <Register></Register>
-    )
-  }
-
   render() {
-    const root = {
-      height: "100vh",
-      textAlign: 'center'
-    }
-
-    const image = {
+    const body = {
       backgroundImage: 'url(https://source.unsplash.com/random)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
+      height: '100vh',
+    }
+    const container = {
+      textAlign: 'center',
+      backgroundColor: 'white',
+      marginTop: '1vh'
     }
     const paper = {
-      margin: "5vh",
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
     }
     const avatar = {
-      margin: "1vh",
-      backgroundColor: 'red'
+      margin: '1vh',
+      backgroundColor: 'red',
     }
     const form = {
-      width: '100%',
-      marginTop: '1vh'
+      width: '100%', // Fix IE 11 issue.
+      marginTop: '3vh',
     }
     const submit = {
-      width: '200px',
-      marginBottom: '3vh'
+      margin: '3vh, 0, 2vh',
     }
 
     if (!this.state.login) {
       return (
-        <Grid container component="main" style={root} >
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} style={image} />
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div style={body}>
+          <Container component="main" maxWidth="xs" style={container}>
+            <CssBaseline />
             <div style={paper}>
               <Avatar style={avatar}>
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
-            </Typography>
-              <form style={form} onSubmit={e => this.handleSubmit(e)}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address/Username"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => this.setState({ username: e.target.value })}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(e) => this.setState({ password: e.target.value })}
-                />
-                <div>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                  />
-                </div>
+              <Typography component="h1" variant="h5">Login</Typography>
+              <form style={form}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address/Username"
+                      name="email"
+                      autoComplete="email"
+                      onChange = {(e) => this.setState({username: e.target.value})}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange = {(e) => this.setState({password: e.target.value})}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={<Checkbox value="allowExtraEmails" color="primary" />}
+                      label="Remember me"
+                    />
+                  </Grid>
+                </Grid>
                 <Button
                   type="submit"
+                  fullWidth
                   variant="contained"
                   color="primary"
                   style={submit}
-                >
-                  Sign In
-              </Button>
-                <Grid container style={{ marginBottom: '3vh' }}>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                  </Link>
-                  </Grid>
-                  <Grid item>
-                    <label href="#" variant="body2" >
-                      {"Don't have an account? Sign Up"}
-                    </label>
-                    <Button onClick={(e) => this.handleClick(e)}>Register</Button>
-                  </Grid>
-                </Grid>
-                <Box>
-                  {this.Copyright}
-                </Box>
+                  onClick = {(e) => this.handleSubmit(e)}
+                  >
+                  Login
+                </Button>
               </form>
             </div>
-          </Grid>
-        </Grid>
+            <Box mt={5}>
+              {this.Copyright()}
+            </Box>
+          </Container>
+        </div>
       )
-    } else if(this.state.login === true) {
+    } else {
       return (
         <Dashboard></Dashboard>
       )
-    } 
+    }
   }
 }
 
