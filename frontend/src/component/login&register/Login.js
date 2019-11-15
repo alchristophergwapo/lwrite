@@ -146,6 +146,7 @@ export default class Login extends Component {
     } else {
       return (
         <Dashboard></Dashboard>
+        // <App></App>
       )
     }
   }

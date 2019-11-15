@@ -19,7 +19,7 @@ export default class AppBody extends Component {
                             <Fragment>
                                 <center>
                                     <Tabs value={location.pathname}>
-                                        <Tab label="Login" component={Link} to="/login" />
+                                        <Tab label="Login" exact component={Link} to="/" />
                                         <Tab
                                             label="Register"
                                             href="#basic-tabs"
@@ -30,7 +30,7 @@ export default class AppBody extends Component {
                                 </center>
                                 <Switch>
                                     <Route path="/register" render={() => <div><Register></Register></div>} />
-                                    <Route path="/login" render={() => <div><Login></Login></div>} />
+                                    <Route path="/" render={() => <div><Login></Login></div>} />
                                 </Switch>
                             </Fragment>
                         )}

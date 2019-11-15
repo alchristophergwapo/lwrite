@@ -19,7 +19,10 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from "@material-ui/core/Avatar";
 import Link from '@material-ui/core/Link';
+import TypoGraphy from '@material-ui/core/Typography'
+import { Home, Book, AccountBox } from '@material-ui/icons'
 import DashboardHeader from './DashboardHeader';
+import SideBar from './SideBar';
 
 const drawerWidth = 300;
 
@@ -150,13 +153,28 @@ export default function PersistentDrawerLeft() {
                     </IconButton>
                 </div>
                 <Divider />
+                <List><SideBar></SideBar></List>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem component="div" >
+
+                        <ListItemText inset>
+                            <TypoGraphy color="inherit" variant="h5">
+                                <Home />Home
+                            </TypoGraphy>
+                        </ListItemText>
+
+
+                        <ListItemText inset>
+                            <TypoGraphy color="inherit" variant="h5">
+                                <Book />Posts
+                            </TypoGraphy>
+                        </ListItemText>
+                        <ListItemText inset>
+                            <TypoGraphy color="inherit" variant="h5">
+                                <AccountBox />Contact
+                            </TypoGraphy>
+                        </ListItemText>
+                    </ListItem >
                 </List>
                 <Divider />
                 <List>
