@@ -10,7 +10,8 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import Dashboard from '../dashboard/Dashboard'
+import Dashboard from '../dashboard/Dashboard';
+import App from '../guide/App'
 import { Container } from '@material-ui/core';
 
 export default class Login extends Component {
