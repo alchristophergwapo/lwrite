@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
-import Login from './Login';
-import Register from './Register';
+import Login from '../login&register/Login';
+import Register from '../login&register/Register';
 
 export default class AppBody extends Component {
     constructor(props) {
