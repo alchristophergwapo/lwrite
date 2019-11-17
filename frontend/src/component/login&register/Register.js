@@ -26,7 +26,7 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
-            errors: {}
+            user: {}
         }
 
     }
@@ -59,8 +59,7 @@ class Register extends Component {
             password: this.state.password,
             password2: this.state.password2
         };
-
-        this.props.registerUser(newUser, this.props.history);
+        this.props.registerUser(newUser, this.props.history)
     };
 
     Copyright = () => {
@@ -120,48 +119,44 @@ class Register extends Component {
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
-                                        onChange={this.onChange}
-                                        value={this.state.firstname}
-                                        error={errors.firstname}
-                                        autoComplete="fname"
-                                        name="firstName"
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="firstName"
+                                        id="firstname"
                                         label="First Name"
-                                        autoFocus
-                                        className={classnames("", { invalid: errors.firstname })}
+                                        name="firstname"
+                                        onChange={this.onChange}
+                                        value={this.state.firstname}
+                                        error={errors.firstname}
+                                        className={classnames("", {invalid: errors.firstname})}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
-                                        onChange={this.onChange}
-                                        value={this.state.lastname}
-                                        error={errors.lastname}
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="lastName"
+                                        id="lastname"
                                         label="Last Name"
                                         name="lastName"
-                                        autoComplete="lname"
-                                        className={classnames("", { invalid: errors.lastname })}
+                                        onChange={this.onChange}
+                                        value={this.state.lastname}
+                                        error={errors.lastname}
+                                        className={classnames("", {invalid: errors.lastname})}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} >
                                     <TextField
                                         onChange={this.onChange}
                                         value={this.state.email}
                                         error={errors.email}
+                                        className={classnames("", {invalid: errors.email})}
                                         variant="outlined"
                                         required
                                         fullWidth
                                         id="email"
                                         label="Email Address"
                                         name="email"
-                                        autoComplete="email"
-                                        className={classnames("", { invalid: errors.email })}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -169,6 +164,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.password}
                                         error={errors.password}
+                                        className={classnames("", {invalid: errors.password})}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -177,9 +173,6 @@ class Register extends Component {
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
-                                        className={classnames("", {
-                                            invalid: errors.password
-                                        })}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -187,6 +180,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.password2}
                                         error={errors.password2}
+                                        className={classnames("", {invalid: errors.password2})}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -195,9 +189,6 @@ class Register extends Component {
                                         type="password"
                                         id="password2"
                                         autoComplete="another-password"
-                                        className={classnames("", {
-                                            invalid: errors.password2
-                                        })}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -232,4 +223,12 @@ Register.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-export default Register;
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+  });
+
+  export default connect(
+    mapStateToProps,
+    { registerUser }
+  )(withRouter(Register));
