@@ -5,12 +5,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import { UserRegistration, UsernameValidation } from '../services/RegistrationService';
+import Message from '../elements/Message';
+import Error from '../elements/Error';
+import { REGISTRATION_FIELDS, REGISTRATION_MESSAGE, COMMON_FIELDS, ERROR_IN_REGISTRATION } from '../MessageBundle';
+
 
 class Register extends Component {
     constructor(props) {
@@ -18,7 +24,7 @@ class Register extends Component {
         this.state = {
             firstname: "",
             lastname: '',
-            email: "",
+            user_name: "",
             password: "",
             password2: "",
             register: false,
@@ -27,35 +33,47 @@ class Register extends Component {
 
     }
 
-    componentDidMount() {
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({
-                errors: nextProps.errors
-            });
-        }
-    }
-
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
 
-    onSubmit = e => {
-        e.preventDefault();
-
-        const newUser = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password,
-            password2: this.state.password2
+    handleOnBlur = async e => {
+        this.setState({
+            user_name: e.target.value
+        });
+        const data = {
+            user_name: this.state.user_name
         };
-        this.props.registerUser(newUser, this.props.history)
+        const isUsernameTaken = await UsernameValidation(data);
+
+        isUsernameTaken === 204
+            ? this.setState({ user_name_taken: true })
+            : this.setState({ user_name_taken: false });
+    }
+
+    onSubmit =async e => {
+        e.preventDefault();
+        const data = {
+            fi: this.state.firstname,
+            last_name: this.state.lastname,
+            user_name: this.state.user_name,
+            password: this.state.password
+        };
+
+        const registerStatus = await UserRegistration(data);
+        if (registerStatus === 200) {
+            this.setState({
+                firstname: '',
+                lastname: '',
+                user_name: '',
+                password: '',
+                register: true,
+                error: false
+            });
+        } else this.setState({
+            error: true,
+            register: false
+        });
     };
 
     Copyright = () => {
@@ -101,7 +119,7 @@ class Register extends Component {
             margin: '3vh, 0, 2vh',
         }
 
-        const { errors } = this.state;
+        const { register, error, user_name_taken } = this.state;
         return (
             <div style={body}>
                 <Container component="main" maxWidth="xs" style={container}>
@@ -124,7 +142,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.firstname}
                                         error={errors.firstname}
-                                        className={classnames("", {invalid: errors.firstname})}
+                                        className={classnames("", { invalid: errors.firstname })}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -138,7 +156,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.lastname}
                                         error={errors.lastname}
-                                        className={classnames("", {invalid: errors.lastname})}
+                                        className={classnames("", { invalid: errors.lastname })}
                                     />
                                 </Grid>
                                 <Grid item xs={12} >
@@ -146,7 +164,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.email}
                                         error={errors.email}
-                                        className={classnames("", {invalid: errors.email})}
+                                        className={classnames("", { invalid: errors.email })}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -160,7 +178,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.password}
                                         error={errors.password}
-                                        className={classnames("", {invalid: errors.password})}
+                                        className={classnames("", { invalid: errors.password })}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -176,7 +194,7 @@ class Register extends Component {
                                         onChange={this.onChange}
                                         value={this.state.password2}
                                         error={errors.password2}
-                                        className={classnames("", {invalid: errors.password2})}
+                                        className={classnames("", { invalid: errors.password2 })}
                                         variant="outlined"
                                         required
                                         fullWidth
