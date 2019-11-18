@@ -5,17 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import {withRouter } from "react-router-dom";
-import classnames from "classnames";
-import PropTypes from "prop-types";
-import {registerUser} from '../../actions/AuthActions';
-import { connect } from "react-redux";
 
 class Register extends Component {
     constructor(props) {
@@ -26,7 +21,8 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
-            user: {}
+            register: false,
+            error: false
         }
 
     }
@@ -217,18 +213,4 @@ class Register extends Component {
     }
 }
 
-Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
-  });
-
-  export default connect(
-    mapStateToProps,
-    { registerUser }
-  )(withRouter(Register));
+export default Register;
