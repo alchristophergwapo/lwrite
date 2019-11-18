@@ -1,3 +1,3 @@
 module.exports = {
-		DB: 'mongodb://127.0.0.1:27018/catapultSports'
+		DB: 'mongodb+srv://cccjlwrite:groupcccj@cluster0-dtqee.mongodb.net/test?retryWrites=true&w=majority'
 }

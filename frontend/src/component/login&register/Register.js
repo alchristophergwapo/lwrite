@@ -12,10 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
-import { UserRegistration, UsernameValidation } from '../services/RegistrationService';
-import Message from '../elements/Message';
-import Error from '../elements/Error';
-import { REGISTRATION_FIELDS, REGISTRATION_MESSAGE, COMMON_FIELDS, ERROR_IN_REGISTRATION } from '../MessageBundle';
+import { UserRegistration, UsernameValidation } from '../../services/RegistrationService';
+import Message from '../../elements/Message';
+import Error from '../../elements/Error';
+import {REGISTRATION_MESSAGE,  ERROR_IN_REGISTRATION } from '../../MessageBundle';
 
 
 class Register extends Component {
@@ -51,10 +51,10 @@ class Register extends Component {
             : this.setState({ user_name_taken: false });
     }
 
-    onSubmit =async e => {
+    onSubmit = async e => {
         e.preventDefault();
         const data = {
-            fi: this.state.firstname,
+            firs_tname: this.state.firstname,
             last_name: this.state.lastname,
             user_name: this.state.user_name,
             password: this.state.password
@@ -80,9 +80,9 @@ class Register extends Component {
         return (
             <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}
-                <Link color="inherit" href="https://material-ui.com/">
+                <Typography color="inherit" href="https://material-ui.com/">
                     Your Website
-          </Link>{' '}
+                </Typography>{' '}
                 {new Date().getFullYear()}
                 {'.'}
             </Typography>
@@ -141,8 +141,6 @@ class Register extends Component {
                                         name="firstname"
                                         onChange={this.onChange}
                                         value={this.state.firstname}
-                                        error={errors.firstname}
-                                        className={classnames("", { invalid: errors.firstname })}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -155,16 +153,12 @@ class Register extends Component {
                                         name="lastName"
                                         onChange={this.onChange}
                                         value={this.state.lastname}
-                                        error={errors.lastname}
-                                        className={classnames("", { invalid: errors.lastname })}
                                     />
                                 </Grid>
                                 <Grid item xs={12} >
                                     <TextField
                                         onChange={this.onChange}
                                         value={this.state.email}
-                                        error={errors.email}
-                                        className={classnames("", { invalid: errors.email })}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -177,8 +171,6 @@ class Register extends Component {
                                     <TextField
                                         onChange={this.onChange}
                                         value={this.state.password}
-                                        error={errors.password}
-                                        className={classnames("", { invalid: errors.password })}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -193,8 +185,6 @@ class Register extends Component {
                                     <TextField
                                         onChange={this.onChange}
                                         value={this.state.password2}
-                                        error={errors.password2}
-                                        className={classnames("", { invalid: errors.password2 })}
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -217,10 +207,14 @@ class Register extends Component {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                classNames = "btn btn-primary"
                                 style={submit}>
                                 Sign Up
                             </Button>
+                            <Link to="/login">Cancel</Link>
                         </form>
+                        {error && <Error message={ERROR_IN_REGISTRATION}/>}
+                        {register && <Message message={REGISTRATION_MESSAGE}/>}
                     </div>
                     <Box mt={5}>
                         {this.Copyright()}
