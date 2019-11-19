@@ -7,11 +7,13 @@ let Registration = require('./schema');
 registrationRoutes.route('/register').post(function (req, res) {
 	let register = new Registration(req.body);
 	register.save()
-		.then(reg => {
-			res.sendStatus(200);
+		.then(register => {
+      res.sendStatus(200);
+      console.log(register);
 		})
 		.catch(err => {
-			res.status(400).send("Failed to store to database");
+      console.log(err);
+      res.status(400).send("Failed to store to database");
 		});
 });
 

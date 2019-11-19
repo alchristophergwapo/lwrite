@@ -11,11 +11,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
-import classNames from 'classnames';
+import axios from 'axios';
 import { UserRegistration, UsernameValidation } from '../../services/RegistrationService';
 import Message from '../../elements/Message';
 import Error from '../../elements/Error';
-import {REGISTRATION_MESSAGE,  ERROR_IN_REGISTRATION } from '../../MessageBundle';
+import { REGISTRATION_MESSAGE, ERROR_IN_REGISTRATION } from '../../MessageBundle';
 
 
 class Register extends Component {
@@ -54,7 +54,7 @@ class Register extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
-            firs_tname: this.state.firstname,
+            first_name: this.state.firstname,
             last_name: this.state.lastname,
             user_name: this.state.user_name,
             password: this.state.password
@@ -70,10 +70,13 @@ class Register extends Component {
                 register: true,
                 error: false
             });
-        } else this.setState({
-            error: true,
-            register: false
-        });
+        } else {
+            alert("Username already exist");
+            this.setState({
+                error: true,
+                register: false
+            });
+        }
     };
 
     Copyright = () => {
@@ -81,7 +84,7 @@ class Register extends Component {
             <Typography variant="body2" color="textSecondary" align="center">
                 {'LWrite @  '}
                 <Typography color="inherit" href="https://material-ui.com/">
-                    your service 
+                    your service
                 </Typography>{' '}
                 {new Date().getFullYear()}
                 {'.'}
@@ -158,13 +161,13 @@ class Register extends Component {
                                 <Grid item xs={12} >
                                     <TextField
                                         onChange={this.onChange}
-                                        value={this.state.email}
+                                        value={this.state.user_name}
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
+                                        id="user_name"
+                                        label="Username"
+                                        name="user_name"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -207,14 +210,14 @@ class Register extends Component {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                classNames = "btn btn-primary"
+                                classNames="btn btn-primary"
                                 style={submit}>
                                 Sign Up
                             </Button>
                             <Link to="/login">Cancel</Link>
                         </form>
-                        {error && <Error message={ERROR_IN_REGISTRATION}/>}
-                        {register && <Message message={REGISTRATION_MESSAGE}/>}
+                        {error && <Error message={ERROR_IN_REGISTRATION} />}
+                        {register && <Message message={REGISTRATION_MESSAGE} />}
                     </div>
                     <Box mt={3}>
                         {this.Copyright()}

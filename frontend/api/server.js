@@ -1,31 +1,40 @@
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const PORT = 4000;
 const cors = require('cors');
-// const mongoose = require('mongoose');
-// const config = require('./DB.js');
-const registrationRoutes = require('./route');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://cccjlwrite:<password>@cluster0-dtqee.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  if (err) console.log('Can not connect to the database'+ err);
-  console.log('Database is connected')
-  // perform actions on the collection object
-  client.close();
-});
-// mongoose.Promise = global.Promise;
-// mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-//   () => {console.log('Database is connected') },
-//   err => { console.log('Can not connect to the database'+ err)}
-// );
+require('dotenv').config();
+
+const app = express();
+const port = process.env.PORT || 4000;
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use('/registration', registrationRoutes)
-app.listen(PORT, function(){
-  console.log('Server is running on Port:',PORT);
+// Parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+// Parse requests of content-type - application/json
+app.use(bodyParser.json())
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+       next();
 });
+
+const uri = "mongodb://127.0.0.1/lwrite";
+mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true, useCreateIndex: true }
+).then(()=>{
+  console.log(`connection to database established`)
+}).catch(err=>{
+  console.log(`db error ${err.message}`);
+  process.exit(-1)
+})
+
+const registrationRoutes = require('./route');
+
+app.use('/registration', registrationRoutes)
+
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
+});
+

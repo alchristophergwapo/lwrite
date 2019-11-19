@@ -1,9 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Login from '../login&register/Login';
-import Register from '../login&register/Register';
+import Registration from '../login&register/Register';
 
 export default class AppBody extends Component {
     constructor(props) {
@@ -15,37 +13,18 @@ export default class AppBody extends Component {
         //     backgroundRepeat: 'no-repeat',
         // }
         return (
-           
-            <BrowserRouter>
-            
-                <div className="App" >
-                    <Route
-                        path="/"
-                        render={({ location }) => (
-                            <Fragment>
-                                <center>
-                                    <Tabs value={location.pathname}>
-                                        <Tab label="Login" exact component={Link} to="/login" />
-                                        <Tab
-                                            label="Register"
-                                            href="#basic-tabs"
-                                            component={Link}
-                                            to="/register"
-                                        />
-                                    </Tabs>
-                                </center>
-                                <Switch>
-                                    <Route path="/register" render={() => <div><Register></Register></div>} />
-                                    <Route path="/login" render={() => <div><Login></Login></div>} />
-                                </Switch>
-                            </Fragment>
-                        )}
-                    />
+
+            <Router>
+                <div className="App">
+                    <Switch>
+                        <Route exact path="/register" component={Registration} />
+                        <Route exact path="/login" component={Login} />
+                        <Redirect from="/" to="login" />
+                    </Switch>
                 </div>
-          
-            </BrowserRouter>
-          
-           
+            </Router>
+
+
         )
     }
 }
