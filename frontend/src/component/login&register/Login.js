@@ -28,9 +28,9 @@ export default class Login extends Component {
   Copyright = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
+        {'LWrite @ '}
         <Link color="inherit" href="https://material-ui.com/">
-          Your Website
+          your service
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -54,13 +54,15 @@ export default class Login extends Component {
 
   render() {
     const body = {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       height: '100vh',
     }
     const container = {
+      backgroundImage: 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
       textAlign: 'center',
       backgroundColor: 'white',
       marginTop: '1vh'
@@ -138,7 +140,7 @@ export default class Login extends Component {
                 </Button>
               </form>
             </div>
-            <Box mt={5}>
+            <Box mt={4}>
               {this.Copyright()}
             </Box>
           </Container>

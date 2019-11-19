@@ -1,5 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import Typography from '@material-ui/core/Typography'
+// import CommentIcon from '@material-ui/icons/Comment';
+// import ListItem from '@material-ui/core/ListItem';
+import Comment from './Comment'
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import List from '@material-ui/core/List';
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -30,8 +38,28 @@ export default class Dashboard extends Component {
                     tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
                     nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
                     accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+
                 </Typography>
-            </div>
-        )
-    }
+               
+                <BrowserRouter>
+                    <Route
+                            path="/"
+                            render={({ location }) => (
+                        <Fragment>
+                             <Tabs value={location.pathname}>
+                                        <Tab label="Comment" exact component={Link} to="/comment" /></Tabs>
+                            <Switch>
+                                <Route exact path='/comment' render={() => <div><Comment></Comment></div>} />
+                            </Switch>
+
+                        
+                        </Fragment>
+                     )}
+                 />
+                
+        </BrowserRouter>
+              
+    </div>
+                )
+            }
 }

@@ -79,9 +79,9 @@ class Register extends Component {
     Copyright = () => {
         return (
             <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
+                {'LWrite @  '}
                 <Typography color="inherit" href="https://material-ui.com/">
-                    Your Website
+                    your service 
                 </Typography>{' '}
                 {new Date().getFullYear()}
                 {'.'}
@@ -90,7 +90,7 @@ class Register extends Component {
     }
     render() {
         const body = {
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1510861320402-285a6c7639ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -216,7 +216,7 @@ class Register extends Component {
                         {error && <Error message={ERROR_IN_REGISTRATION}/>}
                         {register && <Message message={REGISTRATION_MESSAGE}/>}
                     </div>
-                    <Box mt={5}>
+                    <Box mt={3}>
                         {this.Copyright()}
                     </Box>
                 </Container>
