@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Grid, Typography, CardHeader, TextField } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
+import Send from '@material-ui/icons/Send'
 // import Comment from "./Comment";
 
 export default class Post extends Component {
@@ -95,9 +96,9 @@ export default class Post extends Component {
                   </CardActions>
                   <CardActionArea>
                     <form onSubmit={this.handleSubmit}>
-                      <TextField 
-                        onChange={this.handleComment} />
-                      <Button type="submit">Comment</Button>
+                      <TextField style={{width: "70%"}} onChange={this.handleComment} >
+                      </TextField><Button><Send>Comment</Send></Button>
+
                     </form>
                   </CardActionArea>
                 </Card>
@@ -109,4 +110,3 @@ export default class Post extends Component {
     );
   }
 }
-  

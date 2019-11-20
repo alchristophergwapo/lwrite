@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-// import Dashboard from '../dashboard/Dashboard';
+import Paper from '@material-ui/core/Paper';
 // import App from '../guide/App'
 import { Container } from '@material-ui/core';
 import SideBar from '../dashboard/SideBar';
@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import LoginService from '../../services/LoginService';
 import Message from '../../elements/Message';
 import Error from '../../elements/Error';
-import {LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
+import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
 
 export default class Login extends Component {
   constructor(props) {
@@ -28,19 +28,6 @@ export default class Login extends Component {
       error: false,
       loginSuccess: false
     }
-  }
-
-  Copyright = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'LWrite @ '}
-        <Typography color="inherit" href="https://material-ui.com/">
-          your service
-        </Typography>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
   }
 
   onChange = (e) => {
@@ -72,24 +59,22 @@ export default class Login extends Component {
   }
 
   render() {
-    const body = {
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '100vh',
+    const root = {
+      height: '100vh'
     }
-    const container = {
+
+    const image = {
       backgroundImage: 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       textAlign: 'center',
       backgroundColor: 'white',
-      marginTop: '1vh'
     }
     const paper = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      margin: '3vh'
     }
     const avatar = {
       margin: '1vh',
@@ -99,15 +84,16 @@ export default class Login extends Component {
       width: '100%', // Fix IE 11 issue.
       marginTop: '3vh',
     }
-    const submit = {
-      margin: '3vh, 0, 2vh',
+    const button = {
+      width: '20vh',
     }
     const { loginSuccess, error } = this.state;
     if (!loginSuccess) {
       return (
-        <div style={body}>
-          <Container component="main" maxWidth="xs" style={container}>
-            <CssBaseline />
+        <Grid container component="main" style={root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} style={image} />
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <div style={paper}>
               <Avatar style={avatar}>
                 <LockOutlinedIcon />
@@ -121,7 +107,7 @@ export default class Login extends Component {
                       required
                       fullWidth
                       id="email"
-                      label="Email Address/Username"
+                      label="Username"
                       name="email"
                       autoComplete="email"
                       onChange={(e) => this.setState({ username: e.target.value })}
@@ -149,27 +135,29 @@ export default class Login extends Component {
                 </Grid>
                 <Button
                   type="submit"
-                  fullWidth
                   variant="contained"
                   color="primary"
-                  style={submit}
+                  style={button}
                   onClick={this.onSubmit}
                 >
                   Login
                 </Button>
-                <div>
-                  <h3>Don't have an account? Click Create Account to register</h3>
+                <div style={{marginTop: '3vh'}}>
+                  Don't have an account?
+                    <Button variant="outlined" color="outlined-primary" style={button}>
+                    <Link to="/register" >Create account</Link>
+                  </Button>
+
                 </div>
-                <Link to="/register">Create account</Link>
+
+
               </form>
               {loginSuccess && <Message message={LOGIN_MESSAGE} />}
               {error && <Error message={ERROR_IN_LOGIN} />}
             </div>
-            <Box mt={4}>
-              {this.Copyright()}
-            </Box>
-          </Container>
-        </div>
+          </Grid>
+
+        </Grid>
       )
     } else {
       return (

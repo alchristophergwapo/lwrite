@@ -11,7 +11,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import Paper from '@material-ui/core/Paper';
+// import axios from 'axios';
 import { UserRegistration, UsernameValidation } from '../../services/RegistrationService';
 import Message from '../../elements/Message';
 import Error from '../../elements/Error';
@@ -32,7 +33,7 @@ class Register extends Component {
         }
 
     }
-    
+
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
@@ -79,36 +80,24 @@ class Register extends Component {
         }
     };
 
-    Copyright = () => {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'LWrite @  '}
-                <Typography color="inherit" href="https://material-ui.com/">
-                    your service
-                </Typography>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-    }
     render() {
-        const body = {
+        const root = {
+            height: '100vh'
+        }
+        const image = {
             backgroundImage: 'url(https://images.unsplash.com/photo-1510861320402-285a6c7639ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             height: '100vh'
         }
-        const container = {
-            textAlign: 'center',
-            backgroundColor: 'white',
-            // marginTop: '3vh'
-        }
+
         const paper = {
             // marginTop: '5vh',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            margin: '3vh'
         }
         const avatar = {
             margin: '1vh',
@@ -118,15 +107,17 @@ class Register extends Component {
             width: '100%', // Fix IE 11 issue.
             marginTop: '3vh',
         }
-        const submit = {
-            margin: '3vh, 0, 2vh',
+        const button = {
+            width: '20vh',
+            marginTop: '3vh'
         }
 
         const { register, error, user_name_taken } = this.state;
         return (
-            <div style={body}>
-                <Container component="main" maxWidth="xs" style={container}>
-                    <CssBaseline />
+            <Grid container component="main" style={root}>
+                <CssBaseline />
+                <Grid item xs={false} sm={4} md={7} style={image} />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <div style={paper}>
                         <Avatar style={avatar}>
                             <LockOutlinedIcon />
@@ -199,34 +190,30 @@ class Register extends Component {
                                         autoComplete="another-password"
                                     />
                                 </Grid>
-                                {/* <Grid item xs={12}>
-                                    <FormControlLabel
-                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                        label="I want to receive inspiration, marketing promotions and updates via email."
-                                    />
-                                </Grid> */}
                             </Grid>
                             <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                classNames="btn btn-primary"
-                                style={submit}>
-                                Sign Up
-                            </Button>
-                            <div style={{marginTop: '3vh'}}>
-                            <Link to="/login">Cancel</Link>
-                            </div>
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    classNames="btn btn-primary"
+                                    style={button}>
+                                    Sign Up
+                                </Button>
+                                <div>
+                                    <div>Already have an account?
+                                        <Button variant="outlined" color="outlined-primary">
+                                        <Link to="/login" button>Cancel</Link>
+                                        </Button>
+                                    </div>
+                                    
+                                </div>
                         </form>
                         {error && <Error message={ERROR_IN_REGISTRATION} />}
                         {register && <Message message={REGISTRATION_MESSAGE} />}
                     </div>
-                    <Box mt={3}>
-                        {this.Copyright()}
-                    </Box>
-                </Container>
-            </div>
+
+                </Grid >
+            </Grid>
         );
     }
 }
