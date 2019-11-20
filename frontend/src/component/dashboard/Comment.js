@@ -28,18 +28,10 @@ export default function InputWithIcon() {
               <AccountCircle />
 
             </InputAdornment>
-            
           }
-          
         />
-         {/* <IconButton> <SendIcon/><IconButton> */}
       </FormControl>
-     
-            <SendIcon />
-          
-       
-    
-      
+      <SendIcon />
     </div>
   );
 }

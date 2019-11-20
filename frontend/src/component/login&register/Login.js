@@ -58,14 +58,12 @@ export default class Login extends Component {
     const loginResult = await LoginService(data);
 
     if (loginResult !== 200) {
-      alert("Unsuccessful")
       this.setState({
         error: true,
         loginSuccess: false
       });
     }
     else {
-      alert("Successful")
       this.setState({
         loginSuccess: true,
         error: false
@@ -159,7 +157,10 @@ export default class Login extends Component {
                 >
                   Login
                 </Button>
-                <Link to="/register">Register</Link>
+                <div>
+                  <h3>Don't have an account? Click Create Account to register</h3>
+                </div>
+                <Link to="/register">Create account</Link>
               </form>
               {loginSuccess && <Message message={LOGIN_MESSAGE} />}
               {error && <Error message={ERROR_IN_LOGIN} />}

@@ -8,10 +8,6 @@ export default class AppBody extends Component {
         super(props);
     }
     render() {
-        // const body = {
-        //     backgroundImage: 'url(http://bookytheblog.com/wp-content/uploads/2017/04/Creativity-is-not-a-talent-it-is-a-way-of-operating.jpg)',
-        //     backgroundRepeat: 'no-repeat',
-        // }
         return (
 
             <Router>

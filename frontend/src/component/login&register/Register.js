@@ -32,7 +32,7 @@ class Register extends Component {
         }
 
     }
-
+    
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
@@ -102,10 +102,10 @@ class Register extends Component {
         const container = {
             textAlign: 'center',
             backgroundColor: 'white',
-            marginTop: '3vh'
+            // marginTop: '3vh'
         }
         const paper = {
-            marginTop: '5vh',
+            // marginTop: '5vh',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -169,6 +169,7 @@ class Register extends Component {
                                         label="Username"
                                         name="user_name"
                                     />
+                                    <p>{user_name_taken}</p>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
@@ -198,12 +199,12 @@ class Register extends Component {
                                         autoComplete="another-password"
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                {/* <Grid item xs={12}>
                                     <FormControlLabel
                                         control={<Checkbox value="allowExtraEmails" color="primary" />}
                                         label="I want to receive inspiration, marketing promotions and updates via email."
                                     />
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                             <Button
                                 type="submit"
@@ -214,7 +215,9 @@ class Register extends Component {
                                 style={submit}>
                                 Sign Up
                             </Button>
+                            <div style={{marginTop: '3vh'}}>
                             <Link to="/login">Cancel</Link>
+                            </div>
                         </form>
                         {error && <Error message={ERROR_IN_REGISTRATION} />}
                         {register && <Message message={REGISTRATION_MESSAGE} />}

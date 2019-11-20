@@ -21,10 +21,10 @@ import Avatar from "@material-ui/core/Avatar";
 import TypoGraphy from '@material-ui/core/Typography'
 import { Home, Book, AccountBox } from '@material-ui/icons'
 import DashboardHeader from './DashboardHeader';
-import Dashboard from './Dashboard';
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import { Switch, Route, Link, BrowserRouter, Redirect } from "react-router-dom";
 import InboxItem from './Inbox';
-import Post from './Post'
+import Post from './Post';
+import MyPost from './MyPost';
 
 const drawerWidth = 300;
 
@@ -159,7 +159,7 @@ export default function SideBar() {
                         <Divider />
 
                         <List component="nav">
-                            <ListItem component={Link} to='/' button>
+                            <ListItem component={Link} to='/home' button>
                                 <TypoGraphy color="inherit" >
                                     <Home />Home
                                     </TypoGraphy>
@@ -193,9 +193,10 @@ export default function SideBar() {
                         })}
                     >
                         <Switch>
-                            <Route exact path='/' render={() => <div><Dashboard></Dashboard></div>} />
-                            <Route path='/post' render={() => <div><Post></Post></div>} />
+                            <Route exact path='/home' render={() => <div><Post></Post></div>} />
+                            <Route path='/post' render={() => <div><MyPost></MyPost></div>} />
                             <Route path='/inbox' render={() => <div><InboxItem></InboxItem></div>} />
+                            <Redirect from="/login" to="home" ></Redirect>
                         </Switch>
                     </main>
                 </div >
