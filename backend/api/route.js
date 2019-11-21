@@ -36,6 +36,14 @@ registrationRoutes.route('/validateUsername').post(function (req, res) {
 	.then(user => user ? res.sendStatus(204) : res.sendStatus(200))
 });
 
+// 
+registrationRoutes.route('/getUser').get(function (req, res) {
+	Registration.findOne(req.body.user_name,(err, user) =>{
+		if(err) {res.send(err)}
+		else{res.send(user)};
+	})
+});
+
 // Get allData
 registrationRoutes.route('/allData').get(function (req, res) {
 	Registration.find((err, data) => err ? res.status(400).send("Error occured") : res.json(data));

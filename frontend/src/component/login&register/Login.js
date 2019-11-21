@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import { Container } from '@material-ui/core';
 import SideBar from '../dashboard/SideBar';
 import { Link } from "react-router-dom";
-import LoginService from '../../services/LoginService';
+import {LoginService, GetUser} from '../../services/LoginService';
 import Message from '../../elements/Message';
 import Error from '../../elements/Error';
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
@@ -26,7 +26,8 @@ export default class Login extends Component {
       username: '',
       password: '',
       error: false,
-      loginSuccess: false
+      loginSuccess: false,
+      user: []
     }
   }
 
@@ -34,6 +35,19 @@ export default class Login extends Component {
     this.setState({
       [e.target.id]: e.target.value
     })
+  }
+
+  handleOnClick = async e => {
+    this.setState({
+      user_name: e.target.value
+    });
+    const data = {
+      user_name: this.state.user_name
+    };
+    const user = await GetUser(data);
+
+    this.setState({user: user.data })
+    console.log(this.state.user);
   }
   onSubmit = async e => {
     e.preventDefault();
@@ -47,7 +61,7 @@ export default class Login extends Component {
     if (loginResult !== 200) {
       this.setState({
         error: true,
-        loginSuccess: false
+        loginSuccess: false,
       });
     }
     else {
@@ -57,7 +71,7 @@ export default class Login extends Component {
       });
     }
   }
-
+  
   render() {
     const root = {
       height: '100vh'
@@ -138,11 +152,11 @@ export default class Login extends Component {
                   variant="contained"
                   color="primary"
                   style={button}
-                  onClick={this.onSubmit}
+                  onClick={this.onSubmit , this.handleOnClick}
                 >
                   Login
                 </Button>
-                <div style={{marginTop: '3vh'}}>
+                <div style={{ marginTop: '3vh' }}>
                   Don't have an account?
                     <Button variant="outlined" color="outlined-primary" style={button}>
                     <Link to="/register" >Create account</Link>
@@ -167,4 +181,6 @@ export default class Login extends Component {
 
   }
 }
+
+
 

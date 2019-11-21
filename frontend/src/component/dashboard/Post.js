@@ -74,14 +74,14 @@ export default class Post extends Component {
               <Grid item key={post.title}>
                 <Card>
                   <CardActionArea>
-                    <CardHeader>
+                    <div>
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                           {post.title}
                         </Typography>
                         <Typography component="p">{post.description}</Typography>
                       </CardContent>
-                    </CardHeader>
+                    </div>
                     <CardMedia
                       component="img"
                       alt=" "

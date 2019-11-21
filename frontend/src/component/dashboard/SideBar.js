@@ -19,12 +19,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from "@material-ui/core/Avatar";
 import TypoGraphy from '@material-ui/core/Typography'
-import { Home, Book, AccountBox } from '@material-ui/icons'
+import { Home, Book} from '@material-ui/icons'
 import DashboardHeader from './DashboardHeader';
 import { Switch, Route, Link, BrowserRouter, Redirect } from "react-router-dom";
 import InboxItem from './Inbox';
 import Post from './Post';
 import MyPost from './MyPost';
+import AddPost from './AddPost';
+import user from '../login&register/Login'
 
 const drawerWidth = 300;
 
@@ -146,7 +148,7 @@ export default function SideBar() {
                                 />
                                 <div style={{ paddingBottom: 16 }} />
                                 <Typography variant={"h6"} noWrap>
-                                    Claire Feliza Banawan
+                                    {user.first_name} Feliza Banawan
                         </Typography>
                                 <Typography color={"textSecondary"} noWrap gutterBottom>
                                     clairefeliz_15@gmail.com
@@ -191,11 +193,13 @@ export default function SideBar() {
                         className={clsx(classes.content, {
                             [classes.contentShift]: open,
                         })}
+                        style={{marginTop: '10vh'}}
                     >
                         <Switch>
                             <Route exact path='/home' render={() => <div><Post></Post></div>} />
                             <Route path='/post' render={() => <div><MyPost></MyPost></div>} />
                             <Route path='/inbox' render={() => <div><InboxItem></InboxItem></div>} />
+                            <Route path='/addPost' render={() => <div><AddPost></AddPost></div>} />
                             <Redirect from="/login" to="home" ></Redirect>
                         </Switch>
                     </main>
