@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 // collection and schema for Registration
 let Registration = new Schema({
 	first_name: {
-		type: String
+		type: String,
+		required: true
 	},
 	last_name: {
-		type: String
+		type: String,
+		required: true
 	},
 	user_name: {
 		type: String,
@@ -19,6 +21,9 @@ let Registration = new Schema({
 		type: String,
 		required: true,
 		trim: true
+	},
+	posts: {
+		type: Array
 	}
 },{
 		collection: 'Registration'
