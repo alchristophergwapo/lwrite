@@ -152,7 +152,7 @@ export default class Login extends Component {
                   variant="contained"
                   color="primary"
                   style={button}
-                  onClick={this.onSubmit , this.handleOnClick}
+                  onClick={(this.onSubmit, this.handleOnClick)}
                 >
                   Login
                 </Button>
@@ -175,7 +175,7 @@ export default class Login extends Component {
       )
     } else {
       return (
-        <SideBar></SideBar>
+        <SideBar user={this.state.user}></SideBar>
       )
     }
 

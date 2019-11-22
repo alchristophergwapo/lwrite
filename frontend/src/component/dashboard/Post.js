@@ -96,7 +96,7 @@ export default class Post extends Component {
                   </CardActions>
                   <CardActionArea>
                     <form onSubmit={this.handleSubmit}>
-                      <TextField style={{width: "70%"}} onChange={this.handleComment} >
+                      <TextField style={{width: "70%"}} onChange={this.handleComment} placeholder="Comment" >
                       </TextField><Button><Send>Comment</Send></Button>
 
                     </form>
