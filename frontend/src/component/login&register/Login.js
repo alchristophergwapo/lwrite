@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 // import App from '../guide/App'
 import { Container } from '@material-ui/core';
 import SideBar from '../dashboard/SideBar';
+import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
 import {LoginService, GetUser} from '../../services/LoginService';
 import Message from '../../elements/Message';
@@ -175,7 +176,7 @@ export default class Login extends Component {
       )
     } else {
       return (
-        <SideBar user={this.state.user}></SideBar>
+        <DashboardHeader user={this.state.user}></DashboardHeader>
       )
     }
 
