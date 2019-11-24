@@ -22,9 +22,6 @@ let Registration = new Schema({
 		required: true,
 		trim: true
 	},
-	posts: {
-		type: Array
-	}
 },{
 		collection: 'Registration'
 });

@@ -30,9 +30,11 @@ mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true, useCreate
   process.exit(-1)
 })
 
-const registrationRoutes = require('./api/route');
+const registrationRoutes = require('./api/registrationRoute');
+const addPostRoutes = require('./api/addPostRoute');
 
 app.use('/registration', registrationRoutes)
+app.use('./posts', addPostRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

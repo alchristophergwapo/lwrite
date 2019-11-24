@@ -6,13 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from "@material-ui/core/Avatar";
-import { ListItemText, ListItem } from '@material-ui/core';
+import {ListItem } from '@material-ui/core';
 import { Home, Book } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Fab from '@material-ui/core/Fab';
 import { Add as AddIcon } from '@material-ui/icons';
@@ -97,7 +96,7 @@ export default class DashboardHeader extends Component {
                             <Route exact path='/home' render={() => <div><Post></Post></div>} />
                             <Route path='/post' render={() => <div><MyPost></MyPost></div>} />
                             <Route path='/inbox' render={() => <div><InboxItem></InboxItem></div>} />
-                            <Route path='/addPost' render={() => <div><AddPost></AddPost></div>} />
+                            <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
                             <Redirect from="/login" to="home" ></Redirect>
                         </Switch>
                     </main>
@@ -106,42 +105,3 @@ export default class DashboardHeader extends Component {
         );
     }
 }
-
-
-// import React from 'react';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import Typography from '@material-ui/core/Typography'
-// import ListItemIcon from '@material-ui/core/ListItemIcon'
-// import { Home, Book, AccountBox } from '@material-ui/icons'
-
-// export default function DashboardHeader(props) {
-
-//     return (
-//         <List component="nav">
-//             <ListItem component="div" >
-
-//                 <ListItemText inset>
-//                     <Typography color="inherit" variant="title">
-//                         Home  <Home />
-//                     </Typography>
-//                 </ListItemText>
-
-
-//                 <ListItemText inset>
-//                     <Typography color="inherit" variant="title">
-//                         Posts <Book />
-//                     </Typography>
-//                 </ListItemText>
-
-//                 <ListItemText inset>
-//                     <Typography color="inherit" variant="title">
-//                         Contact <AccountBox />
-//                     </Typography>
-//                 </ListItemText>
-//             </ListItem >
-
-//         </List>
-//     )
-// }

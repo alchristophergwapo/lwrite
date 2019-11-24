@@ -63,6 +63,7 @@ class Register extends Component {
 
         const registerStatus = await UserRegistration(data);
         if (registerStatus === 200) {
+            console.log("Successfull")
             this.setState({
                 firstname: '',
                 lastname: '',
