@@ -2,6 +2,8 @@ const express = require('express');
 const routes = express.Router();
 const bcrypt = require('bcryptjs');
 let Registration = require('./registrationSchema');
+let Posts = require('./postSchema');
+
 
 // Registration route
 routes.route('/register').post(function (req, res) {
@@ -16,7 +18,6 @@ routes.route('/register').post(function (req, res) {
 			res.status(400).send("Failed to store to database");
 		});
 });
-
 
 // Login Router
 routes.route('/login').post(function (req, res) {
@@ -50,4 +51,24 @@ routes.route('/allData').get(function (req, res) {
 	Registration.find((err, data) => err ? res.status(400).send("Error occured") : res.json(data));
 });
 
+routes.route('/addPost').post(function (req, res) {
+	let post = new Posts(req.body);
+
+	post.save()
+		.then(post => {
+			res.sendStatus(200);
+			console.log(post)
+		})
+		.catch(err => {
+			res.status(400).send("Failed to add post");
+		})
+})
+
+// 
+routes.route('/getPosts').get(function (req, res) {
+	Registration.findMany(req.body.user_name, (err, post) => {
+		if (err) { res.send(err) }
+		else { res.send(post) };
+	})
+});
 module.exports = routes;
