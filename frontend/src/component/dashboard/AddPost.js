@@ -7,7 +7,8 @@ import {
     Button,
     TextField,
 } from '@material-ui/core';
-import {addPost} from '../../services/AddPostServices';
+import { addPost } from '../../services/PostServices';
+import Link from 'react-router-dom';
 
 export default class AddPost extends Component {
     constructor(props) {
@@ -24,17 +25,19 @@ export default class AddPost extends Component {
         }
     }
 
+    onChange = e => {
+        this.setState({
+            [e.target.id]: e.target.value
+        })
+    }
+
     onSubmit = async e => {
         e.preventDefault();
         const data = {
-            post: {
-                user: '',
-                title: this.state.title,
-                description: this.state.description,
-                body: this.state.body,
-                background: "",
-                date: Date.now()
-            }
+            user: this.state.username,
+            title: this.state.title,
+            description: this.state.description,
+            body: this.state.body,
         };
 
         const postStatus = await addPost(data);
@@ -67,25 +70,33 @@ export default class AddPost extends Component {
         const marginTop = {
             marginTop: '2vh',
         }
-
-        console.log(this.state.user);
-        console.log(this.state.username)
         return (
             <center style={{ marginTop: '5vh' }}>
                 <Card style={modalCard}>
                     <form onSubmit={this.onSubmit}>
                         <CardContent style={modalCardContent}>
-                            <TextField label="Title" />
-                            <TextField label="What can you say about this?" multiline rows={3} />
+                            <TextField
+                                label="Title"
+                                id="title"
+                                onChange={this.onChange}
+                            />
+                            <TextField
+                                label="What can you say about this?"
+                                multiline rows={3}
+                                id="description"
+                                onChange={this.onChange}
+                            />
                             <TextField
                                 style={marginTop}
                                 label="Body"
                                 multiline
                                 rows={15}
+                                id="body"
+                                onChange={this.onChange}
                             />
                         </CardContent>
                         <CardActions>
-                            <Button size="small" color="primary" onClick={this.onSubmit}>Save</Button>
+                            <Button size="small" color="primary" onClick={this.onSubmit} component={Link} to="/home">Save</Button>
                             <Button size="small" >Cancel</Button>
                         </CardActions>
                     </form>

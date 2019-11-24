@@ -48,7 +48,9 @@ routes.route('/getUser').get(function (req, res) {
 
 // Get allData
 routes.route('/allData').get(function (req, res) {
-	Registration.find((err, data) => err ? res.status(400).send("Error occured") : res.json(data));
+	Registration.find()
+		.then(users => res.json(users))
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
 routes.route('/addPost').post(function (req, res) {
@@ -66,9 +68,9 @@ routes.route('/addPost').post(function (req, res) {
 
 // 
 routes.route('/getPosts').get(function (req, res) {
-	Registration.findMany(req.body.user_name, (err, post) => {
-		if (err) { res.send(err) }
-		else { res.send(post) };
-	})
+	Posts.find()
+		.then(posts => res.send(posts))
+		.catch(err => res.status(400).json('Error: ' + err));
 });
+
 module.exports = routes;

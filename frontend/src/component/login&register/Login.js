@@ -39,9 +39,6 @@ export default class Login extends Component {
   }
 
   handleOnClick = async e => {
-    this.setState({
-      user_name: e.target.value
-    });
     const data = {
       user_name: this.state.user_name
     };
