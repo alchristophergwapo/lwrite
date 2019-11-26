@@ -21,6 +21,8 @@ import MyPost from './MyPost';
 import AddPost from './AddPost';
 import getPost from '../../services/PostServices'
 import axios from 'axios'
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -66,10 +68,12 @@ export default class DashboardHeader extends Component {
                                     aria-label="account of current user"
                                     aria-controls="primary-search-account-menu"
                                     aria-haspopup="true"
-                                    color="inherit"
+                                    color="secondary"
+                                    font-size = "30"
+                                  
                                 >
                                     <Avatar />
-                                </IconButton>
+                                </IconButton >
                                 <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
                                 <div className={useStyles.searchIcon}>
                                     <SearchIcon />
@@ -83,19 +87,20 @@ export default class DashboardHeader extends Component {
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                                 <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                                    style={{ position: 'fixed', marginTop: '10vh' }}
+                                    style={{ position: 'fixed', marginTop: '100vh' }}
                                 >
                                     <AddIcon />
                                 </Fab>
                                 <List component="nav">
                                     <ListItem>
                                         <Button component={Link} to='/home'>
-                                            <Home /> Home
+                                            <HomeOutlinedIcon />
+                                             Home
                                     </Button >
                                         <Button component={Link} to='/post'>
                                             <Book /> Posts
                                     </Button>
-                                        <Button component={Link} to='/inbox'>
+                                        <Button style={{marginLeft: 150}}component={Link} to='/inbox'>
                                             <InboxIcon /> Inbox
                                     </Button>
                                     </ListItem>
