@@ -16,7 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Fab from '@material-ui/core/Fab';
 import { Add as AddIcon } from '@material-ui/icons';
 import InboxItem from './Inbox';
-import Post from './Post';
+import Dashboard from './Dashboard';
 import MyPost from './MyPost';
 import AddPost from './AddPost';
 import getPost from '../../services/PostServices'
@@ -107,7 +107,7 @@ export default class DashboardHeader extends Component {
                         style={{ marginTop: '10vh' }}
                     >
                         <Switch>
-                            <Route exact path='/home' render={() => <div><Post post={this.state.posts}></Post></div>} />
+                            <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
                             <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
                             <Route path='/inbox' render={() => <div><InboxItem></InboxItem></div>} />
                             <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />

@@ -27,28 +27,32 @@ import axios from 'axios'
 
 export default class MyPost extends Component {
   state = {
+    username: this.props.username,
     posts: [],
   };
 
   componentDidMount() {
     // const datas = [];
     axios.get('http://localhost:4000/to/getPosts/')
-        .then(response => {
-            for (let index = 0; index < response.data.length; index++) {
-              this.state.posts.push(response.data[index]);
-              
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+      .then(response => {
+        for (let index = 0; index < response.data.length; index++) {
+          this.state.posts.push(response.data[index]);
+          if (response.data[index].user_name === this.state.username) {
+            this.state.posts.push(response.data[index]);
+          }
+
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     // console.log(datas);
-}
+  }
 
   render() {
-    // console.log(this.state.posts)
+    console.log(this.state.posts)
     return (
-      <center style={{ marginTop: 20, padding: 20, width: '300px', height: 'auto' }}>
+      <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
         <Grid container spacing={20} justify="center" >
           {this.state.posts.map(post => (
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
@@ -64,7 +68,7 @@ export default class MyPost extends Component {
                         <Typography component="p">{post.body}</Typography>
                       </CardContent>
                     </div>
-                    
+
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">Share</Button>
