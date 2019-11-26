@@ -12,7 +12,10 @@ let Posts = new Schema({
 		required: true,
 		type: String
 	},
-	
+	user: {
+		type: String,
+		required: true
+	}
 }, {
 		collection: 'Posts'
 	})

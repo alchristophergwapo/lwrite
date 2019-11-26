@@ -54,8 +54,8 @@ export default class DashboardHeader extends Component {
             })
     }
     render() {
-        console.log(this.state.user)
-        console.log(this.state.posts)
+        // console.log(this.state.user)
+        // console.log(this.state.posts)
         return (
             <Router>
                 <Fragment>

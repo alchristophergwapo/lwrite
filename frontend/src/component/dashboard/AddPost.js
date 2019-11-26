@@ -17,7 +17,6 @@ export default class AddPost extends Component {
             title: "",
             description: "",
             body: "",
-            post: [],
             added: false,
             error: true,
             user: this.props.userData,
@@ -46,7 +45,6 @@ export default class AddPost extends Component {
                 title: '',
                 description: '',
                 body: '',
-                post: [],
                 added: true,
                 error: false
             });

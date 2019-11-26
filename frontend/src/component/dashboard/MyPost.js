@@ -31,17 +31,22 @@ export default class MyPost extends Component {
   };
 
   componentDidMount() {
+    // const datas = [];
     axios.get('http://localhost:4000/to/getPosts/')
         .then(response => {
-            this.setState({ posts: response.data.toArray })
+            for (let index = 0; index < response.data.length; index++) {
+              this.state.posts.push(response.data[index]);
+              
+            }
         })
         .catch((error) => {
             console.log(error);
         })
+    // console.log(datas);
 }
 
   render() {
-    console.log(this.state.posts)
+    // console.log(this.state.posts)
     return (
       <center style={{ marginTop: 20, padding: 20, width: '300px', height: 'auto' }}>
         <Grid container spacing={20} justify="center" >
