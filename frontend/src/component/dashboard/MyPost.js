@@ -33,6 +33,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default class MyPost extends Component {
   state = {
+    username: this.props.username,
     posts: [],
   };
 
@@ -43,6 +44,12 @@ export default class MyPost extends Component {
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
           this.state.posts.push(response.data[index]);
+<<<<<<< HEAD
+=======
+          if (response.data[index].user_name === this.state.username) {
+            this.state.posts.push(response.data[index]);
+          }
+>>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
 
         }
       })
@@ -51,13 +58,20 @@ export default class MyPost extends Component {
       })
     // console.log(datas);
   }
+<<<<<<< HEAD
  
+=======
+>>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
 
   render() {
-    // console.log(this.state.posts)
+    console.log(this.state.posts)
     return (
+<<<<<<< HEAD
 
       <center style={{ marginTop: 20, padding: 20, width: '300px', height: 'auto' }}>
+=======
+      <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
+>>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
         <Grid container spacing={20} justify="center" >
           {this.state.posts.map(post => (
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
@@ -82,6 +96,10 @@ export default class MyPost extends Component {
                         <Typography component="p">{post.body}</Typography>
                       </CardContent>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
                   </CardActionArea>
 
                   <CardActions>
