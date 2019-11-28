@@ -5,16 +5,27 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+<<<<<<< HEAD
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import CreateIcon from '@material-ui/icons/Create';
 // import Dashboard from '../dashboard/Dashboard';
 // import App from '../guide/App'
+=======
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
 import { Container } from '@material-ui/core';
 import SideBar from '../dashboard/SideBar';
+import DashboardHeader from '../dashboard/DashboardHeader'
+import { Link } from "react-router-dom";
+import { LoginService, GetUser } from '../../services/LoginService';
+import Message from '../../elements/Message';
+import Error from '../../elements/Error';
+import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,10 +33,13 @@ export default class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      login: false,
+      error: false,
+      loginSuccess: false,
+      user: []
     }
   }
 
+<<<<<<< HEAD
   Copyright = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -37,23 +51,48 @@ export default class Login extends Component {
         {'.'}
       </Typography>
     );
+=======
+  onChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
   }
-  handleSubmit = (e) => {
+
+  handleOnClick = async e => {
+    const data = {
+      user_name: this.state.user_name
+    };
+    const user = await GetUser(data);
+
+    this.setState({ user: user.data })
+    console.log(this.state.user);
+  }
+  onSubmit = async e => {
     e.preventDefault();
-    const { username, password } = this.state;
-    if (username.length > 0 && password.length > 0) {
-      this.setState({ login: true });
-      console.log(this.state.login)
-    } else{
-      alert("Some field are missing")
-      this.setState({ login: false })
+    const data = {
+      user_name: this.state.username,
+      password: this.state.password
+    };
+
+    const loginResult = await LoginService(data);
+
+    if (loginResult !== 200) {
+      this.setState({
+        error: true,
+        loginSuccess: false,
+      });
     }
-    console.log(this.state.login);
-    console.log(this.state.username);
-    console.log(this.state.password)
+    else {
+      this.setState({
+        loginSuccess: true,
+        error: false
+      });
+    }
   }
 
   render() {
+<<<<<<< HEAD
     const body = {
       backgroundImage: 'url(https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80)',
       backgroundRepeat: 'no-repeat',
@@ -67,16 +106,33 @@ export default class Login extends Component {
     
      
       // marginTop: '1vh'
+=======
+    const root = {
+      height: '100vh'
+    }
+
+    const image = {
+      backgroundImage: 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      textAlign: 'center',
+      backgroundColor: 'white',
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
     }
     const paper = {
       // marginTop: '5vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      margin: '3vh'
     }
     const avatar = {
+<<<<<<< HEAD
       // margin: '1vh',
       backgroundColor: 'red',
+=======
+      backgroundColor: 'blue',
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
@@ -84,21 +140,29 @@ export default class Login extends Component {
       justify:'center',
       alignItems:'center',
     }
-    const submit = {
-      margin: '3vh, 0, 2vh',
+    const button = {
+      width: '20vh',
     }
-
-    if (!this.state.login) {
+    const { loginSuccess, error } = this.state;
+    if (!loginSuccess) {
       return (
-        <div style={body}>
-          <Container component="main" maxWidth="xs" style={container}>
-            <CssBaseline />
+        <Grid container component="main" style={root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} style={image} />
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <div style={paper}>
               <Avatar style={avatar}>
+<<<<<<< HEAD
                 <CreateIcon />
               </Avatar>
               <Typography component="h1" variant="h5" color="inherit">Login</Typography>
               <form style={form}>
+=======
+                <AccountCircleIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">Login</Typography>
+              <form style={form} onSubmit={this.onSubmit}>
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -106,10 +170,10 @@ export default class Login extends Component {
                       required
                       fullWidth
                       id="email"
-                      label="Email Address/Username"
+                      label="Username"
                       name="email"
                       autoComplete="email"
-                      onChange = {(e) => this.setState({username: e.target.value})}
+                      onChange={(e) => this.setState({ username: e.target.value })}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -122,7 +186,7 @@ export default class Login extends Component {
                       type="password"
                       id="password"
                       autoComplete="current-password"
-                      onChange = {(e) => this.setState({password: e.target.value})}
+                      onChange={(e) => this.setState({ password: e.target.value })}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -134,16 +198,27 @@ export default class Login extends Component {
                 </Grid>
                 <Button
                   type="submit"
-                  fullWidth
                   variant="contained"
                   color="primary"
-                  style={submit}
-                  onClick = {(e) => this.handleSubmit(e)}
-                  >
+                  style={button}
+                  onClick={(this.onSubmit, this.handleOnClick)}
+                >
                   Login
                 </Button>
+                <div style={{ marginTop: '3vh' }}>
+                  Don't have an account?
+                    <Button variant="outlined" color="outlined-primary" style={button}>
+                    <Link to="/register" >Create account</Link>
+                  </Button>
+
+                </div>
+
+
               </form>
+              {loginSuccess && <Message message={LOGIN_MESSAGE} />}
+              {error && <Error message={ERROR_IN_LOGIN} />}
             </div>
+<<<<<<< HEAD
             <Box mt={4}>
               {this.Copyright()}
             </Box>
@@ -153,8 +228,19 @@ export default class Login extends Component {
     } else {
       return (
         <SideBar></SideBar>
+=======
+          </Grid>
+
+        </Grid>
+      )
+    } else {
+      return (
+        <DashboardHeader user={this.state.user}></DashboardHeader>
+>>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
       )
     }
+
   }
 }
+
 

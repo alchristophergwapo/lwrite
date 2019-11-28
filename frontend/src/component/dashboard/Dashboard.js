@@ -1,113 +1,166 @@
-import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography'
+import React, { Component } from "react";
+import { Grid, Typography, CardHeader, TextField } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Send from '@material-ui/icons/Send'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import axios from 'axios'
 
 export default class Dashboard extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [
+
+        {
+          user: "Developers",
+          title: "Love Lost",
+          description: "This is my first post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
+          body: ""
+        },
+
+        {
+          user: "Developers",
+          title: "Journey",
+          description: "This is my second post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
+          body: ""
+        },
+
+        {
+          user: "Developers",
+          title: "Love",
+          description: "This is my third post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
+          body: ""
+        },
+
+        {
+          user: "Developers",
+          title: "You are my reason for life",
+          description: "This is my fourth post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
+          body: ""
+        },
+
+        {
+          title: "Allow me",
+          description: "This is my fifth post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
+          body: ""
+        },
+
+        {
+          title: "Closure and A Small Consolation",
+          description: "This is my sixth post with more content inside",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
+          body: ""
+        }
+      ],
+      comment: ""
     }
+  }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state.comment);
+  };
 
-    render() {
-        
-        return (
-            <div >
-                <Typography paragraph >
-                "Daddy's Little Girl"
-She was Daddy's little girl.
-it was stamped all over her skin
-emanating over her Pink Sugar.
-she held an empty beer bottle,
-She had milked  it to drench the voices she loved,
-but avoided.
+  handleComment = e => {
+    this.setState({
+      comment: e.target.value
+    });
+  };
 
-song moved her soul,
-and rhythm moved her hips.
-pom-poms,
-They were left behind along with her first dance,
-first date,
-first love,
-along with her virginity,
-left behind like a distant memory,
-not forgotten but considered rotten.
+  componentDidMount() {
+    // const datas = [];
+    axios.get('http://localhost:4000/to/getPosts/')
+      .then(response => {
+        for (let index = 0; index < response.data.length; index++) {
+          this.state.posts.push(response.data[index]);
 
-her sororital veins
-Spewed easy pickins.
-She was giving
-Every
-green-eyed, one-lined,
-bad joked, philisophical bloke
-who sounded intelligent,
-that proverbial game-time go.
-daddy's little girl just didn't know.
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    // console.log(datas);
+  }
+  render() {
+    return (
 
-her rubber duckies still swam in her aura,
-but those lessons from momma
-had drowned in the tub.
+      
+      <center style={{ marginTop: 10, padding: 20 }}>
 
-she wasn't bad.
-but she was bad.
+        <Grid container spacing={20} justify="center">
+          {this.state.posts.map(post => (
+            <div style={{ marginBottom: 20, marginLeft: 20 }}>
+              <Grid item key={post.title}>
+                <Card>
+                  <CardActionArea>
+                    <div>
+                      <CardHeader
+                        avatar={
+                          <Avatar aria-label="Recipe">
+                            R
+                          </Avatar>
+                        }
+                        title={
+                          <Typography component="h3">{post.user}</Typography>
+                        }
+                        subheader={
+                          <Typography>
 
-She was prep school morals
-Under a leather coat and chain,
-the bane of a painful existence,
-you'd never guess she grew up with a pot to piss in.
+                          </Typography>
+                        }
+                      />
+                      <CardContent>
 
-you had to look deeper, though.
-with a crystalline exterior she was an easy tell,
-if she sat at my poker table I'd give her hell,
-those scorching shades,
-sigmas and phis,
-Fluorescent neon on walls,
-i bet she had glow in the dark galaxies on her ceiling growing up.
-she was bad.
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {post.title}
+                        </Typography>
+                        <Typography component="p">{post.description}</Typography>
 
-her confidence sheathed insecurity,
-swords of insight gleamed,
-fierce,
-Yet she yearned escape,
-it bled from her eyes a deafening racket,
-this girl,
-this little girl
-who was daddy's little girl,
-she was bad.
-when daddy sent her away
-he must have trembled with fear of the inevitable,
-because he knew,
-sending her away,
-he knew what he saw.
-she was radiant.
-she was art,
-she was poetry,
-she was bad.
-                </Typography>
-                <Typography paragraph>
-                she was a box fucking jellyfish,
-beautiful behind glass,
-but deadly with venom and kills at the touch,
-it was such a rush
-to watch
-As guys stepped up to the plate only to swing and miss,
-one after the other.
-she was Roger clemens
-throwing rockets,
-Dropping each dude like pills from her pockets,
-when the badges barged in the building.
-She had the foresight,
-she was bad,
-but she wasn't just acting bad,
-she had learned.
-she was smart,
-she was art,
-she was poetry,
-and she had picked how to slowly see
-her surroundings a different way.
-fuck, i think she's me
-but with a va-jay-jay,
+                      </CardContent>
+                    </div>
+                    <CardMedia
+                      component="img"
+                      alt=" "
+                      height='auto'
+                      image={post.image}
+                      title=" "
+                    />
+                    <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">Share</Button>
+                    <Button size="small" color="primary">Learn More</Button>
+                    <IconButton><ExpandMoreIcon /></IconButton>
+                  </CardActions>
+                  <CardActionArea>
+                    <form onSubmit={this.handleSubmit}>
+                      <TextField style={{ width: "70%" }} onChange={this.handleComment} placeholder="Comment" >
+                      </TextField><Button><Send>Comment</Send></Button>
 
-But this was daddy's little girl.
-could i ever be any daddy's little man?a.
-                </Typography>
+                    </form>
+                  </CardActionArea>
+                </Card>
+              </Grid>
             </div>
-        )
-    }
+          ))}
+        </Grid>
+      </center>
+      
+    );
+  }
 }
