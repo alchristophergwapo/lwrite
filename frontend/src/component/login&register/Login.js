@@ -7,15 +7,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-// import App from '../guide/App'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Container } from '@material-ui/core';
 import SideBar from '../dashboard/SideBar';
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
-import {LoginService, GetUser} from '../../services/LoginService';
+import { LoginService, GetUser } from '../../services/LoginService';
 import Message from '../../elements/Message';
 import Error from '../../elements/Error';
 import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
@@ -44,7 +43,7 @@ export default class Login extends Component {
     };
     const user = await GetUser(data);
 
-    this.setState({user: user.data })
+    this.setState({ user: user.data })
     console.log(this.state.user);
   }
   onSubmit = async e => {
@@ -69,7 +68,7 @@ export default class Login extends Component {
       });
     }
   }
-  
+
   render() {
     const root = {
       height: '100vh'
@@ -89,8 +88,7 @@ export default class Login extends Component {
       margin: '3vh'
     }
     const avatar = {
-      margin: '1vh',
-      backgroundColor: 'red',
+      backgroundColor: 'blue',
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
@@ -108,7 +106,7 @@ export default class Login extends Component {
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <div style={paper}>
               <Avatar style={avatar}>
-                <LockOutlinedIcon />
+                <AccountCircleIcon />
               </Avatar>
               <Typography component="h1" variant="h5">Login</Typography>
               <form style={form} onSubmit={this.onSubmit}>

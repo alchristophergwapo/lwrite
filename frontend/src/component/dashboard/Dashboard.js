@@ -7,6 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Send from '@material-ui/icons/Send'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios'
 
 export default class Dashboard extends Component {
@@ -16,6 +22,7 @@ export default class Dashboard extends Component {
       posts: [
 
         {
+          user: "Developers",
           title: "Love Lost",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
@@ -23,6 +30,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "Journey",
           description: "This is my second post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
@@ -30,6 +38,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "Love",
           description: "This is my third post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
@@ -37,6 +46,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
@@ -88,7 +98,10 @@ export default class Dashboard extends Component {
   }
   render() {
     return (
-      <center style={{ marginTop: 20, padding: 20 }}>
+
+      
+      <center style={{ marginTop: 10, padding: 20 }}>
+
         <Grid container spacing={20} justify="center">
           {this.state.posts.map(post => (
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
@@ -96,11 +109,28 @@ export default class Dashboard extends Component {
                 <Card>
                   <CardActionArea>
                     <div>
+                      <CardHeader
+                        avatar={
+                          <Avatar aria-label="Recipe">
+                            R
+                          </Avatar>
+                        }
+                        title={
+                          <Typography component="h3">{post.user}</Typography>
+                        }
+                        subheader={
+                          <Typography>
+
+                          </Typography>
+                        }
+                      />
                       <CardContent>
+
                         <Typography gutterBottom variant="h5" component="h2">
                           {post.title}
                         </Typography>
                         <Typography component="p">{post.description}</Typography>
+
                       </CardContent>
                     </div>
                     <CardMedia
@@ -110,11 +140,12 @@ export default class Dashboard extends Component {
                       image={post.image}
                       title=" "
                     />
-                    <Typography style={{backgroundImage: post.image}}>{post.body}</Typography>
+                    <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">Share</Button>
                     <Button size="small" color="primary">Learn More</Button>
+                    <IconButton><ExpandMoreIcon /></IconButton>
                   </CardActions>
                   <CardActionArea>
                     <form onSubmit={this.handleSubmit}>
@@ -129,6 +160,7 @@ export default class Dashboard extends Component {
           ))}
         </Grid>
       </center>
+      
     );
   }
 }

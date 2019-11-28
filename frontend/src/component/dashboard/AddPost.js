@@ -37,6 +37,7 @@ export default class AddPost extends Component {
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
+            comments: {}
         };
 
         const postStatus = await addPost(data);
@@ -90,6 +91,7 @@ export default class AddPost extends Component {
                                 multiline
                                 rows={15}
                                 id="body"
+                                required
                                 onChange={this.onChange}
                             />
                         </CardContent>

@@ -7,20 +7,22 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Send from '@material-ui/icons/Send'
-import getPost from '../../services/PostServices'
 import axios from 'axios'
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export default class MyPost extends Component {
   state = {
     username: this.props.username,
+    idToDelete: "",
     posts: [],
     open: false
   };
@@ -31,8 +33,8 @@ export default class MyPost extends Component {
     axios.get('http://localhost:4000/to/getPosts/')
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
-          this.state.posts.push(response.data[index]);
-          if (response.data[index].user_name === this.state.username) {
+          // this.state.posts.push(response.data[index]);
+          if (response.data[index].user === this.state.username) {
             this.state.posts.push(response.data[index]);
           }
 
@@ -44,21 +46,27 @@ export default class MyPost extends Component {
     // console.log(datas);
   }
 
-  handleClick = event => {
-    this.setState({ open: true})
-  };
-
-  handleClose = () => {
-    this.setState({ open: false })
-  };
+  deletePost = async e => {
+    const data = {
+      id: this.state.idToDelete
+    }
+    axios.get('http://localhost:4000/to/deletePost/', data)
+      .then(response => {
+        for (let index = 0; index < this.state.posts.length; index++) {
+          if (this.state.posts[index].id === this.state.idToDelete) {
+            this.state.posts[index].id.remove();
+            console.log(this.state.posts[index])
+            console.log(response)
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   render() {
     console.log(this.state.posts)
-    const options = [
-      '',
-      'Delete',
-      'Edit',
-    ];
 
     return (
 
@@ -68,36 +76,34 @@ export default class MyPost extends Component {
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
               <Grid item key={post.title}>
                 <Card>
-                  <div>
-                  <IconButton
-                    aria-label="more"
-                    aria-controls="long-menu"
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Menu
-                    id="long-menu"
-                    anchorEl={this.state.open}
-                    keepMounted
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    // PaperProps={{
-                    //   style: {
-                    //     maxHeight: 'auto',
-                    //     width: 100,
-                    //     position: 'absolute'
-                    //   },
-                    // }}
-                  >
-                    {options.map(option => (
-                      <MenuItem key={option} selected={option === ''} onClick={this.handleClose}>
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                  </div>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label={post.user}>
+                        R
+                          </Avatar>
+                    }
+                    action={
+                      <PopupState variant="popover" popupId="demo-popup-menu">
+                        {popupState => (
+                          <Fragment>
+                            <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                            <Menu {...bindMenu(popupState)}>
+                              <MenuItem onClick={() => {
+                                popupState.close;
+                                this.deletePost();
+                                this.setState({idToDelete: post._id})
+                              }} >Delete</MenuItem>
+                              <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
+                            </Menu>
+                          </Fragment>
+                        )}
+                      </PopupState>
+                    }
+                    title={
+                      <Typography component="h3">{post.user}</Typography>
+                    }
+                    subheader="September 14, 2016"
+                  />
                   <CardActionArea>
                     <div>
                       <CardContent>
@@ -109,22 +115,14 @@ export default class MyPost extends Component {
                       </CardContent>
                     </div>
 
-
                   </CardActionArea>
 
                   <CardActions>
-                    <Button size="small" color="primary"><FavoriteIcon />Like</Button>
+                    <Button size="small" color="primary"><FavoriteIcon />Love</Button>
                     <Button size="small" color="primary"><ShareIcon />Share</Button>
-                    <IconButton style={{ marginLeft: 110 }}
-                    // className={clsx(classes.expand, {
-                    //   [classes.expandOpen]: expanded,
-                    // })}
-                    // onClick={handleExpandClick}
-                    // aria-expanded={expanded}
-                    // aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton>
+                    <IconButton><ExpandMoreIcon /></IconButton>
+                  </CardActions>
+                  <CardActions disableSpacing>
                   </CardActions>
 
                   <CardActionArea>

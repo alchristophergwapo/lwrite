@@ -7,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
@@ -101,8 +101,7 @@ class Register extends Component {
             margin: '3vh'
         }
         const avatar = {
-            margin: '1vh',
-            backgroundColor: 'red',
+            backgroundColor: 'blue',
         }
         const form = {
             width: '100%', // Fix IE 11 issue.
@@ -121,7 +120,7 @@ class Register extends Component {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <div style={paper}>
                         <Avatar style={avatar}>
-                            <LockOutlinedIcon />
+                            <AccountCircleIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">Sign up</Typography>
                         <form style={form} noValidate onSubmit={this.onSubmit}>
