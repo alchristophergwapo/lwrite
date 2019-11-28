@@ -69,8 +69,8 @@ export default class DashboardHeader extends Component {
                                     aria-controls="primary-search-account-menu"
                                     aria-haspopup="true"
                                     color="secondary"
-                                    font-size = "30"
-                                  
+                                    font-size="30"
+
                                 >
                                     <Avatar />
                                 </IconButton >
@@ -86,16 +86,12 @@ export default class DashboardHeader extends Component {
                                     }}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
-                                <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                                    style={{ position: 'fixed', marginTop: '100vh' }}
-                                >
-                                    <AddIcon />
-                                </Fab>
+
                                 <List component="nav">
                                     <ListItem>
                                         <Button variant="contained" size="large" color="primary"component={Link} to='/home'>
                                             <HomeOutlinedIcon />
-                                             Home
+                                            Home
                                     </Button >
                                         <Button variant="contained" size="large" color="primary" component={Link} to='/post'>
                                             <Book /> Posts
@@ -107,6 +103,11 @@ export default class DashboardHeader extends Component {
                                 </List>
                             </Toolbar>
                         </AppBar>
+                        <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
+                            style={{ position: 'fixed', marginTop: '1vh' }}
+                        >
+                            <AddIcon />
+                        </Fab>
                     </div>
                     <main
                         style={{ marginTop: '10vh' }}

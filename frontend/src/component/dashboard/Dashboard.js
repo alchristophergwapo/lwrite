@@ -7,6 +7,14 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Send from '@material-ui/icons/Send'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Avatar from '@material-ui/core/Avatar';
+
+
 import axios from 'axios'
 
 export default class Dashboard extends Component {
@@ -96,11 +104,37 @@ export default class Dashboard extends Component {
                 <Card>
                   <CardActionArea>
                     <div>
+                      <CardHeader
+                        avatar={
+                          <Avatar aria-label="Recipe">
+                            R
+                          </Avatar>
+                        }
+                        action={
+                          <PopupState variant="popover" popupId="demo-popup-menu">
+                            {popupState => (
+                              <React.Fragment>
+                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                                <Menu {...bindMenu(popupState)}>
+                                  <MenuItem onClick={popupState.close}>Delete</MenuItem>
+                                  <MenuItem onClick={popupState.close}>Edit</MenuItem>
+                                </Menu>
+                              </React.Fragment>
+                            )}
+                          </PopupState>
+                        }
+                        title={
+                          <Typography component="h3">{post.user}</Typography>
+                        }
+                        subheader="September 14, 2016"
+                      />
                       <CardContent>
+
                         <Typography gutterBottom variant="h5" component="h2">
                           {post.title}
                         </Typography>
                         <Typography component="p">{post.description}</Typography>
+
                       </CardContent>
                     </div>
                     <CardMedia
@@ -110,7 +144,7 @@ export default class Dashboard extends Component {
                       image={post.image}
                       title=" "
                     />
-                    <Typography style={{backgroundImage: post.image}}>{post.body}</Typography>
+                    <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">Share</Button>

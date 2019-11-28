@@ -30,6 +30,9 @@ import Avatar from '@material-ui/core/Avatar';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 export default class MyPost extends Component {
   state = {
@@ -67,15 +70,30 @@ export default class MyPost extends Component {
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
               <Grid item key={post.title}>
                 <Card>
-                  <CardHeader avatar={
-                    <Avatar > W </Avatar>
-                  }
-                    action={
-                      <IconButton><MoreVertIcon /></IconButton>
-                    }
-                    title="LOVE SUCKS AT ALL"
-                    subheader=" December 01,2019"
-                  />
+                <CardHeader
+                        avatar={
+                          <Avatar aria-label={post.user}>
+                            R
+                          </Avatar>
+                        }
+                        action={
+                          <PopupState variant="popover" popupId="demo-popup-menu">
+                            {popupState => (
+                              <React.Fragment>
+                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                                <Menu {...bindMenu(popupState)}>
+                                  <MenuItem onClick={popupState.close}>Delete</MenuItem>
+                                  <MenuItem onClick={popupState.close}>Edit</MenuItem>
+                                </Menu>
+                              </React.Fragment>
+                            )}
+                          </PopupState>
+                        }
+                        title={
+                        <Typography component="h3">{post.user}</Typography>
+                        }
+                        subheader="September 14, 2016"
+                      />
                   <CardActionArea>
                     <div>
                       <CardContent>
@@ -90,16 +108,18 @@ export default class MyPost extends Component {
                   </CardActionArea>
 
                   <CardActions>
-                    <Button size="small" color="primary">Share</Button>
-                    <Button size="small" color="primary">Learn More</Button>
+                    <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                    <Button size="small" color="primary"><ShareIcon />Share</Button>
+                    <IconButton style={{marginLeft:110}}
+                      // className={clsx(classes.expand, {
+                      //   [classes.expandOpen]: expanded,
+                      // })}
+                      // onClick={handleExpandClick}
+                      // aria-expanded={expanded}
+                      // aria-label="show more"
+                    ></IconButton>
                   </CardActions>
                   <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
                     <IconButton style={{marginLeft:110}}
                       // className={clsx(classes.expand, {
                       //   [classes.expandOpen]: expanded,
