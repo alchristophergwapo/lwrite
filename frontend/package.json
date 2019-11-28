@@ -14,6 +14,7 @@
     "create-react-app": "^3.2.0",
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.0",
+    "material-ui-popup-state": "^1.4.1",
     "mui-layout": "^1.2.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

@@ -30,6 +30,9 @@ import Avatar from '@material-ui/core/Avatar';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 export default class MyPost extends Component {
   state = {
@@ -44,12 +47,9 @@ export default class MyPost extends Component {
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
           this.state.posts.push(response.data[index]);
-<<<<<<< HEAD
-=======
           if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
           }
->>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
 
         }
       })
@@ -58,34 +58,42 @@ export default class MyPost extends Component {
       })
     // console.log(datas);
   }
-<<<<<<< HEAD
  
-=======
->>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
 
   render() {
     console.log(this.state.posts)
     return (
-<<<<<<< HEAD
 
-      <center style={{ marginTop: 20, padding: 20, width: '300px', height: 'auto' }}>
-=======
       <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
->>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
         <Grid container spacing={20} justify="center" >
           {this.state.posts.map(post => (
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
               <Grid item key={post.title}>
                 <Card>
-                  <CardHeader avatar={
-                    <Avatar > W </Avatar>
-                  }
-                    action={
-                      <IconButton><MoreVertIcon /></IconButton>
-                    }
-                    title="LOVE SUCKS AT ALL"
-                    subheader=" December 01,2019"
-                  />
+                <CardHeader
+                        avatar={
+                          <Avatar aria-label={post.user}>
+                            R
+                          </Avatar>
+                        }
+                        action={
+                          <PopupState variant="popover" popupId="demo-popup-menu">
+                            {popupState => (
+                              <React.Fragment>
+                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                                <Menu {...bindMenu(popupState)}>
+                                  <MenuItem onClick={popupState.close}>Delete</MenuItem>
+                                  <MenuItem onClick={popupState.close}>Edit</MenuItem>
+                                </Menu>
+                              </React.Fragment>
+                            )}
+                          </PopupState>
+                        }
+                        title={
+                        <Typography component="h3">{post.user}</Typography>
+                        }
+                        subheader="September 14, 2016"
+                      />
                   <CardActionArea>
                     <div>
                       <CardContent>
@@ -96,23 +104,22 @@ export default class MyPost extends Component {
                         <Typography component="p">{post.body}</Typography>
                       </CardContent>
                     </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> 74843893aa4d49bae7bb3571b925109fe52b9ef7
                   </CardActionArea>
 
                   <CardActions>
-                    <Button size="small" color="primary">Share</Button>
-                    <Button size="small" color="primary">Learn More</Button>
+                    <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                    <Button size="small" color="primary"><ShareIcon />Share</Button>
+                    <IconButton style={{marginLeft:110}}
+                      // className={clsx(classes.expand, {
+                      //   [classes.expandOpen]: expanded,
+                      // })}
+                      // onClick={handleExpandClick}
+                      // aria-expanded={expanded}
+                      // aria-label="show more"
+                    ></IconButton>
                   </CardActions>
                   <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
                     <IconButton style={{marginLeft:110}}
                       // className={clsx(classes.expand, {
                       //   [classes.expandOpen]: expanded,
