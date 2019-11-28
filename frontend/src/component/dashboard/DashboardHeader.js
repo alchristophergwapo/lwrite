@@ -23,6 +23,8 @@ import getPost from '../../services/PostServices'
 import axios from 'axios'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import { spacing } from '@material-ui/system';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -89,14 +91,14 @@ export default class DashboardHeader extends Component {
 
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" size="large" color="primary"component={Link} to='/home'>
+                                        <Button variant="contained" size="large" color="primary"  style={{marginLeft:'10%', paddingTop:'110%',padding:'20%'}}component={Link} to='/home'>
                                             <HomeOutlinedIcon />
                                             Home
                                     </Button >
-                                        <Button variant="contained" size="large" color="primary" component={Link} to='/post'>
+                                        <Button variant="contained" size="large" color="primary" style={{marginLeft:'50%', paddingTop:'110%',padding:'20%'}}component={Link} to='/post'>
                                             <Book /> Posts
                                     </Button>
-                                        <Button variant="contained" size="large" color="primary"component={Link} to='/inbox'>
+                                        <Button variant="contained" size="large" color="primary" style={{marginLeft:'100%', paddingTop:'110%',padding:'20%'}}component={Link} to='/inbox'>
                                             <InboxIcon /> Inbox
                                     </Button>
                                     </ListItem>
