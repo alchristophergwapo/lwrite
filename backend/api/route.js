@@ -74,15 +74,9 @@ routes.route('/getPosts').get(function (req, res) {
 });
 
 routes.route('/deletePost').get(function (req, res) {
-	Posts.findByIdAndDelete(req.body.id,
-		(err, post) => {
-			console.log(req.body.id);
-			if (err) {
-				res.send(err);
-			}
-
-			res.json(post);
-		});
+	Posts.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Exercise deleted.'))
+		.catch(err => res.status(400).json('Error: ' + err));
 })
 
 module.exports = routes;

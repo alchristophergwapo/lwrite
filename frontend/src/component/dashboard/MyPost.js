@@ -18,6 +18,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import deletePost from '../../services/PostServices';
 
 export default class MyPost extends Component {
   state = {
@@ -30,7 +31,7 @@ export default class MyPost extends Component {
 
   componentDidMount() {
     // const datas = [];
-    axios.get('http://localhost:4000/to/getPosts/')
+    axios.get('http://localhost:4000/to/getPosts')
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
           // this.state.posts.push(response.data[index]);
@@ -46,18 +47,15 @@ export default class MyPost extends Component {
     // console.log(datas);
   }
 
-  deletePost = async e => {
+  deletePostHandle = async e => {
     const data = {
       id: this.state.idToDelete
     }
-    axios.get('http://localhost:4000/to/deletePost/', data)
+
+    axios.delete('http://localhost:4000/to/deletePost', data)
       .then(response => {
         for (let index = 0; index < this.state.posts.length; index++) {
-          if (this.state.posts[index].id === this.state.idToDelete) {
-            this.state.posts[index].id.remove();
-            console.log(this.state.posts[index])
-            console.log(response)
-          }
+          console.log(response);
         }
       })
       .catch((error) => {
@@ -66,7 +64,6 @@ export default class MyPost extends Component {
   }
 
   render() {
-    console.log(this.state.posts)
 
     return (
 
@@ -90,8 +87,8 @@ export default class MyPost extends Component {
                             <Menu {...bindMenu(popupState)}>
                               <MenuItem onClick={() => {
                                 popupState.close;
-                                this.deletePost();
-                                this.setState({idToDelete: post._id})
+                                this.deletePostHandle();
+                                this.setState({ idToDelete: post._id })
                               }} >Delete</MenuItem>
                               <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
                             </Menu>
