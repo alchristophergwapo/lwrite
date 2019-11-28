@@ -15,16 +15,15 @@ let Posts = new Schema({
 		required: true,
 		type: String
 	},
-	user: {
-		type: String,
-		required: true
-	},
 	background_image: {
 	  data: Buffer, 
 	  contentType: String 
 	},
 	comments: {
 		type: Array
+	},
+	username: {
+		type: String
 	}
 }, {
 		collection: 'Posts'

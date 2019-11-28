@@ -42,7 +42,7 @@ routes.route('/validateUsername').post(function (req, res) {
 routes.route('/getUser').get(function (req, res) {
 	Registration.findOne(req.body.user_name, (err, user) => {
 		if (err) { res.send(err) }
-		else { res.send(user) };
+		else { res.json(user) };
 	})
 });
 
@@ -73,7 +73,7 @@ routes.route('/getPosts').get(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-routes.route('/deletePost').get(function (req, res) {
+routes.route('/deletePost').delete(function (req, res) {
 	Posts.findByIdAndDelete(req.params.id)
 		.then(() => res.json('Exercise deleted.'))
 		.catch(err => res.status(400).json('Error: ' + err));
