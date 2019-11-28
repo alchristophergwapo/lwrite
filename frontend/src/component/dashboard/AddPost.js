@@ -33,10 +33,11 @@ export default class AddPost extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
-            user: this.state.username,
+            user: this.state.user,
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
+            comments: {}
         };
 
         const postStatus = await addPost(data);
@@ -90,6 +91,7 @@ export default class AddPost extends Component {
                                 multiline
                                 rows={15}
                                 id="body"
+                                required
                                 onChange={this.onChange}
                             />
                         </CardContent>

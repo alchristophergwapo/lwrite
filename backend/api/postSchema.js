@@ -19,6 +19,9 @@ let Posts = new Schema({
 	background_image: {
 	  data: Buffer, 
 	  contentType: String 
+	},
+	comments: {
+		type: Array
 	}
 }, {
 		collection: 'Posts'
