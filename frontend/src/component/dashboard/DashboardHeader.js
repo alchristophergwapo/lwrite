@@ -76,7 +76,7 @@ export default class DashboardHeader extends Component {
                                 </IconButton >
                                 <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
                                 <div className={useStyles.searchIcon}>
-                                    <SearchIcon />
+                                    < SearchIcon />
                                 </div>
                                 <InputBase
                                     placeholder="Search…"
@@ -89,14 +89,14 @@ export default class DashboardHeader extends Component {
 
                                 <List component="nav">
                                     <ListItem>
-                                        <Button component={Link} to='/home'>
+                                        <Button variant="contained" size="large" color="primary"component={Link} to='/home'>
                                             <HomeOutlinedIcon />
                                             Home
                                     </Button >
-                                        <Button component={Link} to='/post'>
+                                        <Button variant="contained" size="large" color="primary" component={Link} to='/post'>
                                             <Book /> Posts
                                     </Button>
-                                        <Button style={{ marginLeft: 150 }} component={Link} to='/inbox'>
+                                        <Button variant="contained" size="large" color="primary"component={Link} to='/inbox'>
                                             <InboxIcon /> Inbox
                                     </Button>
                                     </ListItem>
@@ -125,3 +125,4 @@ export default class DashboardHeader extends Component {
         );
     }
 }
+// style={{marginLeft: 150,color:}}
