@@ -13,9 +13,13 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
+<<<<<<< HEAD
 import ChatList from './chatList/App/index.js'
 
 
+=======
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+>>>>>>> 58d4f9898b42e77318307585ba0e0d43655656f2
 
 import axios from 'axios'
 
@@ -26,6 +30,7 @@ export default class Dashboard extends Component {
       posts: [
 
         {
+          user: "Developers",
           title: "Love Lost",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
@@ -33,6 +38,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "Journey",
           description: "This is my second post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
@@ -40,6 +46,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "Love",
           description: "This is my third post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
@@ -47,6 +54,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          user: "Developers",
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
@@ -116,25 +124,12 @@ export default class Dashboard extends Component {
                             R
                           </Avatar>
                         }
-                        action={
-                          <PopupState variant="popover" popupId="demo-popup-menu">
-                            {popupState => (
-                              <React.Fragment>
-                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
-                                <Menu {...bindMenu(popupState)}>
-                                  <MenuItem onClick={popupState.close}>Delete</MenuItem>
-                                  <MenuItem onClick={popupState.close}>Edit</MenuItem>
-                                </Menu>
-                              </React.Fragment>
-                            )}
-                          </PopupState>
-                        }
                         title={
                           <Typography component="h3">{post.user}</Typography>
                         }
                         subheader={
                           <Typography>
-                            
+
                           </Typography>
                         }
                       />
@@ -159,6 +154,7 @@ export default class Dashboard extends Component {
                   <CardActions>
                     <Button size="small" color="primary">Share</Button>
                     <Button size="small" color="primary">Learn More</Button>
+                    <IconButton><ExpandMoreIcon /></IconButton>
                   </CardActions>
                   <CardActionArea>
                     <form onSubmit={this.handleSubmit}>

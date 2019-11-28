@@ -33,10 +33,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 
 export default class MyPost extends Component {
   state = {
     username: this.props.username,
+    idToDelete : "",
     posts: [],
   };
 
@@ -46,8 +48,8 @@ export default class MyPost extends Component {
     axios.get('http://localhost:4000/to/getPosts/')
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
-          this.state.posts.push(response.data[index]);
-          if (response.data[index].user_name === this.state.username) {
+          // this.state.posts.push(response.data[index]);
+          if (response.data[index].user === this.state.username) {
             this.state.posts.push(response.data[index]);
           }
 
@@ -59,6 +61,24 @@ export default class MyPost extends Component {
     // console.log(datas);
   }
  
+  deletePost = async e => {
+    e.preventDefault();
+    const id = e.target.id
+    console.log(e.target.id)
+    axios.get('http://localhost:4000/to/deletePost/', id)
+    .then(response => {
+      for (let index = 0; index < this.state.posts.length; index++) {
+        if(this.state.posts[index].id === id) {
+          this.state.posts[index].id.remove();
+          console.log(this.state.posts[index])
+          console.log(response)
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 
   render() {
     console.log(this.state.posts)
@@ -82,8 +102,8 @@ export default class MyPost extends Component {
                               <React.Fragment>
                                 <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
                                 <Menu {...bindMenu(popupState)}>
-                                  <MenuItem onClick={popupState.close}>Delete</MenuItem>
-                                  <MenuItem onClick={popupState.close}>Edit</MenuItem>
+                                  <MenuItem onClick={popupState.close, this.deletePost} id={post.id} >Delete</MenuItem>
+                                  <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
                                 </Menu>
                               </React.Fragment>
                             )}
@@ -110,26 +130,9 @@ export default class MyPost extends Component {
                   <CardActions>
                     <Button size="small" color="primary"><FavoriteIcon />Love</Button>
                     <Button size="small" color="primary"><ShareIcon />Share</Button>
-                    <IconButton style={{marginLeft:110}}
-                      // className={clsx(classes.expand, {
-                      //   [classes.expandOpen]: expanded,
-                      // })}
-                      // onClick={handleExpandClick}
-                      // aria-expanded={expanded}
-                      // aria-label="show more"
-                    ></IconButton>
+                    <IconButton><ExpandMoreIcon /></IconButton>
                   </CardActions>
                   <CardActions disableSpacing>
-                    <IconButton style={{marginLeft:110}}
-                      // className={clsx(classes.expand, {
-                      //   [classes.expandOpen]: expanded,
-                      // })}
-                      // onClick={handleExpandClick}
-                      // aria-expanded={expanded}
-                      // aria-label="show more"
-                    >
-                      <ExpandMoreIcon />
-                    </IconButton>
                   </CardActions>
 
                   <CardActionArea>
