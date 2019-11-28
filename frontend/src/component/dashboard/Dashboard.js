@@ -13,6 +13,8 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
+import ChatList from './chatList/App/index.js'
+
 
 
 import axios from 'axios'
@@ -96,8 +98,12 @@ export default class Dashboard extends Component {
   }
   render() {
     return (
-      <center style={{ marginTop: 20, padding: 20 }}>
+
+      
+      <center style={{ marginTop: 10, padding: 20 }}>
+
         <Grid container spacing={20} justify="center">
+          <ChatList></ChatList>
           {this.state.posts.map(post => (
             <div style={{ marginBottom: 20, marginLeft: 20 }}>
               <Grid item key={post.title}>
@@ -167,6 +173,7 @@ export default class Dashboard extends Component {
           ))}
         </Grid>
       </center>
+      
     );
   }
 }
