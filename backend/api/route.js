@@ -73,4 +73,14 @@ routes.route('/getPosts').get(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
+routes.route('/deletePost').get(function(req, res) {
+	Posts.findByIdAndDelete(req.body.id,
+        (err, post) => {
+        if(err){
+            res.send(err);
+        }
+        res.json(post);
+    });
+})
+
 module.exports = routes;

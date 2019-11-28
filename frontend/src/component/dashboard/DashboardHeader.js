@@ -19,10 +19,13 @@ import InboxItem from './Inbox';
 import Dashboard from './Dashboard';
 import MyPost from './MyPost';
 import AddPost from './AddPost';
-import getPost from '../../services/PostServices'
 import axios from 'axios'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Login from '../login&register/Login';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,19 +67,31 @@ export default class DashboardHeader extends Component {
                     <div style={useStyles.root}>
                         <AppBar position="static">
                             <Toolbar>
-                                <IconButton
-                                    aria-label="account of current user"
-                                    aria-controls="primary-search-account-menu"
-                                    aria-haspopup="true"
-                                    color="secondary"
-                                    font-size="30"
+                                <PopupState variant="popover" popupId="demo-popup-menu">
+                                    {popupState => (
+                                        <React.Fragment>
+                                            <IconButton
+                                                aria-label="account of current user"
+                                                aria-controls="primary-search-account-menu"
+                                                aria-haspopup="true"
+                                                color="secondary"
+                                                font-size="30"
+                                                {...bindTrigger(popupState)}
 
-                                >
-                                    <Avatar />
-                                </IconButton >
+                                            >
+                                                <Avatar />
+                                            </IconButton >
+                                            <Menu {...bindMenu(popupState)}>
+                                                <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                                <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                                            </Menu>
+                                        </React.Fragment>
+                                    )}
+                                </PopupState>
+
                                 <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
                                 <div className={useStyles.searchIcon}>
-                                    < SearchIcon />
+                                    <SearchIcon />
                                 </div>
                                 <InputBase
                                     placeholder="Search…"
@@ -89,14 +104,13 @@ export default class DashboardHeader extends Component {
 
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" size="large" color="primary"component={Link} to='/home'>
-                                            <HomeOutlinedIcon />
-                                            Home
+                                        <Button component={Link} to='/home'>
+                                            <HomeOutlinedIcon />Home
                                     </Button >
-                                        <Button variant="contained" size="large" color="primary" component={Link} to='/post'>
+                                        <Button component={Link} to='/post'>
                                             <Book /> Posts
                                     </Button>
-                                        <Button variant="contained" size="large" color="primary"component={Link} to='/inbox'>
+                                        <Button style={{ marginLeft: 150 }} component={Link} to='/inbox'>
                                             <InboxIcon /> Inbox
                                     </Button>
                                     </ListItem>
@@ -125,4 +139,5 @@ export default class DashboardHeader extends Component {
         );
     }
 }
-// style={{marginLeft: 150,color:}}
+
+
