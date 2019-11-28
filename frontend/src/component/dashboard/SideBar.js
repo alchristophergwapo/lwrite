@@ -19,12 +19,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from "@material-ui/core/Avatar";
 import TypoGraphy from '@material-ui/core/Typography'
-import { Home, Book, AccountBox } from '@material-ui/icons'
+import { Home, Book } from '@material-ui/icons'
 import DashboardHeader from './DashboardHeader';
 import Dashboard from './Dashboard';
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 import InboxItem from './Inbox';
 import Post from './Post'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import Login from '../login&register/Login';
 
 const drawerWidth = 300;
 
@@ -174,6 +176,12 @@ export default function SideBar() {
                                     <InboxIcon />Inbox
                                 </TypoGraphy>
                             </ListItem>
+
+                            <ListItem component={Link} to='/login' button>
+                                <TypoGraphy color="inherit" >
+                                    <ExitToAppIcon />Logout
+                                </TypoGraphy>
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
@@ -196,6 +204,8 @@ export default function SideBar() {
                             <Route exact path='/' render={() => <div><Dashboard></Dashboard></div>} />
                             <Route path='/post' render={() => <div><Post></Post></div>} />
                             <Route path='/inbox' render={() => <div><InboxItem></InboxItem></div>} />
+                            {/* <Route path='/login' render={() => <div><Login></Login></div>} /> */}
+                           
                         </Switch>
                     </main>
                 </div >

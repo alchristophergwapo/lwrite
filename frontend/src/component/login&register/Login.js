@@ -8,8 +8,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import CreateIcon from '@material-ui/icons/Create';
 // import Dashboard from '../dashboard/Dashboard';
 // import App from '../guide/App'
 import { Container } from '@material-ui/core';
@@ -28,9 +29,9 @@ export default class Login extends Component {
   Copyright = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
+        {'LWRITE expanding '}
+        <Link color="textPrimary" href="https://material-ui.com/">
+          your creative writing
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -54,29 +55,34 @@ export default class Login extends Component {
 
   render() {
     const body = {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundImage: 'url(https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '100vh',
+      height: '85vh',
     }
     const container = {
       textAlign: 'center',
       backgroundColor: 'white',
-      marginTop: '1vh'
+    
+     
+      // marginTop: '1vh'
     }
     const paper = {
+      // marginTop: '5vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
     }
     const avatar = {
-      margin: '1vh',
+      // margin: '1vh',
       backgroundColor: 'red',
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
-      marginTop: '3vh',
+      // marginTop: '3vh',
+      justify:'center',
+      alignItems:'center',
     }
     const submit = {
       margin: '3vh, 0, 2vh',
@@ -89,9 +95,9 @@ export default class Login extends Component {
             <CssBaseline />
             <div style={paper}>
               <Avatar style={avatar}>
-                <LockOutlinedIcon />
+                <CreateIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">Login</Typography>
+              <Typography component="h1" variant="h5" color="inherit">Login</Typography>
               <form style={form}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -138,7 +144,7 @@ export default class Login extends Component {
                 </Button>
               </form>
             </div>
-            <Box mt={5}>
+            <Box mt={4}>
               {this.Copyright()}
             </Box>
           </Container>
@@ -147,7 +153,6 @@ export default class Login extends Component {
     } else {
       return (
         <SideBar></SideBar>
-        // <Dashboard></Dashboard>
       )
     }
   }

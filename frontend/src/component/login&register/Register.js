@@ -8,9 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import CreateIcon from '@material-ui/icons/Create';
 import Container from '@material-ui/core/Container';
 
 export default class Register extends Component {
@@ -21,9 +20,9 @@ export default class Register extends Component {
     Copyright = () => {
         return (
             <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="https://material-ui.com/">
-                    Your Website
+                {'LWRITE expanding '}
+                <Link color="textPrimary" href="https://material-ui.com/">
+                    your creative writing
           </Link>{' '}
                 {new Date().getFullYear()}
                 {'.'}
@@ -32,11 +31,11 @@ export default class Register extends Component {
     }
     render() {
         const body = {
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1510861320402-285a6c7639ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=669&q=80)',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            height: '100vh'
+            height: '90vh'
         }
         const container = {
           textAlign: 'center', 
@@ -66,9 +65,9 @@ export default class Register extends Component {
                     <CssBaseline />
                     <div style={paper}>
                         <Avatar style={avatar}>
-                            <LockOutlinedIcon />
+                            <CreateIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">Sign up</Typography>
+                        <Typography component="h1" variant="h5" color="inherit">Sign up </Typography>
                         <form style={form} noValidate>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
@@ -134,7 +133,7 @@ export default class Register extends Component {
                             </Button>
                         </form>
                     </div>
-                    <Box mt={5}>
+                    <Box mt={4}>
                         {this.Copyright()}
                     </Box>
                 </Container>
