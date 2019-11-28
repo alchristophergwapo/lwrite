@@ -126,7 +126,11 @@ export default class Dashboard extends Component {
                         title={
                           <Typography component="h3">{post.user}</Typography>
                         }
-                        subheader="September 14, 2016"
+                        subheader={
+                          <Typography>
+                            
+                          </Typography>
+                        }
                       />
                       <CardContent>
 
