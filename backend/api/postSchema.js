@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Posts = new Schema({
+	user:{
+		type: Array
+	},
 	title: {
 		type: String
 	},
@@ -12,10 +15,7 @@ let Posts = new Schema({
 		required: true,
 		type: String
 	},
-	user: {
-		type: String,
-		required: true
-	}
+	
 }, {
 		collection: 'Posts'
 	})

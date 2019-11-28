@@ -21,8 +21,6 @@ import MyPost from './MyPost';
 import AddPost from './AddPost';
 import getPost from '../../services/PostServices'
 import axios from 'axios'
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -46,18 +44,9 @@ export default class DashboardHeader extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:4000/to/getPosts/')
-            .then(response => {
-                this.setState({ posts: response.data })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
     render() {
-        // console.log(this.state.user)
-        // console.log(this.state.posts)
+        console.log(this.state.user)
+        console.log(this.state.posts)
         return (
             <Router>
                 <Fragment>
@@ -68,12 +57,10 @@ export default class DashboardHeader extends Component {
                                     aria-label="account of current user"
                                     aria-controls="primary-search-account-menu"
                                     aria-haspopup="true"
-                                    color="secondary"
-                                    font-size = "30"
-                                  
+                                    color="inherit"
                                 >
                                     <Avatar />
-                                </IconButton >
+                                </IconButton>
                                 <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
                                 <div className={useStyles.searchIcon}>
                                     <SearchIcon />
@@ -86,27 +73,27 @@ export default class DashboardHeader extends Component {
                                     }}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
-                                <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                                    style={{ position: 'fixed', marginTop: '100vh' }}
-                                >
-                                    <AddIcon />
-                                </Fab>
                                 <List component="nav">
                                     <ListItem>
                                         <Button component={Link} to='/home'>
-                                            <HomeOutlinedIcon />
-                                             Home
+                                            <Home /> Home
                                     </Button >
                                         <Button component={Link} to='/post'>
                                             <Book /> Posts
                                     </Button>
-                                        <Button style={{marginLeft: 150}}component={Link} to='/inbox'>
+                                        <Button component={Link} to='/inbox'>
                                             <InboxIcon /> Inbox
                                     </Button>
                                     </ListItem>
                                 </List>
+                                <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
+                                    style={{ position: 'fixed', marginTop: '10vh' }}
+                                >
+                                    <AddIcon />
+                                </Fab>
                             </Toolbar>
                         </AppBar>
+
                     </div>
                     <main
                         style={{ marginTop: '10vh' }}
