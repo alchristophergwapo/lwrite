@@ -94,9 +94,9 @@ export default class DashboardHeader extends Component {
                                 />
                                 <List component="nav">
                                     <ListItem>
-                                        <Button component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button component={Link} to='/post'><Book /> Posts</Button>
-                                        <Button style={{ marginLeft: 150 }} component={Link} to='/users'><InboxIcon /> Users</Button>
+                                        <Button variant="contained" color="primary" style={{ marginLeft: 50 }} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                        <Button variant="contained" color="primary" style={{ marginLeft: 100 }} component={Link} to='/post'><Book /> Posts</Button>
+                                        <Button variant="contained" color="primary" style={{ marginLeft: 130 }} component={Link} to='/users'><InboxIcon /> Users</Button>
                                     </ListItem>
                                 </List>
                                
