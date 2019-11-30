@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from "@material-ui/core/Avatar";
 import { ListItem } from '@material-ui/core';
-import {Book } from '@material-ui/icons'
+import { Book } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
@@ -45,83 +45,92 @@ export default class DashboardHeader extends Component {
         super(props);
         this.state = {
             user: this.props.user,
-            posts: []
+            posts: [],
+            logout: false
         }
     }
 
     render() {
-        console.log(this.state.user)
-        console.log(this.state.posts)
-        return (
-            <Router>
-                <Fragment>
-                    <div style={useStyles.root}>
-                        <AppBar position="static">
-                            <Toolbar>
-                                <PopupState variant="popover" popupId="demo-popup-menu">
-                                    {popupState => (
-                                        <React.Fragment>
-                                            <IconButton
-                                                aria-label="account of current user"
-                                                aria-controls="primary-search-account-menu"
-                                                aria-haspopup="true"
-                                                color="secondary"
-                                                font-size="30"
-                                                {...bindTrigger(popupState)}
+        if (this.state.logout) {
+            return (
+                <Login></Login>
+            )
+        } if(!this.state.logout) {
+            return (
+                <Router>
+                    <Fragment>
+                        <div style={useStyles.root}>
+                            <AppBar position="static">
+                                <Toolbar>
+                                    <PopupState variant="popover" popupId="demo-popup-menu">
+                                        {popupState => (
+                                            <React.Fragment>
+                                                <IconButton
+                                                    aria-label="account of current user"
+                                                    aria-controls="primary-search-account-menu"
+                                                    aria-haspopup="true"
+                                                    color="secondary"
+                                                    font-size="30"
+                                                    {...bindTrigger(popupState)}
 
-                                            >
-                                                <Avatar><AccountCircleIcon/></Avatar>
-                                            </IconButton >
-                                            <Menu {...bindMenu(popupState)}>
-                                                <MenuItem onClick={popupState.close}>Profile</MenuItem>
-                                                <MenuItem onClick={popupState.close}>Logout</MenuItem>
-                                            </Menu>
-                                        </React.Fragment>
-                                    )}
-                                </PopupState>
+                                                >
+                                                    <Avatar><AccountCircleIcon /></Avatar>
+                                                </IconButton >
+                                                <Menu {...bindMenu(popupState)}>
+                                                    <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                                    <MenuItem onClick={() => {
+                                                        popupState;
+                                                        this.setState({logout: true})
+                                                    }}
+                                                    >Logout</MenuItem>
+                                                </Menu>
+                                            </React.Fragment>
+                                        )}
+                                    </PopupState>
 
-                                <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
-                                <div className={useStyles.searchIcon}>
-                                    <SearchIcon />
-                                </div>
-                                <InputBase
-                                    placeholder="Search…"
-                                    useStyles={{
-                                        root: useStyles.inputRoot,
-                                        input: useStyles.inputInput,
-                                    }}
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                                <List component="nav">
-                                    <ListItem>
-                                        <Button component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button component={Link} to='/post'><Book /> Posts</Button>
-                                        <Button style={{ marginLeft: 150 }} component={Link} to='/users'><InboxIcon /> Users</Button>
-                                    </ListItem>
-                                </List>
-                               
-                            </Toolbar>
-                        </AppBar>
-                        <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                            style={{ position: 'fixed', marginTop: '1vh' }}
+                                    <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
+                                    <div className={useStyles.searchIcon}>
+                                        <SearchIcon />
+                                    </div>
+                                    <InputBase
+                                        placeholder="Search…"
+                                        useStyles={{
+                                            root: useStyles.inputRoot,
+                                            input: useStyles.inputInput,
+                                        }}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                    <List component="nav">
+                                        <ListItem>
+                                            <Button component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                            <Button component={Link} to='/post'><Book /> Posts</Button>
+                                            <Button style={{ marginLeft: 150 }} component={Link} to='/users'><InboxIcon /> Users</Button>
+                                        </ListItem>
+                                    </List>
+
+                                </Toolbar>
+                            </AppBar>
+                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
+                                style={{ position: 'fixed', marginTop: '1vh' }}
+                            >
+                                <AddIcon />
+                            </Fab>
+                        </div>
+                        <main
+                            style={{ marginTop: '10vh' }}
                         >
-                            <AddIcon />
-                        </Fab>
-                    </div>
-                    <main
-                        style={{ marginTop: '10vh' }}
-                    >
-                        <Switch>
-                            <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
-                            <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
-                            <Route path='/users' render={() => <div><ChatList></ChatList></div>} />
-                            <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-                            <Redirect from="/login" to="home" ></Redirect>
-                        </Switch>
-                    </main>
-                </Fragment>
-            </Router>
-        );
+                            <Switch>
+                                <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
+                                <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
+                                <Route path='/users' render={() => <div><ChatList></ChatList></div>} />
+                                <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
+                                <Redirect from="/login" to="home" ></Redirect>
+                            </Switch>
+                        </main>
+                    </Fragment>
+                </Router>
+            );
+        }
     }
 }
 

@@ -25,7 +25,8 @@ export default class MyPost extends Component {
     username: this.props.username,
     idToDelete: "",
     posts: [],
-    open: false
+    readyToLoad: false,
+    userData: []
   };
 
 
@@ -34,12 +35,13 @@ export default class MyPost extends Component {
     axios.get('http://localhost:4000/to/getPosts')
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
-          // this.state.posts.push(response.data[index]);
-          if (response.data[index].user === this.state.username) {
+          if (response.data[index].user[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
+            this.setState({userData: response.data[index].user[0]})
+            console.log("Okay")
           }
-
         }
+        this.setState({ readyToLoad: true });
       })
       .catch((error) => {
         console.log(error);
@@ -47,95 +49,106 @@ export default class MyPost extends Component {
     // console.log(datas);
   }
 
-  deletePostHandle = async e => {
+  deletePostHandle = id => {
     const data = {
       id: this.state.idToDelete
     }
 
-    axios.delete('http://localhost:4000/to/deletePost', data)
+    axios.delete('http://localhost:4000/to/deletePost/'+id)
       .then(response => {
-        for (let index = 0; index < this.state.posts.length; index++) {
-          console.log(response);
-        }
+        this.setState({
+          posts: this.state.posts.filter(el => el._id !== id)
+        })
       })
       .catch((error) => {
         console.log(error);
       })
   }
 
+  loadMyPost = () => {
+    console.log(this.state.userData)
+    if (this.state.readyToLoad) {
+      return (
+        <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
+          <Grid container spacing={20} justify="center" >
+            {this.state.posts.map(post => (
+              <div style={{ marginBottom: 20, marginLeft: 20 }}>
+                <Grid item key={post._id}>
+                  <Card>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label={post.user_name}>
+                          R
+                            </Avatar>
+                      }
+                      action={
+                        <PopupState variant="popover" popupId="demo-popup-menu">
+                          {popupState => (
+                            <Fragment>
+                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                              <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={popupState.close}></MenuItem>
+                                <MenuItem onClick={() => {
+                                  popupState.close;
+                                  this.deletePostHandle(post._id);
+                                  console.log(post._id)
+                                }} >Delete</MenuItem>
+                                <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
+                              </Menu>
+                            </Fragment>
+                          )}
+                        </PopupState>
+                      }
+                      title={
+                        <Typography component="h3">{this.state.userData.first_name} {this.state.userData.last_name}</Typography>
+                      }
+                      subheader="September 14, 2016"
+                    />
+                    <CardActionArea>
+                      <div>
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {post.title}
+                          </Typography>
+                          <Typography component="p">{post.description}</Typography>
+                          <Typography component="p">{post.body}</Typography>
+                        </CardContent>
+                      </div>
+
+                    </CardActionArea>
+
+                    <CardActions>
+                      <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                      <Button size="small" color="primary"><ShareIcon />Share</Button>
+                      <IconButton><ExpandMoreIcon /></IconButton>
+                    </CardActions>
+                    <CardActions disableSpacing>
+                    </CardActions>
+
+                    <CardActionArea>
+                      <form onSubmit={this.handleSubmit}>
+                        <TextField style={{ width: "70%" }} onChange={this.handleComment} placeholder="Comment" >
+                        </TextField><Button><Send>Comment</Send></Button>
+
+                      </form>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              </div>
+            ))}
+          </Grid>
+        </center>
+      )
+    }
+  }
+
   render() {
 
     return (
 
-      <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
-        <Grid container spacing={20} justify="center" >
-          {this.state.posts.map(post => (
-            <div style={{ marginBottom: 20, marginLeft: 20 }}>
-              <Grid item key={post.title}>
-                <Card>
-                  <CardHeader
-                    avatar={
-                      <Avatar aria-label={post.user}>
-                        R
-                          </Avatar>
-                    }
-                    action={
-                      <PopupState variant="popover" popupId="demo-popup-menu">
-                        {popupState => (
-                          <Fragment>
-                            <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
-                            <Menu {...bindMenu(popupState)}>
-                              <MenuItem onClick={() => {
-                                popupState.close;
-                                this.deletePostHandle();
-                                this.setState({ idToDelete: post._id })
-                              }} >Delete</MenuItem>
-                              <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
-                            </Menu>
-                          </Fragment>
-                        )}
-                      </PopupState>
-                    }
-                    title={
-                      <Typography component="h3">{post.user}</Typography>
-                    }
-                    subheader="September 14, 2016"
-                  />
-                  <CardActionArea>
-                    <div>
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {post.title}
-                        </Typography>
-                        <Typography component="p">{post.description}</Typography>
-                        <Typography component="p">{post.body}</Typography>
-                      </CardContent>
-                    </div>
-
-                  </CardActionArea>
-
-                  <CardActions>
-                    <Button size="small" color="primary"><FavoriteIcon />Love</Button>
-                    <Button size="small" color="primary"><ShareIcon />Share</Button>
-                    <IconButton><ExpandMoreIcon /></IconButton>
-                  </CardActions>
-                  <CardActions disableSpacing>
-                  </CardActions>
-
-                  <CardActionArea>
-                    <form onSubmit={this.handleSubmit}>
-                      <TextField style={{ width: "70%" }} onChange={this.handleComment} placeholder="Comment" >
-                      </TextField><Button><Send>Comment</Send></Button>
-
-                    </form>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            </div>
-          ))}
-        </Grid>
-      </center>
-
-    );
+      <div>
+        {this.loadMyPost()}
+      </div>
+    )
   }
 }

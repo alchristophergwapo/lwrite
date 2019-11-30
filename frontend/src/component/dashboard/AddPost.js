@@ -20,7 +20,7 @@ export default class AddPost extends Component {
             added: false,
             error: true,
             user: this.props.userData,
-            username: this.props.username
+            user_name: this.props.username
         }
     }
 
@@ -33,6 +33,7 @@ export default class AddPost extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
+            user_name: this.state.user_name,
             user: this.state.user,
             title: this.state.title,
             description: this.state.description,
