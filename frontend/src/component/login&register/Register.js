@@ -93,7 +93,7 @@ class Register extends Component {
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            height: '100vh'
+            height: '90vh'
         }
 
         const paper = {

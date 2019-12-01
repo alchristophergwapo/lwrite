@@ -8,6 +8,14 @@ export default class AppBody extends Component {
         super(props);
     }
     render() {
+        const body = { 
+            backgroundImage : 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            height: '100vh',
+            
+        }
         return (
 
             <Router>

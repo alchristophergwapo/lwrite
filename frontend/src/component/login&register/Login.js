@@ -40,7 +40,7 @@ export default class Login extends Component {
       .then(res => {
         if (res.data != null) {
           this.setState({ loginSuccess: false, error: true, user: res.data })
-          console.log(res.data)
+          console.log(this.state.user)
         }
         else {
           this.setState({ loginSuccess: true, error: false })
@@ -67,7 +67,9 @@ export default class Login extends Component {
           this.setState({
             loginSuccess: true,
             error: false,
+            user: res
           });
+          // console.log(res)
         }
       })
 
@@ -87,6 +89,7 @@ export default class Login extends Component {
       backgroundColor: 'white',
     }
     const paper = {
+      // marginTop: '5vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -97,7 +100,9 @@ export default class Login extends Component {
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
-      marginTop: '3vh',
+      // marginTop: '3vh',
+      justify:'center',
+      alignItems:'center',
     }
     const button = {
       width: '20vh',

@@ -24,6 +24,7 @@ routes.route('/login').post(function (req, res) {
 	Registration.findOne({ user_name: req.body.user_name })
 		.then(user => {
 			console.log("User from login", user)
+			// res.send(user)
 			if (!user) res.sendStatus(204);
 			else {
 				bcrypt.compare(req.body.password, user.password)
@@ -40,9 +41,9 @@ routes.route('/validateUsername').post(function (req, res) {
 
 // 
 routes.route('/getUser/:user_name').get(function (req, res) {
-	Registration.findOne({ user_name: req.params.user_name })
+	Registration.findOne({user_name: req.params.user_name })
 		.then(user => {
-			res.json(user)
+			res.send(user)
 		})
 		.catch(error => {
 			res.send(error)
@@ -83,16 +84,17 @@ routes.route('/deletePost/:id').delete(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
-routes.route('/addComment/:id').put(function (req, res) {
-	Post.findByIdAndUpdate(req.params.id,
+routes.route('/addComment/:_id').put(function (req, res) {
+	Posts.findByIdAndUpdate(req.params._id,
 		{ $push: { comments: req.body } },
 		{ safe: true, upsert: true },
-		console.log(req.body.comment),
+		// console.log(req.body.comment),
 		function (err, comments) {
 			if (err) {
 				console.log(err);
 			} else {
 				res.send(comments)
+				console.log(req.body)
 			}
 		})
 })

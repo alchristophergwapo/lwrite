@@ -15,8 +15,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import deletePost from '../../services/PostServices';
+import Edit from './Edit';
 
 export default class MyPost extends Component {
   state = {
@@ -67,7 +69,8 @@ export default class MyPost extends Component {
   handleComment = id => {
 
     const data = {
-      comment: this.state.comment
+      comment: this.state.comment,
+      comment_from: this.state.userData
     }
     axios.put('http://localhost:4000/to/addComment/' + id , data)
       .then((res) => {
@@ -80,7 +83,6 @@ export default class MyPost extends Component {
   }
 
   loadMyPost = () => {
-    console.log(this.state.userData)
     if (this.state.readyToLoad) {
       return (
         <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
@@ -98,21 +100,28 @@ export default class MyPost extends Component {
                       action={
                         <PopupState variant="popover" popupId="demo-popup-menu">
                           {popupState => (
-                            <Fragment>
-                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
-                              <Menu {...bindMenu(popupState)}>
-                                <MenuItem onClick={popupState.close}></MenuItem>
-                                <MenuItem onClick={() => {
-                                  popupState.close;
-                                  this.deletePostHandle(post._id);
-                                  console.log(post._id)
-                                }} >Delete</MenuItem>
-                                <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
-                              </Menu>
-                            </Fragment>
+                            <Router>
+                              <Fragment>
+                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                                <Menu {...bindMenu(popupState)}>
+                                  <MenuItem onClick={popupState.close}></MenuItem>
+                                  <MenuItem onClick={() => {
+                                    popupState.close;
+                                    this.deletePostHandle(post._id);
+                                    console.log(post._id)
+                                  }} >Delete</MenuItem>
+                                  <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
+                                </Menu>
+                                <Switch>
+                                  <Route path='/edit' render={() => <div><Edit></Edit></div>} />
+                                </Switch>
+                              </Fragment>
+                            </Router>
                           )}
                         </PopupState>
                       }
+
+
                       title={
                         <Typography component="h3">{this.state.userData.first_name} {this.state.userData.last_name}</Typography>
                       }
@@ -160,6 +169,7 @@ export default class MyPost extends Component {
       )
     }
   }
+
 
   render() {
 

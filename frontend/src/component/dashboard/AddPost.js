@@ -53,6 +53,7 @@ export default class AddPost extends Component {
     }
 
     render() {
+        console.log(this.state.user)
         const modalCard = {
             width: '100%',
             maxWidth: 500,

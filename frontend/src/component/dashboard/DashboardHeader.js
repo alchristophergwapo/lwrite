@@ -51,6 +51,7 @@ export default class DashboardHeader extends Component {
     }
 
     render() {
+        console.log(this.state.user)
         if (this.state.logout) {
             return (
                 <Login></Login>
@@ -87,8 +88,6 @@ export default class DashboardHeader extends Component {
                                             </React.Fragment>
                                         )}
                                     </PopupState>
-
-<<<<<<< HEAD
                                 <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
                                 <div className={useStyles.searchIcon}>
                                     <SearchIcon />
@@ -103,39 +102,15 @@ export default class DashboardHeader extends Component {
                                 />
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" color="primary" style={{ marginLeft: 50 }} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button variant="contained" color="primary" style={{ marginLeft: 100 }} component={Link} to='/post'><Book /> Posts</Button>
-                                        <Button variant="contained" color="primary" style={{ marginLeft: 130 }} component={Link} to='/users'><InboxIcon /> Users</Button>
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}}component={Link} to='/post'><Book /> Posts</Button>
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button>
                                     </ListItem>
                                 </List>
                                
                             </Toolbar>
                         </AppBar>
-                        <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                            style={{ position: 'fixed', marginTop: '1vh' }}
-=======
-                                    <Typography variant="h6" className={useStyles.title}>Lwrite</Typography>
-                                    <div className={useStyles.searchIcon}>
-                                        <SearchIcon />
-                                    </div>
-                                    <InputBase
-                                        placeholder="Search…"
-                                        useStyles={{
-                                            root: useStyles.inputRoot,
-                                            input: useStyles.inputInput,
-                                        }}
-                                        inputProps={{ 'aria-label': 'search' }}
-                                    />
-                                    <List component="nav">
-                                        <ListItem>
-                                            <Button variant="contained" color="primary" size ="large" component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                            <Button component={Link} to='/post'><Book /> Posts</Button>
-                                            <Button style={{ marginLeft: 150 }} component={Link} to='/users'><InboxIcon /> Users</Button>
-                                        </ListItem>
-                                    </List>
-
-                                </Toolbar>
-                            </AppBar>
+                                
                             <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
                                 style={{ position: 'fixed', marginTop: '1vh' }}
                             >
@@ -144,7 +119,6 @@ export default class DashboardHeader extends Component {
                         </div>
                         <main
                             style={{ marginTop: '10vh' }}
->>>>>>> 96d794c50025104f3f6c365e6fdf9810264d5279
                         >
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
