@@ -36,7 +36,7 @@ export default class MyPost extends Component {
       .then(response => {
         console.log(response.data)
         for (let index = 0; index < response.data.length; index++) {
-          if (response.data[index].user[index].user_name === this.state.username) {
+          if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
             this.setState({userData: response.data[index].user[0]})
             console.log("Okay")
@@ -53,9 +53,6 @@ export default class MyPost extends Component {
   }
 
   deletePostHandle = id => {
-    const data = {
-      id: this.state.idToDelete
-    }
 
     axios.delete('http://localhost:4000/to/deletePost/'+id)
       .then(response => {
