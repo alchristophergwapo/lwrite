@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Send from '@material-ui/icons/Send'
 import axios from 'axios'
@@ -16,9 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import deletePost from '../../services/PostServices';
 
 export default class MyPost extends Component {
   state = {
@@ -26,7 +24,8 @@ export default class MyPost extends Component {
     idToDelete: "",
     posts: [],
     readyToLoad: false,
-    userData: []
+    userData: [],
+    comment: ''
   };
 
 
@@ -38,7 +37,7 @@ export default class MyPost extends Component {
         for (let index = 0; index < response.data.length; index++) {
           if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
-            this.setState({userData: response.data[index].user[0]})
+            this.setState({ userData: response.data[index].user[0] })
             console.log("Okay")
           } else {
             console.log("NOT")
@@ -54,7 +53,7 @@ export default class MyPost extends Component {
 
   deletePostHandle = id => {
 
-    axios.delete('http://localhost:4000/to/deletePost/'+id)
+    axios.delete('http://localhost:4000/to/deletePost/' + id)
       .then(response => {
         this.setState({
           posts: this.state.posts.filter(el => el._id !== id)
@@ -62,6 +61,21 @@ export default class MyPost extends Component {
       })
       .catch((error) => {
         console.log(error);
+      })
+  }
+
+  handleComment = id => {
+
+    const data = {
+      comment: this.state.comment
+    }
+    axios.put('http://localhost:4000/to/addComment/' + id , data)
+      .then((res) => {
+        console.log(res.data)
+        console.log('Comment successfully added.')
+        this.setState({comment: ''})
+      }).catch((error) => {
+        console.log(error)
       })
   }
 
@@ -127,8 +141,13 @@ export default class MyPost extends Component {
 
                     <CardActionArea>
                       <form onSubmit={this.handleSubmit}>
-                        <TextField style={{ width: "70%" }} onChange={this.handleComment} placeholder="Comment" >
-                        </TextField><Button><Send>Comment</Send></Button>
+                        <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                        </TextField>
+                        <Button onClick={() => {
+                          this.handleComment(post._id)
+                        }}>
+                          <Send>Comment</Send>
+                        </Button>
 
                       </form>
                     </CardActionArea>

@@ -15,7 +15,11 @@ import Paper from '@material-ui/core/Paper';
 // import axios from 'axios';
 import { UserRegistration, UsernameValidation } from '../../services/RegistrationService';
 import Login from './Login';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
+import CreateIcon from '@material-ui/icons/Create';
+import DoneIcon from '@material-ui/icons/Done';
 
 class Register extends Component {
     constructor(props) {
@@ -112,7 +116,7 @@ class Register extends Component {
         }
 
         const { register, error, user_name_taken } = this.state;
-        if(!register) {
+        if (!register) {
             return (
                 <Grid container component="main" style={root}>
                     <CssBaseline />
@@ -135,6 +139,13 @@ class Register extends Component {
                                             name="firstname"
                                             onChange={this.onChange}
                                             value={this.state.firstname}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CreateIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -147,6 +158,13 @@ class Register extends Component {
                                             name="lastName"
                                             onChange={this.onChange}
                                             value={this.state.lastname}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CreateIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} >
@@ -159,6 +177,13 @@ class Register extends Component {
                                             id="user_name"
                                             label="Username"
                                             name="user_name"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <AccountCircle />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                         <p>{user_name_taken}</p>
                                     </Grid>
@@ -174,6 +199,13 @@ class Register extends Component {
                                             type="password"
                                             id="password"
                                             autoComplete="current-password"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <LockIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -188,35 +220,43 @@ class Register extends Component {
                                             type="password"
                                             id="password2"
                                             autoComplete="another-password"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <LockIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     </Grid>
                                 </Grid>
                                 <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        classNames="btn btn-primary"
-                                        style={button}
-                                        onClick={this.handleRegister}
-                                        >
-                                        Sign Up
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    classNames="btn btn-primary"
+                                    style={button}
+                                    onClick={this.handleRegister}
+                                >
+                                    Sign Up 
+                                    <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
                                     </Button>
-                                    <div>
-                                        <div>Already have an account?
+                                <div>
+                                    <div style={{ marginTop: '1vh' }}>Already have an account?
                                             <Button variant="outlined" color="outlined-primary">
                                             <Link to="/login" button>Cancel</Link>
-                                            </Button>
-                                        </div>
-                                        
+                                        </Button>
                                     </div>
+
+                                </div>
                             </form>
                         </div>
-    
+
                     </Grid >
                 </Grid>
             );
         } else {
-            return(
+            return (
                 <Login></Login>
             )
         }

@@ -3,18 +3,18 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import axios from 'axios'
-import SideBar from '../dashboard/SideBar';
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
-import { LoginService, GetUser } from '../../services/LoginService';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
+import DoneIcon from '@material-ui/icons/Done';
+import IconButton from '@material-ui/core/IconButton';
 
 export default class Login extends Component {
   constructor(props) {
@@ -35,17 +35,17 @@ export default class Login extends Component {
   }
 
   handleOnClick = async e => {
-    
-    axios.get('http://localhost:4000/to/getUser/'+this.state.user_name)
-		.then(res => {
-      if (res.data != null) {
-        this.setState({loginSuccess: false, error: true, user: res.data})
-        console.log(res.data)
-      }
-      else{
-        this.setState({loginSuccess: true, error:false})
-      }
-    })
+
+    axios.get('http://localhost:4000/to/getUser/' + this.state.user_name)
+      .then(res => {
+        if (res.data != null) {
+          this.setState({ loginSuccess: false, error: true, user: res.data })
+          console.log(res.data)
+        }
+        else {
+          this.setState({ loginSuccess: true, error: false })
+        }
+      })
     // console.log(this.state.user)
   }
   onSubmit = async e => {
@@ -56,22 +56,22 @@ export default class Login extends Component {
     };
 
     axios.post('http://localhost:4000/to/login', data)
-		.then(res => {
-      if (res.status !== 200) {
-        this.setState({
-          error: true,
-          loginSuccess: false,
-        });
-      }
-      else {
-        this.setState({
-          loginSuccess: true,
-          error: false,
-        });
-      }
-    })
+      .then(res => {
+        if (res.status !== 200) {
+          this.setState({
+            error: true,
+            loginSuccess: false,
+          });
+        }
+        else {
+          this.setState({
+            loginSuccess: true,
+            error: false,
+          });
+        }
+      })
 
-    
+
   }
 
   render() {
@@ -80,7 +80,7 @@ export default class Login extends Component {
     }
 
     const image = {
-      backgroundImage: 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
+      backgroundImage: 'url(http://cm1.narvii.com/6946/adf78c28c6e7ee73f5d55ba9fc59df1a29720e25_00.jpg)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       textAlign: 'center',
@@ -101,6 +101,7 @@ export default class Login extends Component {
     }
     const button = {
       width: '20vh',
+      marginTop: '3vh',
     }
     const { loginSuccess, error } = this.state;
     if (!loginSuccess) {
@@ -126,6 +127,13 @@ export default class Login extends Component {
                       name="user_name"
                       autoComplete="user_name"
                       onChange={this.onChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircle />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -139,6 +147,27 @@ export default class Login extends Component {
                       id="password"
                       autoComplete="current-password"
                       onChange={this.onChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    // InputProps={{
+                    //   endAdornment:(
+                    //     <InputAdornment position="end">
+                    //       <IconButton
+                    //         aria-label="toggle password visibility"
+                    //         onClick={handleClickShowPassword}
+                    //         onMouseDown={handleMouseDownPassword}
+                    //       >
+                    //         {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    //       </IconButton>
+                    //     </InputAdornment>
+                    //    )
+                    // }}
+
                     />
                   </Grid>
                   {/* <Grid item xs={12}>
@@ -155,12 +184,13 @@ export default class Login extends Component {
                   style={button}
                   onClick={() => {
                     this.onSubmit;
-                    this.handleOnClick()}}
+                    this.handleOnClick()
+                  }}
                 >
                   Login
+                  <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
                 </Button>
-                <div style={{ marginTop: '3vh' }}>
-                  Don't have an account?
+                <div style={{ marginTop: '1vh' }}>Don't have an account?
                     <Button variant="outlined" color="outlined-primary" style={button}>
                     <Link to="/register" >Create account</Link>
                   </Button>
