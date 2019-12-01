@@ -1,17 +1,8 @@
-<<<<<<< HEAD
-import React, { Component, Fragment } from 'react';
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
-import Login from '../login&register/Login';
-import Register from '../login&register/Register';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button'
-=======
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Login from '../login&register/Login';
 import Registration from '../login&register/Register';
 
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
 export default class AppBody extends Component {
     constructor(props) {
         super(props);
@@ -26,31 +17,6 @@ export default class AppBody extends Component {
             
         }
         return (
-<<<<<<< HEAD
-            <div style={body}>
-            <BrowserRouter>
-                <Fragment className="App">
-                    <List component="nav">
-                        <Button color ="secondary" component={Link} to='/login' >
-                        Login
-                        </Button>
-                        <Button color ="secondary" component={Link} to='/register' >
-                            Register
-                        </Button>
-                    </List>
-
-                    <List>
-                        <Switch>
-                            <Route exact path='/login' render={() => <div><Login></Login></div>}></Route>
-                            <Route path='/register' render={() => <div><Register></Register></div>}></Route>
-                        </Switch>
-                    </List>
-                </Fragment>
-
-
-            </BrowserRouter>
-        </div>
-=======
 
             <Router>
                 <div className="App">
@@ -63,7 +29,6 @@ export default class AppBody extends Component {
             </Router>
 
 
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
         )
     }
 }

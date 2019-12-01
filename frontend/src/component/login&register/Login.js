@@ -7,19 +7,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-<<<<<<< HEAD
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import CreateIcon from '@material-ui/icons/Create';
-// import Dashboard from '../dashboard/Dashboard';
-// import App from '../guide/App'
-=======
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
 import { Container } from '@material-ui/core';
-import SideBar from '../dashboard/SideBar';
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
 import { LoginService, GetUser } from '../../services/LoginService';
@@ -39,24 +30,10 @@ export default class Login extends Component {
     }
   }
 
-<<<<<<< HEAD
-  Copyright = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'LWRITE expanding '}
-        <Link color="textPrimary" href="https://material-ui.com/">
-          your creative writing
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-=======
   onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
   }
 
   handleOnClick = async e => {
@@ -92,21 +69,6 @@ export default class Login extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    const body = {
-      backgroundImage: 'url(https://images.unsplash.com/photo-1517971071642-34a2d3ecc9cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80)',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '85vh',
-    }
-    const container = {
-      textAlign: 'center',
-      backgroundColor: 'white',
-    
-     
-      // marginTop: '1vh'
-=======
     const root = {
       height: '100vh'
     }
@@ -117,7 +79,6 @@ export default class Login extends Component {
       backgroundSize: 'cover',
       textAlign: 'center',
       backgroundColor: 'white',
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
     }
     const paper = {
       // marginTop: '5vh',
@@ -127,12 +88,7 @@ export default class Login extends Component {
       margin: '3vh'
     }
     const avatar = {
-<<<<<<< HEAD
-      // margin: '1vh',
-      backgroundColor: 'red',
-=======
       backgroundColor: 'blue',
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
@@ -152,17 +108,10 @@ export default class Login extends Component {
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <div style={paper}>
               <Avatar style={avatar}>
-<<<<<<< HEAD
-                <CreateIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5" color="inherit">Login</Typography>
-              <form style={form}>
-=======
                 <AccountCircleIcon />
               </Avatar>
               <Typography component="h1" variant="h5">Login</Typography>
               <form style={form} onSubmit={this.onSubmit}>
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -218,17 +167,6 @@ export default class Login extends Component {
               {loginSuccess && <Message message={LOGIN_MESSAGE} />}
               {error && <Error message={ERROR_IN_LOGIN} />}
             </div>
-<<<<<<< HEAD
-            <Box mt={4}>
-              {this.Copyright()}
-            </Box>
-          </Container>
-        </div>
-      )
-    } else {
-      return (
-        <SideBar></SideBar>
-=======
           </Grid>
 
         </Grid>
@@ -236,7 +174,6 @@ export default class Login extends Component {
     } else {
       return (
         <DashboardHeader user={this.state.user}></DashboardHeader>
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
       )
     }
 

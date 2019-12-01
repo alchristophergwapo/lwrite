@@ -7,13 +7,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-<<<<<<< HEAD
-import Typography from '@material-ui/core/Typography';
-import CreateIcon from '@material-ui/icons/Create';
-=======
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
@@ -38,19 +33,6 @@ class Register extends Component {
         }
 
     }
-<<<<<<< HEAD
-    Copyright = () => {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'LWRITE expanding '}
-                <Link color="textPrimary" href="https://material-ui.com/">
-                    your creative writing
-          </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-=======
 
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
@@ -68,7 +50,6 @@ class Register extends Component {
         isUsernameTaken === 204
             ? this.setState({ user_name_taken: true })
             : this.setState({ user_name_taken: false });
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
     }
 
     onSubmit = async e => {
@@ -101,16 +82,11 @@ class Register extends Component {
     };
 
     render() {
-<<<<<<< HEAD
-        const body = {
-            backgroundImage: 'url(https://images.unsplash.com/photo-1510861320402-285a6c7639ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=669&q=80)',
-=======
         const root = {
             height: '100vh'
         }
         const image = {
             backgroundImage: 'url(https://images.unsplash.com/photo-1510861320402-285a6c7639ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)',
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -144,17 +120,10 @@ class Register extends Component {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <div style={paper}>
                         <Avatar style={avatar}>
-<<<<<<< HEAD
-                            <CreateIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5" color="inherit">Sign up </Typography>
-                        <form style={form} noValidate>
-=======
                             <AccountCircleIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">Sign up</Typography>
                         <form style={form} noValidate onSubmit={this.onSubmit}>
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
@@ -242,17 +211,9 @@ class Register extends Component {
                         {error && <Error message={ERROR_IN_REGISTRATION} />}
                         {register && <Message message={REGISTRATION_MESSAGE} />}
                     </div>
-<<<<<<< HEAD
-                    <Box mt={4}>
-                        {this.Copyright()}
-                    </Box>
-                </Container>
-            </div>
-=======
 
                 </Grid >
             </Grid>
->>>>>>> a542e51e35aea7813739c817cd8f021de85f7810
         );
     }
 }
