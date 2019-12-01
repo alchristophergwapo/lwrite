@@ -10,20 +10,17 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Container } from '@material-ui/core';
+import axios from 'axios'
 import SideBar from '../dashboard/SideBar';
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
 import { LoginService, GetUser } from '../../services/LoginService';
-import Message from '../../elements/Message';
-import Error from '../../elements/Error';
-import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      user_name: '',
       password: '',
       error: false,
       loginSuccess: false,
@@ -38,35 +35,43 @@ export default class Login extends Component {
   }
 
   handleOnClick = async e => {
-    const data = {
-      user_name: this.state.user_name
-    };
-    const user = await GetUser(data);
-
-    this.setState({ user: user.data })
-    console.log(this.state.user);
+    
+    axios.get('http://localhost:4000/to/getUser/'+this.state.user_name)
+		.then(res => {
+      if (res.data != null) {
+        this.setState({loginSuccess: false, error: true, user: res.data})
+        console.log(res.data)
+      }
+      else{
+        this.setState({loginSuccess: true, error:false})
+      }
+    })
+    // console.log(this.state.user)
   }
   onSubmit = async e => {
     e.preventDefault();
     const data = {
-      user_name: this.state.username,
+      user_name: this.state.user_name,
       password: this.state.password
     };
 
-    const loginResult = await LoginService(data);
+    axios.post('http://localhost:4000/to/login', data)
+		.then(res => {
+      if (res.status !== 200) {
+        this.setState({
+          error: true,
+          loginSuccess: false,
+        });
+      }
+      else {
+        this.setState({
+          loginSuccess: true,
+          error: false,
+        });
+      }
+    })
 
-    if (loginResult !== 200) {
-      this.setState({
-        error: true,
-        loginSuccess: false,
-      });
-    }
-    else {
-      this.setState({
-        loginSuccess: true,
-        error: false
-      });
-    }
+    
   }
 
   render() {
@@ -116,11 +121,11 @@ export default class Login extends Component {
                       variant="outlined"
                       required
                       fullWidth
-                      id="email"
+                      id="user_name"
                       label="Username"
-                      name="email"
-                      autoComplete="email"
-                      onChange={(e) => this.setState({ username: e.target.value })}
+                      name="user_name"
+                      autoComplete="user_name"
+                      onChange={this.onChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -133,22 +138,24 @@ export default class Login extends Component {
                       type="password"
                       id="password"
                       autoComplete="current-password"
-                      onChange={(e) => this.setState({ password: e.target.value })}
+                      onChange={this.onChange}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={<Checkbox value="allowExtraEmails" color="primary" />}
                       label="Remember me"
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={button}
-                  onClick={(this.onSubmit, this.handleOnClick)}
+                  onClick={() => {
+                    this.onSubmit;
+                    this.handleOnClick()}}
                 >
                   Login
                 </Button>
@@ -162,8 +169,8 @@ export default class Login extends Component {
 
 
               </form>
-              {loginSuccess && <Message message={LOGIN_MESSAGE} />}
-              {error && <Error message={ERROR_IN_LOGIN} />}
+              {/* {loginSuccess && <Message message={LOGIN_MESSAGE} />}
+              {error && <Error message={ERROR_IN_LOGIN} />} */}
             </div>
           </Grid>
 

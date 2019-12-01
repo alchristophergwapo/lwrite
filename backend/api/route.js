@@ -39,11 +39,14 @@ routes.route('/validateUsername').post(function (req, res) {
 });
 
 // 
-routes.route('/getUser').get(function (req, res) {
-	Registration.findOne(req.body.user_name, (err, user) => {
-		if (err) { res.send(err) }
-		else { res.json(user) };
-	})
+routes.route('/getUser/:user_name').get(function (req, res) {
+	Registration.findOne({user_name :req.params.user_name})
+		.then(user => {
+			res.json(user)
+		})
+		.catch(error => {
+			res.send(error)
+		})
 });
 
 // Get allData

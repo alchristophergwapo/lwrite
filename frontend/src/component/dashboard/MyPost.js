@@ -34,11 +34,14 @@ export default class MyPost extends Component {
     // const datas = [];
     axios.get('http://localhost:4000/to/getPosts')
       .then(response => {
+        console.log(response.data)
         for (let index = 0; index < response.data.length; index++) {
           if (response.data[index].user[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
             this.setState({userData: response.data[index].user[0]})
             console.log("Okay")
+          } else {
+            console.log("NOT")
           }
         }
         this.setState({ readyToLoad: true });
