@@ -39,11 +39,14 @@ routes.route('/validateUsername').post(function (req, res) {
 });
 
 // 
-routes.route('/getUser').get(function (req, res) {
-	Registration.findOne(req.body.user_name, (err, user) => {
-		if (err) { res.send(err) }
-		else { res.send(user) };
-	})
+routes.route('/getUser/:user_name').get(function (req, res) {
+	Registration.findOne({user_name :req.params.user_name})
+		.then(user => {
+			res.json(user)
+		})
+		.catch(error => {
+			res.send(error)
+		})
 });
 
 // Get allData
@@ -73,16 +76,11 @@ routes.route('/getPosts').get(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-routes.route('/deletePost').get(function (req, res) {
-	Posts.findByIdAndDelete(req.body.id,
-		(err, post) => {
-			console.log(req.body.id);
-			if (err) {
-				res.send(err);
-			}
-
-			res.json(post);
-		});
+routes.route('/deletePost/:id').delete(function (req, res) {
+	console.log(req.params.id)
+	Posts.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Exercise deleted.'))
+		.catch(err => res.status(400).json('Error: ' + err));
 })
 
 module.exports = routes;
