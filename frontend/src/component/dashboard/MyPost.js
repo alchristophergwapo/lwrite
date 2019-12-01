@@ -17,7 +17,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import deletePost from '../../services/PostServices';
+// import deletePost from '../../services/PostServices';
 import Edit from './Edit';
 
 export default class MyPost extends Component {

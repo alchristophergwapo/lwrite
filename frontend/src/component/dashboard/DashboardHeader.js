@@ -9,7 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { ListItem } from '@material-ui/core';
 import { Book } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
@@ -22,9 +21,8 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ChatList from './chatList/App/index'
+// import ChatList from './chatList/App/index'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Login from '../login&register/Login';
 
 const useStyles = makeStyles(theme => ({
@@ -104,7 +102,7 @@ export default class DashboardHeader extends Component {
                                     <ListItem>
                                         <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
                                         <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}}component={Link} to='/post'><Book /> Posts</Button>
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button>
+                                        {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
                                     </ListItem>
                                 </List>
                                
@@ -123,7 +121,7 @@ export default class DashboardHeader extends Component {
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
                                 <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
-                                <Route path='/users' render={() => <div><ChatList></ChatList></div>} />
+                                {/* <Route path='/users' render={() => <div><ChatList></ChatList></div>} /> */}
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
