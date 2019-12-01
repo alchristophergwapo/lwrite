@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import {
-    Card,
-    CardContent,
-    CardActions,
-    Modal,
-    Button,
-    TextField,
-} from '@material-ui/core';
+import {Card, CardContent,CardActions,Button,TextField} from '@material-ui/core';
 import { addPost } from '../../services/PostServices';
 import Link from 'react-router-dom';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export default class AddPost extends Component {
     constructor(props) {
@@ -20,7 +14,7 @@ export default class AddPost extends Component {
             added: false,
             error: true,
             user: this.props.userData,
-            username: this.props.username
+            user_name: this.props.username
         }
     }
 
@@ -33,6 +27,7 @@ export default class AddPost extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
+            user_name: this.state.user_name,
             user: this.state.user,
             title: this.state.title,
             description: this.state.description,
