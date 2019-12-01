@@ -40,7 +40,7 @@ routes.route('/validateUsername').post(function (req, res) {
 
 // 
 routes.route('/getUser/:user_name').get(function (req, res) {
-	Registration.findOne({user_name :req.params.user_name})
+	Registration.findOne({ user_name: req.params.user_name })
 		.then(user => {
 			res.json(user)
 		})
@@ -81,6 +81,20 @@ routes.route('/deletePost/:id').delete(function (req, res) {
 	Posts.findByIdAndDelete(req.params.id)
 		.then(() => res.json('Exercise deleted.'))
 		.catch(err => res.status(400).json('Error: ' + err));
+})
+
+routes.route('/addComment/:id').put(function (req, res) {
+	Post.findByIdAndUpdate(req.params.id,
+		{ $push: { comments: req.body } },
+		{ safe: true, upsert: true },
+		console.log(req.body.comment),
+		function (err, comments) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(comments)
+			}
+		})
 })
 
 module.exports = routes;

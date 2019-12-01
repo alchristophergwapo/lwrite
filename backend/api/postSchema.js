@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Posts = new Schema({
-	user:{
-		type: Array
-	},
 	title: {
 		type: String
 	},
@@ -19,12 +16,18 @@ let Posts = new Schema({
 	  data: Buffer, 
 	  contentType: String 
 	},
+	likes: {
+		type: Number
+	},
 	comments: {
 		type: Array
 	},
 	user_name: {
 		type: String
-	}
+	},
+	user:{
+		type: Array
+	},
 }, {
 		collection: 'Posts'
 	})
