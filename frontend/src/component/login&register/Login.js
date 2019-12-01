@@ -108,7 +108,7 @@ export default class Login extends Component {
       width: '20vh',
       marginTop: '3vh',
     }
-    const { loginSuccess, error } = this.state;
+    const { loginSuccess } = this.state;
     if (!loginSuccess) {
       return (
         <Grid container component="main" style={root}>
@@ -196,7 +196,7 @@ export default class Login extends Component {
                   <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
                 </Button>
                 <div style={{ marginTop: '1vh' }}>Don't have an account?
-                    <Button variant="outlined" color="outlined-primary" style={button}>
+                    <Button variant="outlined" /*color="outlined-primary"*/ style={button}>
                     <Link to="/register" >Create account</Link>
                   </Button>
 
