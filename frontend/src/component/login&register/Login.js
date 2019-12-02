@@ -3,27 +3,24 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Container } from '@material-ui/core';
-import SideBar from '../dashboard/SideBar';
+import axios from 'axios'
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
-import { LoginService, GetUser } from '../../services/LoginService';
-import Message from '../../elements/Message';
-import Error from '../../elements/Error';
-import { LOGIN_MESSAGE, ERROR_IN_LOGIN } from '../../MessageBundle';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
+import DoneIcon from '@material-ui/icons/Done';
+// import IconButton from '@material-ui/core/IconButton';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      user_name: '',
       password: '',
       error: false,
       loginSuccess: false,
@@ -38,35 +35,45 @@ export default class Login extends Component {
   }
 
   handleOnClick = async e => {
-    const data = {
-      user_name: this.state.user_name
-    };
-    const user = await GetUser(data);
-    
-    // console.log(user.data)
-    this.state.user.push(user.data);
+
+    axios.get('http://localhost:4000/to/getUser/' + this.state.user_name)
+      .then(res => {
+        if (res.data != null) {
+          this.setState({ loginSuccess: false, error: true, user: res.data })
+          console.log(this.state.user)
+        }
+        else {
+          this.setState({ loginSuccess: true, error: false })
+        }
+      })
+    // console.log(this.state.user)
   }
   onSubmit = async e => {
     e.preventDefault();
     const data = {
-      user_name: this.state.username,
+      user_name: this.state.user_name,
       password: this.state.password
     };
 
-    const loginResult = await LoginService(data);
+    axios.post('http://localhost:4000/to/login', data)
+      .then(res => {
+        if (res.status !== 200) {
+          this.setState({
+            error: true,
+            loginSuccess: false,
+          });
+        }
+        else {
+          this.setState({
+            loginSuccess: true,
+            error: false,
+            user: res
+          });
+          console.log(res)
+        }
+      })
 
-    if (loginResult !== 200) {
-      this.setState({
-        error: true,
-        loginSuccess: false,
-      });
-    }
-    else {
-      this.setState({
-        loginSuccess: true,
-        error: false
-      });
-    }
+
   }
 
   render() {
@@ -75,13 +82,14 @@ export default class Login extends Component {
     }
 
     const image = {
-      backgroundImage: 'url(https://miro.medium.com/max/4800/1*Xzv2lxZv6rN6OoXZfWB6UQ.jpeg)',
+      backgroundImage: 'url(http://cm1.narvii.com/6946/adf78c28c6e7ee73f5d55ba9fc59df1a29720e25_00.jpg)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       textAlign: 'center',
       backgroundColor: 'white',
     }
     const paper = {
+      // marginTop: '5vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -92,12 +100,15 @@ export default class Login extends Component {
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
-      marginTop: '3vh',
+      // marginTop: '3vh',
+      justify:'center',
+      alignItems:'center',
     }
     const button = {
       width: '20vh',
+      marginTop: '3vh',
     }
-    const { loginSuccess, error } = this.state;
+    const { loginSuccess } = this.state;
     if (!loginSuccess) {
       return (
         <Grid container component="main" style={root}>
@@ -116,11 +127,18 @@ export default class Login extends Component {
                       variant="outlined"
                       required
                       fullWidth
-                      id="email"
+                      id="user_name"
                       label="Username"
-                      name="email"
-                      autoComplete="email"
-                      onChange={(e) => this.setState({ username: e.target.value })}
+                      name="user_name"
+                      autoComplete="user_name"
+                      onChange={this.onChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircle />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -133,28 +151,52 @@ export default class Login extends Component {
                       type="password"
                       id="password"
                       autoComplete="current-password"
-                      onChange={(e) => this.setState({ password: e.target.value })}
+                      onChange={this.onChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    // InputProps={{
+                    //   endAdornment:(
+                    //     <InputAdornment position="end">
+                    //       <IconButton
+                    //         aria-label="toggle password visibility"
+                    //         onClick={handleClickShowPassword}
+                    //         onMouseDown={handleMouseDownPassword}
+                    //       >
+                    //         {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    //       </IconButton>
+                    //     </InputAdornment>
+                    //    )
+                    // }}
+
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={<Checkbox value="allowExtraEmails" color="primary" />}
                       label="Remember me"
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={button}
-                  onClick={(this.onSubmit, this.handleOnClick)}
+                  onClick={() => {
+                    this.onSubmit;
+                    this.handleOnClick()
+                  }}
                 >
                   Login
+                  <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
                 </Button>
-                <div style={{ marginTop: '3vh' }}>
-                  Don't have an account?
-                    <Button variant="outlined" color="outlined-primary" style={button}>
+                <div style={{ marginTop: '1vh' }}>Don't have an account?
+                    <Button variant="outlined" /*color="outlined-primary"*/ style={button}>
                     <Link to="/register" >Create account</Link>
                   </Button>
 
@@ -162,8 +204,8 @@ export default class Login extends Component {
 
 
               </form>
-              {loginSuccess && <Message message={LOGIN_MESSAGE} />}
-              {error && <Error message={ERROR_IN_LOGIN} />}
+              {/* {loginSuccess && <Message message={LOGIN_MESSAGE} />}
+              {error && <Error message={ERROR_IN_LOGIN} />} */}
             </div>
           </Grid>
 

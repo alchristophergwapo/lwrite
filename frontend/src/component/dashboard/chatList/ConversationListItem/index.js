@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import './ConversationListItem.css';
 
 export default function ConversationListItem(props) {
 
-    const { photo, name, text } = props.data;
+    const { photo, name } = props.data;
 
     return (
       <div className="conversation-list-item">

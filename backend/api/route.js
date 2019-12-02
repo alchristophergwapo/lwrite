@@ -24,6 +24,7 @@ routes.route('/login').post(function (req, res) {
 	Registration.findOne({ user_name: req.body.user_name })
 		.then(user => {
 			console.log("User from login", user)
+			// res.send(user)
 			if (!user) res.sendStatus(204);
 			else {
 				bcrypt.compare(req.body.password, user.password)
@@ -39,11 +40,14 @@ routes.route('/validateUsername').post(function (req, res) {
 });
 
 // 
-routes.route('/getUser').get(function (req, res) {
-	Registration.findOne(req.body.user_name, (err, user) => {
-		if (err) { res.send(err) }
-		else { res.json(user) };
-	})
+routes.route('/getUser/:user_name').get(function (req, res) {
+	Registration.findOne({user_name: req.params.user_name })
+		.then(user => {
+			res.send(user)
+		})
+		.catch(error => {
+			res.send(error)
+		})
 });
 
 // Get allData
@@ -73,10 +77,36 @@ routes.route('/getPosts').get(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-routes.route('/deletePost').delete(function (req, res) {
-	Posts.findByIdAndDelete(req.body.id)
-		.then(() => res.send('Post deleted.'),console.log(req.body.id))
+routes.route('/deletePost/:id').delete(function (req, res) {
+	console.log(req.params.id)
+	Posts.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Exercise deleted.'))
 		.catch(err => res.status(400).json('Error: ' + err));
+})
+
+routes.route('/updatePost/:_id')
+.post(function(req, res) {
+ console.log(req.body);
+  Posts.update({_id: req.body._id}, req.body, function(err, post) {
+      if (err)
+        res.send(err);
+      res.send('Post successfully updated!'+ post);
+  });
+});
+
+routes.route('/addComment/:_id').put(function (req, res) {
+	Posts.findByIdAndUpdate(req.params._id,
+		{ $push: { comments: req.body } },
+		{ safe: true, upsert: true },
+		// console.log(req.body.comment),
+		function (err, comments) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(comments)
+				console.log(req.body)
+			}
+		})
 })
 
 module.exports = routes;
