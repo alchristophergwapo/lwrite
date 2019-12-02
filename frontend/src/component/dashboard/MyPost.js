@@ -17,6 +17,11 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // import deletePost from '../../services/PostServices';
 import Edit from './Edit';
 
@@ -27,9 +32,18 @@ export default class MyPost extends Component {
     posts: [],
     readyToLoad: false,
     userData: [],
-    comment: ''
+    comment: '',
+    setOpen: false,
+    open: false
   };
 
+  handleClickOpen = () => {
+    this.setState({setOpen: true})
+  };
+
+  handleClose = () => {
+    this.setState({setOpen: false})
+  };
 
   componentDidMount() {
     // const datas = [];
@@ -124,8 +138,37 @@ export default class MyPost extends Component {
                                   this.deletePostHandle(post._id);
                                   console.log(post._id)
                                 }} >Delete</MenuItem>
-                                <MenuItem onClick={popupState.close} component={Link} to='/edit'>Edit</MenuItem>
+                                <MenuItem onClick={() =>{
+                                  popupState.close;
+                                  this.handleClickOpen
+                                }}
+                                  >Edit</MenuItem>
                               </Menu>
+                              <Dialog open={this.state.setOpen} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+                                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                                <DialogContent>
+                                  <DialogContentText>
+                                    To subscribe to this website, please enter your email address here. We will send updates
+                                    occasionally.
+                                  </DialogContentText>
+                                  <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="name"
+                                    label="Email Address"
+                                    type="email"
+                                    fullWidth
+                                  />
+                                </DialogContent>
+                                <DialogActions>
+                                  <Button onClick={this.handleClose} color="primary">
+                                    Cancel
+                                    </Button>
+                                  <Button onClick={this.handleClose} color="primary">
+                                    subscribe
+                                    </Button>
+                                </DialogActions>
+                              </Dialog>
                             </div>
                           )}
                         </PopupState>
