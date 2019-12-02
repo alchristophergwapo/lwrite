@@ -24,6 +24,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import ChatList from './chatList/App/index'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Login from '../login&register/Login';
+import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
     root: {
@@ -63,6 +64,7 @@ export default class DashboardHeader extends Component {
                                 <Toolbar>
                                     <PopupState variant="popover" popupId="demo-popup-menu">
                                         {popupState => (
+                                            <Router>
                                             <React.Fragment>
                                                 <IconButton
                                                     aria-label="account of current user"
@@ -76,7 +78,7 @@ export default class DashboardHeader extends Component {
                                                     <Avatar><AccountCircleIcon /></Avatar>
                                                 </IconButton >
                                                 <Menu {...bindMenu(popupState)}>
-                                                    <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                                    <MenuItem onClick={popupState.close} component={Link} to='/edit'>Profile</MenuItem>
                                                     <MenuItem onClick={() => {
                                                         popupState;
                                                         this.setState({logout: true})
@@ -84,6 +86,7 @@ export default class DashboardHeader extends Component {
                                                     >Logout</MenuItem>
                                                 </Menu>
                                             </React.Fragment>
+                                            </Router>
                                         )}
                                     </PopupState>
                                 <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
@@ -123,6 +126,7 @@ export default class DashboardHeader extends Component {
                                 <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
                                 {/* <Route path='/users' render={() => <div><ChatList></ChatList></div>} /> */}
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
+                                <Route path='/edit' render={() => <EditBody></EditBody>}></Route>
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>
