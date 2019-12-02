@@ -22,7 +22,7 @@ let Posts = new Schema({
 	comments: {
 		type: Array
 	},
-	username: {
+	user_name: {
 		type: String
 	}
 }, {

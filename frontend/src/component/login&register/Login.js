@@ -42,9 +42,9 @@ export default class Login extends Component {
       user_name: this.state.user_name
     };
     const user = await GetUser(data);
-
-    this.setState({ user: user.data })
-    console.log(this.state.user);
+    
+    // console.log(user.data)
+    this.state.user.push(user.data);
   }
   onSubmit = async e => {
     e.preventDefault();

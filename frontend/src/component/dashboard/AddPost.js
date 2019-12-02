@@ -33,11 +33,12 @@ export default class AddPost extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
+            user_name: this.state.username,
             user: this.state.user,
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
-            comments: {}
+            comments: []
         };
 
         const postStatus = await addPost(data);
@@ -69,6 +70,7 @@ export default class AddPost extends Component {
         const marginTop = {
             marginTop: '2vh',
         }
+        console.log(this.state.user)
         return (
             <center style={{ marginTop: '5vh' }}>
                 <Card style={modalCard}>

@@ -35,7 +35,7 @@ export default class MyPost extends Component {
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
           // this.state.posts.push(response.data[index]);
-          if (response.data[index].user === this.state.username) {
+          if (response.data[index].user[index].username === this.state.username) {
             this.state.posts.push(response.data[index]);
           }
 
@@ -49,11 +49,13 @@ export default class MyPost extends Component {
 
   deletePostHandle = async e => {
     const data = {
-      id: this.state.idToDelete
+      id : this.state.idToDelete
     }
 
-    axios.delete('http://localhost:4000/to/deletePost', data)
+    if (this.state.idToDelete.length != 0) {
+      axios.delete('http://localhost:4000/to/deletePost/',data)
       .then(response => {
+        console.log(response);
         for (let index = 0; index < this.state.posts.length; index++) {
           console.log(response);
         }
@@ -61,6 +63,10 @@ export default class MyPost extends Component {
       .catch((error) => {
         console.log(error);
       })
+    }
+    else{
+      console.log(this.state.idToDelete)
+    }
   }
 
   render() {
@@ -75,7 +81,7 @@ export default class MyPost extends Component {
                 <Card>
                   <CardHeader
                     avatar={
-                      <Avatar aria-label={post.user}>
+                      <Avatar aria-label={post.username}>
                         R
                           </Avatar>
                     }
@@ -97,7 +103,7 @@ export default class MyPost extends Component {
                       </PopupState>
                     }
                     title={
-                      <Typography component="h3">{post.user}</Typography>
+                      <Typography component="h3">{post.username}</Typography>
                     }
                     subheader="September 14, 2016"
                   />

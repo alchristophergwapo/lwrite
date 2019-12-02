@@ -20,9 +20,8 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       posts: [
-
         {
-          user: "Developers",
+          username: "Developers",
           title: "Love Lost",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
@@ -30,7 +29,7 @@ export default class Dashboard extends Component {
         },
 
         {
-          user: "Developers",
+          username: "Developers",
           title: "Journey",
           description: "This is my second post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
@@ -38,7 +37,7 @@ export default class Dashboard extends Component {
         },
 
         {
-          user: "Developers",
+          username: "Developers",
           title: "Love",
           description: "This is my third post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
@@ -46,7 +45,7 @@ export default class Dashboard extends Component {
         },
 
         {
-          user: "Developers",
+          username: "Developers",
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
@@ -54,6 +53,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          username: "Developers",
           title: "Allow me",
           description: "This is my fifth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
@@ -61,6 +61,7 @@ export default class Dashboard extends Component {
         },
 
         {
+          username: "Developers",
           title: "Closure and A Small Consolation",
           description: "This is my sixth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
@@ -94,7 +95,7 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.log(error);
       })
-    // console.log(datas);
+    console.log(this.state.posts);
   }
   render() {
     return (
@@ -116,7 +117,7 @@ export default class Dashboard extends Component {
                           </Avatar>
                         }
                         title={
-                          <Typography component="h3">{post.user}</Typography>
+                          <Typography component="h3">{post.username}</Typography>
                         }
                         subheader={
                           <Typography>

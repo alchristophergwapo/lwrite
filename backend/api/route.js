@@ -74,8 +74,8 @@ routes.route('/getPosts').get(function (req, res) {
 });
 
 routes.route('/deletePost').delete(function (req, res) {
-	Posts.findByIdAndDelete(req.params.id)
-		.then(() => res.json('Exercise deleted.'))
+	Posts.findByIdAndDelete(req.body.id)
+		.then(() => res.send('Post deleted.'),console.log(req.body.id))
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
