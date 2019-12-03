@@ -24,6 +24,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import ChatList from './chatList/App/index'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Login from '../login&register/Login';
+import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
     root: {
@@ -63,7 +64,8 @@ export default class DashboardHeader extends Component {
                                 <Toolbar>
                                     <PopupState variant="popover" popupId="demo-popup-menu">
                                         {popupState => (
-                                            <React.Fragment>
+                                            <Router>
+                                            <Fragment>
                                                 <IconButton
                                                     aria-label="account of current user"
                                                     aria-controls="primary-search-account-menu"
@@ -76,14 +78,15 @@ export default class DashboardHeader extends Component {
                                                     <Avatar><AccountCircleIcon /></Avatar>
                                                 </IconButton >
                                                 <Menu {...bindMenu(popupState)}>
-                                                    <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                                    <MenuItem onClick={popupState.close} /*component={Link} to='/edit'*/>Profile</MenuItem>
                                                     <MenuItem onClick={() => {
                                                         popupState;
                                                         this.setState({logout: true})
                                                     }}
                                                     >Logout</MenuItem>
                                                 </Menu>
-                                            </React.Fragment>
+                                            </Fragment>
+                                            </Router>
                                         )}
                                     </PopupState>
                                 <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
@@ -100,8 +103,8 @@ export default class DashboardHeader extends Component {
                                 />
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}}component={Link} to='/post'><Book /> Posts</Button>
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , padding:"1vh", width: '150px', maxWidth: '100%'}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , padding:"1vh", width: '150px', maxWidth: '100%'}}component={Link} to='/post'><Book /> Posts</Button>
                                         {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
                                     </ListItem>
                                 </List>
@@ -116,13 +119,14 @@ export default class DashboardHeader extends Component {
                             </Fab>
                         </div>
                         <main
-                            style={{ marginTop: '10vh' }}
+                            style={{ marginTop: '1vh' }}
                         >
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
                                 <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
                                 {/* <Route path='/users' render={() => <div><ChatList></ChatList></div>} /> */}
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
+                                
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>

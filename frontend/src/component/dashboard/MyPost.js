@@ -23,6 +23,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // import deletePost from '../../services/PostServices';
+// import Edit from './Edit';
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
+import EditBody from './EditBody'
 import Edit from './Edit';
 
 export default class MyPost extends Component {
@@ -34,15 +40,17 @@ export default class MyPost extends Component {
     userData: [],
     comment: '',
     setOpen: false,
-    open: false
+    open: false,
+    data: []
   };
 
-  handleClickOpen = () => {
-    this.setState({setOpen: true})
+  handleClickOpen = (data) => {
+    console.log(data)
+    this.setState({ setOpen: true, data: data })
   };
 
   handleClose = () => {
-    this.setState({setOpen: false})
+    this.setState({ setOpen: false })
   };
 
   componentDidMount() {
@@ -98,27 +106,14 @@ export default class MyPost extends Component {
       })
   }
 
-  handleEdit = id => {
-    const post = {
-      // title: this.state.title,
-      // body: this.state.body,
-      // description: this.state.description,
-    };
-
-    console.log(post);
-
-    axios.post('http://localhost:4000/to/updatePost/' + id, post)
-      .then(res => console.log(res.data));
-  }
-
   loadMyPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
-          <Grid container spacing={10} justify="center" >
+        <center style={{ marginTop: 20, padding: 20, }}>
+          <Grid container spacing={10} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
-                <div style={{ marginBottom: 20, marginLeft: 20 }}>
+                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
                   <Card>
                     <CardHeader
                       avatar={
@@ -130,45 +125,27 @@ export default class MyPost extends Component {
                         <PopupState variant="popover" popupId="demo-popup-menu">
                           {popupState => (
                             <div>
-                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
-                              <Menu {...bindMenu(popupState)}>
-                                <MenuItem onClick={popupState.close}></MenuItem>
-                                <MenuItem onClick={() => {
-                                  popupState.close;
-                                  this.deletePostHandle(post._id);
-                                  console.log(post._id)
-                                }} >Delete</MenuItem>
-                                <MenuItem onClick={() =>{
-                                  popupState.close;
-                                  this.handleClickOpen
-                                }}
+                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                                <Menu {...bindMenu(popupState)}>
+                                  <MenuItem onClick={popupState.close}></MenuItem>
+                                  <MenuItem onClick={() => {
+                                    popupState.close;
+                                    this.deletePostHandle(post._id);
+
+                                  }} >Delete</MenuItem>
+                                  <MenuItem onClick={() => {
+                                    popupState.close;
+                                    this.handleClickOpen({
+                                      user: this.state.userData,
+                                      title: post.title,
+                                      description: post.description,
+                                      body: post.body,
+                                      id: post._id,
+                                    });
+
+                                  }}
                                   >Edit</MenuItem>
-                              </Menu>
-                              <Dialog open={this.state.setOpen} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-                                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                                <DialogContent>
-                                  <DialogContentText>
-                                    To subscribe to this website, please enter your email address here. We will send updates
-                                    occasionally.
-                                  </DialogContentText>
-                                  <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Email Address"
-                                    type="email"
-                                    fullWidth
-                                  />
-                                </DialogContent>
-                                <DialogActions>
-                                  <Button onClick={this.handleClose} color="primary">
-                                    Cancel
-                                    </Button>
-                                  <Button onClick={this.handleClose} color="primary">
-                                    subscribe
-                                    </Button>
-                                </DialogActions>
-                              </Dialog>
+                                </Menu>
                             </div>
                           )}
                         </PopupState>
@@ -226,11 +203,15 @@ export default class MyPost extends Component {
 
   render() {
 
-    return (
-
-      <div>
-        {this.loadMyPost()}
-      </div>
-    )
+    if(this.state.setOpen === false) {
+      return (
+          <div>{this.loadMyPost()}</div>
+        )
+    }
+    else{
+      return(
+        <Edit data={this.state.data}></Edit>
+      )
+    }
   }
 }

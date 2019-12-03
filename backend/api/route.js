@@ -86,14 +86,13 @@ routes.route('/deletePost/:id').delete(function (req, res) {
 
 routes.route('/updatePost/:_id').post(function(req, res) {
 	Posts.findById(req.params._id)
-    .then(exercise => {
-      exercise.username = req.body.username;
-      exercise.description = req.body.description;
-      exercise.duration = Number(req.body.duration);
-      exercise.date = Date.parse(req.body.date);
+    .then(post => {
+		post.title = req.body.title;
+		post.description = req.body.description;
+		post.body = req.body.body;
 
-      exercise.save()
-        .then(() => res.json('Exercise updated!'))
+      post.save()
+        .then(() => res.json('Post updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

@@ -67,9 +67,9 @@ export default class Login extends Component {
           this.setState({
             loginSuccess: true,
             error: false,
-            user: res
+            // user: res
           });
-          console.log(res)
+          // console.log(res)
         }
       })
 
@@ -77,6 +77,8 @@ export default class Login extends Component {
   }
 
   render() {
+
+    console.log(this.state.user)
     const root = {
       height: '100vh'
     }
