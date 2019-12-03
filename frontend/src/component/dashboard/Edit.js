@@ -32,7 +32,14 @@ export default class AddPost extends Component {
     console.log(data);
 
     axios.post('http://localhost:4000/to/updatePost/' + id, data)
-      .then(res => console.log(res.data));
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          title: '',
+          description: '',
+          body: ''
+        })
+      });
 
   }
 

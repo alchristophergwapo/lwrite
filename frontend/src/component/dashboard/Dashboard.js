@@ -11,7 +11,25 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios'
-import { maxWidth } from "@material-ui/system";
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const usestyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +41,14 @@ export default class Dashboard extends Component {
           title: "Love Lost",
           description: "This is my first post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         },
 
         {
@@ -31,7 +56,14 @@ export default class Dashboard extends Component {
           title: "Journey",
           description: "This is my second post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         },
 
         {
@@ -39,7 +71,14 @@ export default class Dashboard extends Component {
           title: "Love",
           description: "This is my third post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         },
 
         {
@@ -47,7 +86,14 @@ export default class Dashboard extends Component {
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         },
 
         {
@@ -55,7 +101,14 @@ export default class Dashboard extends Component {
           title: "Allow me",
           description: "This is my fifth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         },
 
         {
@@ -63,7 +116,14 @@ export default class Dashboard extends Component {
           title: "Closure and A Small Consolation",
           description: "This is my sixth post with more content inside",
           image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
-          body: ""
+          body: "",
+          comments: [{
+            comment: '',
+            comment_from: {
+              first_name:'',
+              last_name:''
+            }
+          }]
         }
       ],
       readyToLoad: false,
@@ -88,11 +148,11 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{padding: '1vh'}}>
-          <Grid container spacing={10} justify="center" style={{marginTop: '1vh'}}>
+        <center style={{ padding: '1vh' }}>
+          <Grid container spacing={10} justify="center" style={{ marginTop: '1vh' }}>
             {this.state.posts.map(post => (
               <Grid item key={post.title}>
-                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto',maxHeight: '70%' }}>
+                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '70%' }}>
                   <Card>
                     <CardActionArea>
                       <div>
@@ -130,16 +190,50 @@ export default class Dashboard extends Component {
                       <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                     </CardActionArea>
                     <CardActions>
-                      <Button size="small" color="primary">Share</Button>
-                      <Button size="small" color="primary">Learn More</Button>
-                      <IconButton><ExpandMoreIcon /></IconButton>
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                          <Button size="small" color="primary"><ShareIcon />Share</Button>
+                          <Typography style={usestyles.heading}>Comment</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          {post.comments.map(comment => (
+                            <div>
+                              <CardHeader
+                                avatar={
+                                  <Avatar aria-label={post.user_name}>
+                                    R
+                                </Avatar>
+
+                                }
+                                title={
+                                  <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
+                                }
+                              >
+                              </CardHeader>
+                              <Typography>{comment.comment}</Typography>
+                            </div>
+                          ))}
+                        </ExpansionPanelDetails>
+                        <Divider />
+                        <ExpansionPanelActions>
+                          <form onSubmit={this.handleSubmit}>
+                            <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                            </TextField>
+                            <Button onClick={() => {
+                              this.handleComment(post._id)
+                            }}>
+                              <Send>Comment</Send>
+                            </Button>
+
+                          </form>
+                        </ExpansionPanelActions>
+                      </ExpansionPanel>
                     </CardActions>
-                    <CardActionArea>
-                      <form>
-                        <TextField style={{ width: "70%" }} onChange={(e) => this.setState({ comment: e.target.value })} placeholder="Comment" />
-                        <Button>Comment<Send /></Button>
-                      </form>
-                    </CardActionArea>
                   </Card>
                 </div>
               </Grid>

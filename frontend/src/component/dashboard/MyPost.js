@@ -193,11 +193,23 @@ export default class MyPost extends Component {
                           <Typography style={usestyles.heading}>Comment</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
-                          </Typography>
-
+                          {post.comments.map(comment => (
+                            <div>
+                              <CardHeader 
+                              avatar={
+                                <Avatar aria-label={post.user_name}>
+                                  R
+                                </Avatar>
+                              
+                              }
+                              title = {
+                                <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
+                              }
+                              >
+                              </CardHeader>
+                              <Typography>{comment.comment}</Typography>
+                            </div>
+                          ))}
                         </ExpansionPanelDetails>
                         <Divider />
                         <ExpansionPanelActions>
