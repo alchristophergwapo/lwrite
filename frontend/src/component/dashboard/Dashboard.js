@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios'
+import { maxWidth } from "@material-ui/system";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -87,63 +88,65 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <Grid container spacing={10} justify="center">
-          {this.state.posts.map(post => (
-            <Grid item key={post.title}>
-              <div style={{ marginBottom: "20px", marginLeft: "20px" }}>
-                <Card>
-                  <CardActionArea>
-                    <div>
-                      <CardHeader
-                        avatar={
-                          <Avatar aria-label="">
-                            R
+        <center style={{ marginTop: 20, padding: 20, }}>
+          <Grid container spacing={10} justify="center">
+            {this.state.posts.map(post => (
+              <Grid item key={post.title}>
+                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%' }}>
+                  <Card>
+                    <CardActionArea>
+                      <div>
+                        <CardHeader
+                          avatar={
+                            <Avatar aria-label="">
+                              R
                         </Avatar>
-                        }
-                        title={
-                          <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
-                        }
-                        subheader={
-                          <Typography>
+                          }
+                          title={
+                            <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
+                          }
+                          subheader={
+                            <Typography>
 
+                            </Typography>
+                          }
+                        />
+                        <CardContent>
+
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {post.title}
                           </Typography>
-                        }
+                          <Typography component="p">{post.description}</Typography>
+
+                        </CardContent>
+                      </div>
+                      <CardMedia
+                        component="img"
+                        alt=" "
+                        height='auto'
+                        image={post.image}
+                        title=" "
                       />
-                      <CardContent>
+                      <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
+                    </CardActionArea>
+                    <CardActions>
+                      <Button size="small" color="primary">Share</Button>
+                      <Button size="small" color="primary">Learn More</Button>
+                      <IconButton><ExpandMoreIcon /></IconButton>
+                    </CardActions>
+                    <CardActionArea>
+                      <form>
+                        <TextField style={{ width: "70%" }} onChange={(e) => this.setState({ comment: e.target.value })} placeholder="Comment" />
+                        <Button>Comment<Send /></Button>
+                      </form>
+                    </CardActionArea>
+                  </Card>
+                </div>
+              </Grid>
 
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {post.title}
-                        </Typography>
-                        <Typography component="p">{post.description}</Typography>
-
-                      </CardContent>
-                    </div>
-                    <CardMedia
-                      component="img"
-                      alt=" "
-                      height='auto'
-                      image={post.image}
-                      title=" "
-                    />
-                    <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary">Share</Button>
-                    <Button size="small" color="primary">Learn More</Button>
-                    <IconButton><ExpandMoreIcon /></IconButton>
-                  </CardActions>
-                  <CardActionArea>
-                    <form>
-                      <TextField style={{ width: "70%" }} onChange={(e) => this.setState({comment: e.target.value})} placeholder="Comment" />
-                      <Button>Comment<Send/></Button>
-                    </form>
-                  </CardActionArea>
-                </Card>
-              </div>
-            </Grid>
-
-          ))}
-        </Grid>
+            ))}
+          </Grid>
+        </center>
       )
     }
   }

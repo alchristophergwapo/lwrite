@@ -1,57 +1,54 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import './App.css';
-import { makeStyles } from '@material-ui/core/styles';
-import MediaCapture from './MediaCapture';
-import User from './profile/User';
-import ImageAvatars from './profile/ImageAvatars';
-import ClickAway from './profile/ClickAway';
-import UserInformation from './UserInformation';
-import AlignItemsList from './AlignItemsList';
+import React, { Component } from 'react'
+import { Button, Icon, Modal } from 'semantic-ui-react'
 
-// import InteractiveList from './profile/InteractiveList';
+class NestedModal extends Component {
+  state = { open: false }
 
+  open = () => this.setState({ open: true })
+  close = () => this.setState({ open: false })
 
-const useStyles = makeStyles(theme => ({
-  input: {
-    display: 'none'
-  },
-  fab: {
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
+  render() {
+    const { open } = this.state
 
-export default function EditBody() {
-
-  const classes = useStyles();
-
-
-
-  return (
-    
-    
-      <div className={classes.root}>
-        <User />
-     
-      <ImageAvatars />
-      <ClickAway/>
-      <MediaCapture />
-      <AlignItemsList/>
-      {/* <EditInfo/>
-      <UserInformation/> */}
-{/* 
-
-       */}
-     {/* <EditUsertextField /> */}
-     
-     
-      
-   
-      
-    </div>
-  );
+    return (
+      <Modal
+        open={open}
+        onOpen={this.open}
+        onClose={this.close}
+        size='small'
+        trigger={
+          <Button primary icon>
+            Proceed <Icon name='right chevron' />
+          </Button>
+        }
+      >
+        <Modal.Header>Modal #2</Modal.Header>
+        <Modal.Content>
+          <p>That's everything!</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button icon='check' content='All Done' onClick={this.close} />
+        </Modal.Actions>
+      </Modal>
+    )
+  }
 }
 
+const ModalExampleMultiple = () => (
+  <Modal trigger={<Button>Multiple Modals</Button>}>
+    <Modal.Header>Modal #1</Modal.Header>
+    <Modal.Content image>
+      <div className='image'>
+        <Icon name='right arrow' />
+      </div>
+      <Modal.Description>
+        <p>We have more to share with you. Follow us along to modal 2</p>
+      </Modal.Description>
+    </Modal.Content>
+    <Modal.Actions>
+      <NestedModal />
+    </Modal.Actions>
+  </Modal>
+)
+
+export default ModalExampleMultiple

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import MediaCapture from '../MediaCapture';
+import MediaCapture from '../dashboard/MediaCapture';
 // import MediaCapture from  './MediaCapture';
 
 const useStyles = makeStyles(theme => ({
