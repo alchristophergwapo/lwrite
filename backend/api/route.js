@@ -84,14 +84,18 @@ routes.route('/deletePost/:id').delete(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
-routes.route('/updatePost/:_id')
-.post(function(req, res) {
- console.log(req.body);
-  Posts.update({_id: req.body._id}, req.body, function(err, post) {
-      if (err)
-        res.send(err);
-      res.send('Post successfully updated!'+ post);
-  });
+routes.route('/updatePost/:_id').post(function(req, res) {
+	Posts.findById(req.params._id)
+    .then(post => {
+		post.title = req.body.title;
+		post.body = req.body.body;
+		post.description = req.body.description;
+
+      post.save()
+        .then(() => res.json('Post updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 routes.route('/addComment/:_id').put(function (req, res) {
