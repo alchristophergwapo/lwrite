@@ -1,34 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import { Grid, Typography, TextField, IconButton } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Send from '@material-ui/icons/Send'
-import axios from 'axios'
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Grid, Typography, TextField, IconButton, ListItemAvatar } from "@material-ui/core";
+import {
+  Card, CardActionArea, CardActions, CardContent, Button, CardHeader, Avatar,
+  Menu, MenuItem, styles as makeStyles, ExpansionPanel, ExpansionPanelSummary,
+  ExpansionPanelDetails, ExpansionPanelActions, Divider, List, ListItem, ListItemText
+} from '@material-ui/core'
+import {
+  Send, Favorite as FavoriteIcon, Share as ShareIcon, ExpandMore as ExpandMoreIcon,
+  MoreVert as MoreVertIcon, Image as ImageIcon
+} from '@material-ui/icons'
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import Divider from '@material-ui/core/Divider';
+import axios from 'axios'
 // import deletePost from '../../services/PostServices';
 // import Edit from './Edit';
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
-import EditBody from './EditBody'
+// import EditBody from './EditBody'
 import Edit from './Edit';
 
 const usestyles = makeStyles(theme => ({
@@ -38,6 +27,11 @@ const usestyles = makeStyles(theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+  },
+  rootList: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -120,15 +114,15 @@ export default class MyPost extends Component {
     if (this.state.readyToLoad) {
       return (
         <center style={{ marginTop: 20, padding: 20, }}>
-          <Grid container spacing={10} justify="center">
+          <Grid container spacing={5} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
                 <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
                   <Card>
                     <CardHeader
                       avatar={
-                        <Avatar aria-label={post.user_name}>
-                          R
+                        <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
+                          U
                             </Avatar>
                       }
                       action={
@@ -193,26 +187,16 @@ export default class MyPost extends Component {
                           <Typography style={usestyles.heading}>Comment</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                          {post.comments.map(comment => (
-                            <div>
-                              <CardHeader
-                                avatar={
-                                  <Avatar aria-label={post.user_name}>
-                                    R
-                                </Avatar>
-
-                                }
-                                title={
-                                  <div><Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography></div>
-                                }
-                              >
-                              </CardHeader>
-                              <div>
-                                <Typography>{comment.comment}</Typography>
-                              </div>
-                              <br/>
-                            </div>
-                          ))}
+                          <List style={usestyles.rootList}>
+                            {post.comments.map(comment => (
+                              <ListItem>
+                                <ListItemAvatar>
+                                  <Avatar><ImageIcon></ImageIcon></Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
+                              </ListItem>
+                            ))}
+                          </List>
                         </ExpansionPanelDetails>
                         <Divider />
                         <ExpansionPanelActions>
@@ -220,9 +204,10 @@ export default class MyPost extends Component {
                             <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
                             </TextField>
                             <Button onClick={() => {
-                              this.handleComment(post._id)
+                              this.handleComment(post._id);
+                              this.setState({ comment: "" })
                             }}>
-                              <Send>Comment</Send>
+                              <Send />Comment
                             </Button>
 
                           </form>
@@ -231,8 +216,6 @@ export default class MyPost extends Component {
                     </CardActions>
                     <CardActions disableSpacing>
                     </CardActions>
-
-
                   </Card>
                 </div>
               </Grid>

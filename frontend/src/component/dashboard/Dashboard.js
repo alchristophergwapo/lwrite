@@ -1,24 +1,9 @@
 import React, { Component } from "react";
-import { Grid, Typography, CardHeader, TextField } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Send from '@material-ui/icons/Send'
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Grid, Typography, CardHeader, TextField, Card, CardActionArea, CardActions, CardContent, CardMedia, 
+  Button, Avatar ,ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, 
+  ExpansionPanelActions, Divider, styles as makeStyles } from "@material-ui/core";
+import {Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon} from '@material-ui/icons'
 import axios from 'axios'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import Divider from '@material-ui/core/Divider';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import { makeStyles } from '@material-ui/core/styles';
 
 
 const usestyles = makeStyles(theme => ({
@@ -148,13 +133,13 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ padding: '1vh' }}>
-          <Grid container spacing={10} justify="center" style={{ marginTop: '1vh' }}>
+        <center style={{ padding: '1vh', backgroundColor: 'rgb(100, 181, 246)' }}>
+          <Grid container spacing={5} justify="center" style={{ marginTop: '1vh'}}>
             {this.state.posts.map(post => (
               <Grid item key={post.title}>
-                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '70%' }}>
-                  <Card>
-                    <CardActionArea>
+                <div style={{ marginBottom: "20px", marginLeft: "10px", width: '300px', maxWidth: '100%' }}>
+                  <Card >
+                    <CardActionArea >
                       <div>
                         <CardHeader
                           avatar={
@@ -186,11 +171,12 @@ export default class Dashboard extends Component {
                         height='auto'
                         image={post.image}
                         title=" "
+                        // style={{height: '350px', border: '1px solid black'}}
                       />
                       <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                     </CardActionArea>
                     <CardActions>
-                      <ExpansionPanel>
+                      <ExpansionPanel style={{backgroundColor:"rgb(144, 202, 249)"}} >
                         <ExpansionPanelSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel2a-content"

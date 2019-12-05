@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {Avatar, Button, CssBaseline, TextField, Grid, Typography, Paper,InputAdornment, } from '@material-ui/core'
+import {AccountCircleIcon, AccountCircle, Lock as LockIcon, Done as DoneIcon} from '@material-ui/icons';
 import axios from 'axios'
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import LockIcon from '@material-ui/icons/Lock';
-import DoneIcon from '@material-ui/icons/Done';
 // import IconButton from '@material-ui/core/IconButton';
 
 export default class Login extends Component {
@@ -98,7 +88,7 @@ export default class Login extends Component {
       margin: '3vh'
     }
     const avatar = {
-      backgroundColor: 'blue',
+      backgroundColor: '#2196F3',
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
@@ -137,7 +127,7 @@ export default class Login extends Component {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="start">
-                            <AccountCircle />
+                            <AccountCircle color="primary" />
                           </InputAdornment>
                         ),
                       }}
@@ -157,7 +147,7 @@ export default class Login extends Component {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="start">
-                            <LockIcon />
+                            <LockIcon color="primary"/>
                           </InputAdornment>
                         ),
                       }}
