@@ -27,6 +27,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Login from '../login&register/Login';
 import ImageAvatars from './ImageAvatars';
 import ClickAway from './ClickAway';
+import AlignItemsList from './AlignItemsList';
+
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -78,13 +80,14 @@ export default class DashboardHeader extends Component {
                                                     {...bindTrigger(popupState)}
 
                                                 >
-                                                    <Avatar><AccountCircleIcon /></Avatar>
+                                                    <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"></Avatar>
                                                 </IconButton >
                                                 <Menu {...bindMenu(popupState)}>
                                                     <MenuItem onClick={popupState.close} component={Link} to='/edit'>Profile</MenuItem>
                                                     {/* <MediaCapture/> */}
                                                     <ImageAvatars/>
                                                     <ClickAway/>
+                                                    <AlignItemsList/>
                                                     <MenuItem onClick={() => {
                                                         popupState;
                                                         this.setState({logout: true})
