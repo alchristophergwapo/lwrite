@@ -89,7 +89,7 @@ class Register extends Component {
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            height: '90vh'
+            height: '100vh'
         }
 
         const paper = {
@@ -100,7 +100,7 @@ class Register extends Component {
             margin: '3vh'
         }
         const avatar = {
-            backgroundColor: 'blue',
+            backgroundColor: '#2196F3',
         }
         const form = {
             width: '100%', // Fix IE 11 issue.
@@ -138,7 +138,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <CreateIcon />
+                                                        <CreateIcon color="primary"/>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -157,7 +157,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <CreateIcon />
+                                                        <CreateIcon color="primary" />
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -176,7 +176,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <AccountCircle />
+                                                        <AccountCircle color="primary"/>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -198,7 +198,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <LockIcon />
+                                                        <LockIcon color="primary"/>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -219,7 +219,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <LockIcon />
+                                                        <LockIcon color="primary"/>
                                                     </InputAdornment>
                                                 ),
                                             }}

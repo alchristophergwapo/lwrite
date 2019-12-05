@@ -98,7 +98,7 @@ export default class Login extends Component {
       margin: '3vh'
     }
     const avatar = {
-      backgroundColor: 'blue',
+      backgroundColor: '#2196F3',
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
@@ -137,7 +137,7 @@ export default class Login extends Component {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="start">
-                            <AccountCircle />
+                            <AccountCircle color="primary" />
                           </InputAdornment>
                         ),
                       }}
@@ -157,7 +157,7 @@ export default class Login extends Component {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="start">
-                            <LockIcon />
+                            <LockIcon color="primary"/>
                           </InputAdornment>
                         ),
                       }}

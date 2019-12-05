@@ -51,6 +51,7 @@ export default class AddPost extends Component {
     const modalCardContent = {
       display: 'flex',
       flexDirection: 'column',
+      backgroundColor: 'rgb(187, 222, 251)',
     }
     const marginTop = {
       marginTop: '2vh',
@@ -84,7 +85,7 @@ export default class AddPost extends Component {
                 placeholder={this.state.data.body}
                 />
             </CardContent>
-            <CardActions>
+            <CardActions >
               <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
               <Button size="small" >Cancel</Button>
             </CardActions>

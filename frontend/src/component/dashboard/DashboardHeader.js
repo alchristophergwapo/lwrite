@@ -38,6 +38,9 @@ const usestyles = makeStyles(theme => ({
     },
 
 }));
+const avatar = {
+    backgroundColor: '#3F51B5',
+  }
 
 export default class DashboardHeader extends Component {
     constructor(props) {
@@ -58,9 +61,9 @@ export default class DashboardHeader extends Component {
         } if(!this.state.logout) {
             return (
                 <Router>
-                    <Fragment>
+                    <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar position="static">
+                            <AppBar style={{ backgroundColor: '#2196F3'}} position="static">
                                 <Toolbar>
                                     <PopupState variant="popover" popupId="demo-popup-menu">
                                         {popupState => (
@@ -75,7 +78,7 @@ export default class DashboardHeader extends Component {
                                                     {...bindTrigger(popupState)}
 
                                                 >
-                                                    <Avatar><AccountCircleIcon /></Avatar>
+                                                    <Avatar style={avatar}><AccountCircleIcon fontSize="large"/></Avatar>
                                                 </IconButton >
                                                 <Menu {...bindMenu(popupState)}>
                                                     <MenuItem onClick={popupState.close} /*component={Link} to='/edit'*/>Profile</MenuItem>
@@ -90,7 +93,7 @@ export default class DashboardHeader extends Component {
                                         )}
                                     </PopupState>
                                 <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
-                                <div className={usestyles.searchIcon}>
+                                {/* <div className={usestyles.searchIcon}>
                                     <SearchIcon />
                                 </div>
                                 <InputBase
@@ -100,11 +103,11 @@ export default class DashboardHeader extends Component {
                                         input: usestyles.inputInput,
                                     }}
                                     inputProps={{ 'aria-label': 'search' }}
-                                />
+                                /> */}
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , padding:"1vh", width: '150px', maxWidth: '100%'}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , padding:"1vh", width: '150px', maxWidth: '100%'}}component={Link} to='/post'><Book /> Posts</Button>
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , padding:"1vh", width: '150px', maxWidth: '100%'}} component={Link} to='/home'><HomeOutlinedIcon fontSize="large" />Home</Button >
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , padding:"1vh", width: '150px', maxWidth: '100%'}}component={Link} to='/post'><Book fontSize="large" /> Posts</Button>
                                         {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
                                     </ListItem>
                                 </List>

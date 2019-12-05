@@ -148,7 +148,7 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ padding: '1vh' }}>
+        <center style={{ padding: '1vh', backgroundColor: 'rgb(100, 181, 246)' }}>
           <Grid container spacing={10} justify="center" style={{ marginTop: '1vh' }}>
             {this.state.posts.map(post => (
               <Grid item key={post.title}>
@@ -190,7 +190,7 @@ export default class Dashboard extends Component {
                       <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                     </CardActionArea>
                     <CardActions>
-                      <ExpansionPanel>
+                      <ExpansionPanel style={{backgroundColor:"rgb(144, 202, 249)"}} >
                         <ExpansionPanelSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel2a-content"

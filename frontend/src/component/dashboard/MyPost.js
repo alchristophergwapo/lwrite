@@ -127,8 +127,8 @@ export default class MyPost extends Component {
                   <Card>
                     <CardHeader
                       avatar={
-                        <Avatar aria-label={post.user_name}>
-                          R
+                        <Avatar style={{backgroundColor:"#3F51B5"}} aria-label={post.user_name}>
+                          U
                             </Avatar>
                       }
                       action={
