@@ -15,13 +15,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
 // import deletePost from '../../services/PostServices';
 // import Edit from './Edit';
 const styleLink = document.createElement("link");
@@ -30,6 +30,16 @@ styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css
 document.head.appendChild(styleLink);
 import EditBody from './EditBody'
 import Edit from './Edit';
+
+const usestyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
 export default class MyPost extends Component {
   state = {
@@ -125,27 +135,27 @@ export default class MyPost extends Component {
                         <PopupState variant="popover" popupId="demo-popup-menu">
                           {popupState => (
                             <div>
-                                <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
-                                <Menu {...bindMenu(popupState)}>
-                                  <MenuItem onClick={popupState.close}></MenuItem>
-                                  <MenuItem onClick={() => {
-                                    popupState.close;
-                                    this.deletePostHandle(post._id);
+                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                              <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={popupState.close}></MenuItem>
+                                <MenuItem onClick={() => {
+                                  popupState.close;
+                                  this.deletePostHandle(post._id);
 
-                                  }} >Delete</MenuItem>
-                                  <MenuItem onClick={() => {
-                                    popupState.close;
-                                    this.handleClickOpen({
-                                      user: this.state.userData,
-                                      title: post.title,
-                                      description: post.description,
-                                      body: post.body,
-                                      id: post.id,
-                                    });
+                                }} >Delete</MenuItem>
+                                <MenuItem onClick={() => {
+                                  popupState.close;
+                                  this.handleClickOpen({
+                                    user: this.state.userData,
+                                    title: post.title,
+                                    description: post.description,
+                                    body: post.body,
+                                    id: post._id,
+                                  });
 
-                                  }}
-                                  >Edit</MenuItem>
-                                </Menu>
+                                }}
+                                >Edit</MenuItem>
+                              </Menu>
                             </div>
                           )}
                         </PopupState>
@@ -171,25 +181,55 @@ export default class MyPost extends Component {
                     </CardActionArea>
 
                     <CardActions>
-                      <Button size="small" color="primary"><FavoriteIcon />Love</Button>
-                      <Button size="small" color="primary"><ShareIcon />Share</Button>
-                      <IconButton><ExpandMoreIcon /></IconButton>
+
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                          <Button size="small" color="primary"><ShareIcon />Share</Button>
+                          <Typography style={usestyles.heading}>Comment</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          {post.comments.map(comment => (
+                            <div>
+                              <CardHeader 
+                              avatar={
+                                <Avatar aria-label={post.user_name}>
+                                  R
+                                </Avatar>
+                              
+                              }
+                              title = {
+                                <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
+                              }
+                              >
+                              </CardHeader>
+                              <Typography>{comment.comment}</Typography>
+                            </div>
+                          ))}
+                        </ExpansionPanelDetails>
+                        <Divider />
+                        <ExpansionPanelActions>
+                          <form onSubmit={this.handleSubmit}>
+                            <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                            </TextField>
+                            <Button onClick={() => {
+                              this.handleComment(post._id)
+                            }}>
+                              <Send>Comment</Send>
+                            </Button>
+
+                          </form>
+                        </ExpansionPanelActions>
+                      </ExpansionPanel>
                     </CardActions>
                     <CardActions disableSpacing>
                     </CardActions>
 
-                    <CardActionArea>
-                      <form onSubmit={this.handleSubmit}>
-                        <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
-                        </TextField>
-                        <Button onClick={() => {
-                          this.handleComment(post._id)
-                        }}>
-                          <Send>Comment</Send>
-                        </Button>
 
-                      </form>
-                    </CardActionArea>
                   </Card>
                 </div>
               </Grid>
@@ -203,13 +243,13 @@ export default class MyPost extends Component {
 
   render() {
 
-    if(this.state.setOpen === false) {
+    if (this.state.setOpen === false) {
       return (
-          <div>{this.loadMyPost()}</div>
-        )
+        <div>{this.loadMyPost()}</div>
+      )
     }
-    else{
-      return(
+    else {
+      return (
         <Edit data={this.state.data}></Edit>
       )
     }

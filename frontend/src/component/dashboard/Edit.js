@@ -21,7 +21,9 @@ export default class AddPost extends Component {
     })
   }
 
-  onSubmit = id => {
+  onSubmit = (id, e) => {
+    console.log(id)
+    e.preventDefault();
     const data = {
       title: this.state.title,
       description: this.state.description,
@@ -30,7 +32,14 @@ export default class AddPost extends Component {
     console.log(data);
 
     axios.post('http://localhost:4000/to/updatePost/' + id, data)
-      .then(res => console.log(res.data));
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          title: '',
+          description: '',
+          body: ''
+        })
+      });
 
   }
 
@@ -46,27 +55,24 @@ export default class AddPost extends Component {
     const marginTop = {
       marginTop: '2vh',
     }
-    console.log(this.state.user)
     return (
       <center style={{ marginTop: '5vh' }}>
         <Card style={modalCard}>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={e => this.onSubmit(this.state.data.id,e)}>
             <CardContent style={modalCardContent}>
               <TextField
                 label="Title"
                 id="title"
                 onChange={this.onChange}
                 placeholder={this.state.data.title}
-                >{this.state.data.title}
-                </TextField>
+                />
               <TextField
                 label="What can you say about this?"
                 multiline rows={3}
                 id="description"
                 onChange={this.onChange}
                 placeholder={this.state.data.description}
-                >{this.state.data.description}
-                </TextField>
+                />
               <TextField
                 style={marginTop}
                 label="Body"
@@ -76,11 +82,10 @@ export default class AddPost extends Component {
                 required
                 onChange={this.onChange}
                 placeholder={this.state.data.body}
-                >{this.state.data.body}
-                </TextField>
+                />
             </CardContent>
             <CardActions>
-              <Button size="small" color="primary" onClick={this.onSubmit(this.state.data.id)}>Save</Button>
+              <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
               <Button size="small" >Cancel</Button>
             </CardActions>
           </form>

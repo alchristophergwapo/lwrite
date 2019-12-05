@@ -1,4 +1,6 @@
-const express = require('express');
+const express = require('express'),
+	multer = require('multer'),
+	uuidv4 = require('uuid/v4');
 const routes = express.Router();
 const bcrypt = require('bcryptjs');
 let Registration = require('./registrationSchema');
@@ -41,7 +43,7 @@ routes.route('/validateUsername').post(function (req, res) {
 
 // 
 routes.route('/getUser/:user_name').get(function (req, res) {
-	Registration.findOne({user_name: req.params.user_name })
+	Registration.findOne({ user_name: req.params.user_name })
 		.then(user => {
 			res.send(user)
 		})
@@ -84,18 +86,18 @@ routes.route('/deletePost/:id').delete(function (req, res) {
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
-routes.route('/updatePost/:_id').post(function(req, res) {
+routes.route('/updatePost/:_id').post(function (req, res) {
 	Posts.findById(req.params._id)
-    .then(post => {
-		post.title = req.body.title;
-		post.body = req.body.body;
-		post.description = req.body.description;
+		.then(post => {
+			post.title = req.body.title;
+			post.description = req.body.description;
+			post.body = req.body.body;
 
-      post.save()
-        .then(() => res.json('Post updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-    })
-    .catch(err => res.status(400).json('Error: ' + err));
+			post.save()
+				.then(() => res.json('Post updated!'))
+				.catch(err => res.status(400).json('Error: ' + err));
+		})
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
 routes.route('/addComment/:_id').put(function (req, res) {
@@ -111,6 +113,60 @@ routes.route('/addComment/:_id').put(function (req, res) {
 				console.log(req.body)
 			}
 		})
+})
+
+const DIR = '../public/images/';
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, DIR);
+	},
+	filename: (req, file, cb) => {
+		const fileName = file.originalname.toLowerCase().split(' ').join('-');
+		cb(null, uuidv4() + '-' + fileName)
+	}
+});
+
+var upload = multer({
+	storage: storage,
+	fileFilter: (req, file, cb) => {
+		if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+			cb(null, true);
+		} else {
+			cb(null, false);
+			return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+		}
+	}
+});
+
+routes.route('/updateProfile', upload.single('profileImg')).post(function (req, res, next) {
+	Registration.findById(req.params._id)
+		.then(user => {
+			const url = req.protocol + '://' + req.get('host')
+
+			user.first_name = req.body.first_name;
+			user.last_name = req.body.last_name;
+			user.user_name = req.body.user_name;
+			user.password = req.body.password;
+			profile_image = url + '/public/images' + req.file.filename
+
+			user.save().then(result => {
+				res.status(201).json({
+					message: "User updated successfully!",
+					userUpdated: {
+						result: result
+					}
+				})
+			}).catch(err => {
+				console.log(err),
+					res.status(500).json({
+						error: err
+					});
+			})
+		})
+		.catch(err => res.status(400).json('Error: ' + err));
+
+
 })
 
 module.exports = routes;
