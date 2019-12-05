@@ -70,7 +70,7 @@ export default class DashboardHeader extends Component {
                                     <PopupState variant="popover" popupId="demo-popup-menu">
                                         {popupState => (
                                             <Router>
-                                            <React.Fragment>
+                                            <Fragment>
                                                 <IconButton
                                                     aria-label="account of current user"
                                                     aria-controls="primary-search-account-menu"
@@ -94,7 +94,7 @@ export default class DashboardHeader extends Component {
                                                     }}
                                                     >Logout</MenuItem>
                                                 </Menu>
-                                            </React.Fragment>
+                                            </Fragment>
                                             </Router>
                                         )}
                                     </PopupState>
@@ -112,8 +112,8 @@ export default class DashboardHeader extends Component {
                                 />
                                 <List component="nav">
                                     <ListItem>
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}}component={Link} to='/post'><Book /> Posts</Button>
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , padding:"1vh", width: '150px', maxWidth: '100%'}} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , padding:"1vh", width: '150px', maxWidth: '100%'}}component={Link} to='/post'><Book /> Posts</Button>
                                         {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
                                     </ListItem>
                                 </List>
@@ -128,7 +128,7 @@ export default class DashboardHeader extends Component {
                             </Fab>
                         </div>
                         <main
-                            style={{ marginTop: '10vh' }}
+                            style={{ marginTop: '1vh' }}
                         >
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />

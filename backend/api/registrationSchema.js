@@ -23,7 +23,7 @@ let Registration = new Schema({
 		trim: true
 	},
 	profile_image: {
-		
+		type: String
 	}
 },{
 		collection: 'Registration'

@@ -15,15 +15,31 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
 // import deletePost from '../../services/PostServices';
+// import Edit from './Edit';
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
+// import EditBody from './EditBody'
 import Edit from './Edit';
+
+const usestyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
 export default class MyPost extends Component {
   state = {
@@ -34,15 +50,17 @@ export default class MyPost extends Component {
     userData: [],
     comment: '',
     setOpen: false,
-    open: false
+    open: false,
+    data: []
   };
 
-  handleClickOpen = () => {
-    this.setState({setOpen: true})
+  handleClickOpen = (data) => {
+    console.log(data)
+    this.setState({ setOpen: true, data: data })
   };
 
   handleClose = () => {
-    this.setState({setOpen: false})
+    this.setState({ setOpen: false })
   };
 
   componentDidMount() {
@@ -98,27 +116,14 @@ export default class MyPost extends Component {
       })
   }
 
-  handleEdit = id => {
-    const post = {
-      // title: this.state.title,
-      // body: this.state.body,
-      // description: this.state.description,
-    };
-
-    console.log(post);
-
-    axios.post('http://localhost:4000/to/updatePost/' + id, post)
-      .then(res => console.log(res.data));
-  }
-
   loadMyPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ marginTop: 20, padding: 20, width: 'auto', height: 'auto' }}>
-          <Grid container spacing={10} justify="center" >
+        <center style={{ marginTop: 20, padding: 20, }}>
+          <Grid container spacing={10} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
-                <div style={{ marginBottom: 20, marginLeft: 20 }}>
+                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
                   <Card>
                     <CardHeader
                       avatar={
@@ -136,39 +141,21 @@ export default class MyPost extends Component {
                                 <MenuItem onClick={() => {
                                   popupState.close;
                                   this.deletePostHandle(post._id);
-                                  console.log(post._id)
+
                                 }} >Delete</MenuItem>
-                                <MenuItem onClick={() =>{
+                                <MenuItem onClick={() => {
                                   popupState.close;
-                                  this.handleClickOpen
+                                  this.handleClickOpen({
+                                    user: this.state.userData,
+                                    title: post.title,
+                                    description: post.description,
+                                    body: post.body,
+                                    id: post._id,
+                                  });
+
                                 }}
-                                  >Edit</MenuItem>
+                                >Edit</MenuItem>
                               </Menu>
-                              <Dialog open={this.state.setOpen} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-                                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                                <DialogContent>
-                                  <DialogContentText>
-                                    To subscribe to this website, please enter your email address here. We will send updates
-                                    occasionally.
-                                  </DialogContentText>
-                                  <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Email Address"
-                                    type="email"
-                                    fullWidth
-                                  />
-                                </DialogContent>
-                                <DialogActions>
-                                  <Button onClick={this.handleClose} color="primary">
-                                    Cancel
-                                    </Button>
-                                  <Button onClick={this.handleClose} color="primary">
-                                    subscribe
-                                    </Button>
-                                </DialogActions>
-                              </Dialog>
                             </div>
                           )}
                         </PopupState>
@@ -194,25 +181,55 @@ export default class MyPost extends Component {
                     </CardActionArea>
 
                     <CardActions>
-                      <Button size="small" color="primary"><FavoriteIcon />Love</Button>
-                      <Button size="small" color="primary"><ShareIcon />Share</Button>
-                      <IconButton><ExpandMoreIcon /></IconButton>
+
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Button size="small" color="primary"><FavoriteIcon />Love</Button>
+                          <Button size="small" color="primary"><ShareIcon />Share</Button>
+                          <Typography style={usestyles.heading}>Comment</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          {post.comments.map(comment => (
+                            <div>
+                              <CardHeader 
+                              avatar={
+                                <Avatar aria-label={post.user_name}>
+                                  R
+                                </Avatar>
+                              
+                              }
+                              title = {
+                                <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
+                              }
+                              >
+                              </CardHeader>
+                              <Typography>{comment.comment}</Typography>
+                            </div>
+                          ))}
+                        </ExpansionPanelDetails>
+                        <Divider />
+                        <ExpansionPanelActions>
+                          <form onSubmit={this.handleSubmit}>
+                            <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                            </TextField>
+                            <Button onClick={() => {
+                              this.handleComment(post._id)
+                            }}>
+                              <Send>Comment</Send>
+                            </Button>
+
+                          </form>
+                        </ExpansionPanelActions>
+                      </ExpansionPanel>
                     </CardActions>
                     <CardActions disableSpacing>
                     </CardActions>
 
-                    <CardActionArea>
-                      <form onSubmit={this.handleSubmit}>
-                        <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
-                        </TextField>
-                        <Button onClick={() => {
-                          this.handleComment(post._id)
-                        }}>
-                          <Send>Comment</Send>
-                        </Button>
 
-                      </form>
-                    </CardActionArea>
                   </Card>
                 </div>
               </Grid>
@@ -226,11 +243,15 @@ export default class MyPost extends Component {
 
   render() {
 
-    return (
-
-      <div>
-        {this.loadMyPost()}
-      </div>
-    )
+    if (this.state.setOpen === false) {
+      return (
+        <div>{this.loadMyPost()}</div>
+      )
+    }
+    else {
+      return (
+        <Edit data={this.state.data}></Edit>
+      )
+    }
   }
 }
