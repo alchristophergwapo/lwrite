@@ -21,10 +21,15 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+// import MediaCapture from './MediaCapture';
 // import ChatList from './chatList/App/index'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Login from '../login&register/Login';
-import EditBody from './EditBody';
+import ImageAvatars from './ImageAvatars';
+import ClickAway from './ClickAway';
+import AlignItemsList from './AlignItemsList';
+
+// import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
     root: {
@@ -78,10 +83,14 @@ export default class DashboardHeader extends Component {
                                                     {...bindTrigger(popupState)}
 
                                                 >
-                                                    <Avatar style={avatar}><AccountCircleIcon fontSize="large"/></Avatar>
+                                                    <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg" fontSize="large"></Avatar>
                                                 </IconButton >
                                                 <Menu {...bindMenu(popupState)}>
-                                                    <MenuItem onClick={popupState.close} /*component={Link} to='/edit'*/>Profile</MenuItem>
+                                                    <MenuItem onClick={popupState.close} component={Link} to='/edit'>Profile</MenuItem>
+                                                    {/* <MediaCapture/> */}
+                                                    <ImageAvatars/>
+                                                    <ClickAway/>
+                                                    <AlignItemsList/>
                                                     <MenuItem onClick={() => {
                                                         popupState;
                                                         this.setState({logout: true})
@@ -129,7 +138,7 @@ export default class DashboardHeader extends Component {
                                 <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
                                 {/* <Route path='/users' render={() => <div><ChatList></ChatList></div>} /> */}
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-                                
+                               
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>
