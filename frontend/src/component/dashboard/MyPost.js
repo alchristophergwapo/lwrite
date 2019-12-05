@@ -120,7 +120,7 @@ export default class MyPost extends Component {
     if (this.state.readyToLoad) {
       return (
         <center style={{ marginTop: 20, padding: 20, }}>
-          <Grid container spacing={10} justify="center">
+          <Grid container spacing={5} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
                 <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
@@ -217,7 +217,8 @@ export default class MyPost extends Component {
                             <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
                             </TextField>
                             <Button onClick={() => {
-                              this.handleComment(post._id)
+                              this.handleComment(post._id);
+                              this.setState({comment: ""})
                             }}>
                               <Send/>Comment
                             </Button>

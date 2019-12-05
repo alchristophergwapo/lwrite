@@ -149,12 +149,12 @@ export default class Dashboard extends Component {
     if (this.state.readyToLoad) {
       return (
         <center style={{ padding: '1vh', backgroundColor: 'rgb(100, 181, 246)' }}>
-          <Grid container spacing={10} justify="center" style={{ marginTop: '1vh' }}>
+          <Grid container spacing={5} justify="center" style={{ marginTop: '1vh'}}>
             {this.state.posts.map(post => (
               <Grid item key={post.title}>
-                <div style={{ marginBottom: "20px", marginLeft: "10px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '70%' }}>
-                  <Card>
-                    <CardActionArea>
+                <div style={{ marginBottom: "20px", marginLeft: "10px", width: '300px', maxWidth: '100%' }}>
+                  <Card >
+                    <CardActionArea >
                       <div>
                         <CardHeader
                           avatar={
@@ -186,6 +186,7 @@ export default class Dashboard extends Component {
                         height='auto'
                         image={post.image}
                         title=" "
+                        // style={{height: '350px', border: '1px solid black'}}
                       />
                       <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
                     </CardActionArea>
