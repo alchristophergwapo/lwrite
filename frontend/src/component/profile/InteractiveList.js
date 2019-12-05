@@ -6,7 +6,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
@@ -63,8 +62,6 @@ export default function InteractiveList() {
                                     primary="Single-line item"
                                     secondary={secondary ? 'Secondary text' : null}
                                 />
-                                
-
                                 </ListItem>
 
 
