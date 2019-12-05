@@ -194,7 +194,7 @@ export default class MyPost extends Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                           {post.comments.map(comment => (
-                            <div>
+                            <Card>
                               <CardHeader 
                               avatar={
                                 <Avatar aria-label={post.user_name}>
@@ -208,7 +208,7 @@ export default class MyPost extends Component {
                               >
                               </CardHeader>
                               <Typography>{comment.comment}</Typography>
-                            </div>
+                            </Card>
                           ))}
                         </ExpansionPanelDetails>
                         <Divider />
@@ -219,7 +219,7 @@ export default class MyPost extends Component {
                             <Button onClick={() => {
                               this.handleComment(post._id)
                             }}>
-                              <Send>Comment</Send>
+                              <Send/>Comment
                             </Button>
 
                           </form>

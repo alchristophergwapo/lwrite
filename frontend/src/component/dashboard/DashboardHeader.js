@@ -23,11 +23,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 // import MediaCapture from './MediaCapture';
 // import ChatList from './chatList/App/index'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Login from '../login&register/Login';
-import ImageAvatars from './ImageAvatars';
-import ClickAway from './ClickAway';
-import AlignItemsList from './AlignItemsList';
+import Profile from './Profile';
+import EditProfile from './EditProfile';
 
 // import EditBody from './EditBody';
 
@@ -63,67 +61,48 @@ export default class DashboardHeader extends Component {
             return (
                 <Login></Login>
             )
-        } if(!this.state.logout) {
+        } if (!this.state.logout) {
             return (
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
                             <AppBar style={{ backgroundColor: '#2196F3'}} position="static">
                                 <Toolbar>
-                                    <PopupState variant="popover" popupId="demo-popup-menu">
-                                        {popupState => (
-                                            <Router>
-                                            <Fragment>
-                                                <IconButton
-                                                    aria-label="account of current user"
-                                                    aria-controls="primary-search-account-menu"
-                                                    aria-haspopup="true"
-                                                    color="secondary"
-                                                    fontSize="30"
-                                                    {...bindTrigger(popupState)}
+                                    <IconButton
+                                        aria-label="account of current user"
+                                        aria-controls="primary-search-account-menu"
+                                        aria-haspopup="true"
+                                        color="secondary"
+                                        fontSize="30"
+                                        component={Link} to='/profile'
+                                    >
+                                        <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"></Avatar>
+                                    </IconButton >
 
-                                                >
-                                                    <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg" fontSize="large"></Avatar>
-                                                </IconButton >
-                                                <Menu {...bindMenu(popupState)}>
-                                                    <MenuItem onClick={popupState.close} component={Link} to='/edit'>Profile</MenuItem>
-                                                    {/* <MediaCapture/> */}
-                                                    <ImageAvatars/>
-                                                    <ClickAway/>
-                                                    <AlignItemsList/>
-                                                    <MenuItem onClick={() => {
-                                                        popupState;
-                                                        this.setState({logout: true})
-                                                    }}
-                                                    >Logout</MenuItem>
-                                                </Menu>
-                                            </Fragment>
-                                            </Router>
-                                        )}
-                                    </PopupState>
-                                <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
-                                {/* <div className={usestyles.searchIcon}>
-                                    <SearchIcon />
-                                </div>
-                                <InputBase
-                                    placeholder="Search…"
-                                    usestyles={{
-                                        root: usestyles.inputRoot,
-                                        input: usestyles.inputInput,
-                                    }}
-                                    inputProps={{ 'aria-label': 'search' }}
-                                /> */}
-                                <List component="nav">
-                                    <ListItem>
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "10%" , padding:"1vh", width: '150px', maxWidth: '100%'}} component={Link} to='/home'><HomeOutlinedIcon fontSize="large" />Home</Button >
-                                        <Button variant="contained" color="primary"  style={{ marginLeft: "20%" , padding:"1vh", width: '150px', maxWidth: '100%'}}component={Link} to='/post'><Book fontSize="large" /> Posts</Button>
-                                        {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
-                                    </ListItem>
-                                </List>
-                               
-                            </Toolbar>
-                        </AppBar>
-                                
+
+                                    <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
+                                    <div className={usestyles.searchIcon}>
+                                        <SearchIcon />
+                                    </div>
+                                    <InputBase
+                                        placeholder="Search…"
+                                        usestyles={{
+                                            root: usestyles.inputRoot,
+                                            input: usestyles.inputInput,
+                                        }}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                    <List component="nav">
+                                        <ListItem>
+                                            <Button variant="contained" color="primary" style={{ marginLeft: "10%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                            <Button variant="contained" color="primary" style={{ marginLeft: "20%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/post'><Book /> Posts</Button>
+                                            {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
+                                        </ListItem>
+                                    </List>
+
+                                </Toolbar>
+                            </AppBar>
+
                             <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
                                 style={{ position: 'fixed', marginTop: '1vh' }}
                             >
@@ -136,9 +115,10 @@ export default class DashboardHeader extends Component {
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts}></Dashboard></div>} />
                                 <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
-                                {/* <Route path='/users' render={() => <div><ChatList></ChatList></div>} /> */}
+                                <Route path='/profile' render={() => <div><Profile userData={this.state.user}></Profile></div>} />
+                                <Route path="editProfile" render={() => <EditProfile></EditProfile>}></Route>
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-                               
+
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>
