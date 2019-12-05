@@ -115,8 +115,7 @@ routes.route('/addComment/:_id').put(function (req, res) {
 		})
 })
 
-const DIR = '../public/images/';
-
+const DIR = '../../frontend/src/component/dashboard/images';
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, DIR);
@@ -139,7 +138,8 @@ var upload = multer({
 	}
 });
 
-routes.route('/updateProfile', upload.single('profileImg')).post(function (req, res, next) {
+
+routes.route('/updateProfile/:_id', upload.single('profileImg')).post(function (req, res, next) {
 	Registration.findById(req.params._id)
 		.then(user => {
 			const url = req.protocol + '://' + req.get('host')
@@ -148,11 +148,11 @@ routes.route('/updateProfile', upload.single('profileImg')).post(function (req, 
 			user.last_name = req.body.last_name;
 			user.user_name = req.body.user_name;
 			user.password = req.body.password;
-			profile_image = url + '/public/images' + req.file.filename
+			profile_image = url + '../../frontend/src/component/dashboard/images' + req.body.profile_image
 
 			user.save().then(result => {
 				res.status(201).json({
-					message: "User updated successfully!",
+					message: "User profile updated successfully!",
 					userUpdated: {
 						result: result
 					}

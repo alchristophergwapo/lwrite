@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Grid, Typography, CardHeader, TextField, Card, CardActionArea, CardActions, CardContent, CardMedia, 
   Button, Avatar ,ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, 
-  ExpansionPanelActions, Divider, styles as makeStyles } from "@material-ui/core";
-import {Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon} from '@material-ui/icons'
+  ExpansionPanelActions, Divider, List, ListItem, ListItemAvatar,ListItemText} from "@material-ui/core";
+import {Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon,Image as ImageIcon} from '@material-ui/icons'
 import axios from 'axios'
-
+import { makeStyles } from '@material-ui/core/styles';
 
 const usestyles = makeStyles(theme => ({
   root: {
@@ -13,6 +13,11 @@ const usestyles = makeStyles(theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+  },
+  rootList: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -112,6 +117,7 @@ export default class Dashboard extends Component {
         }
       ],
       readyToLoad: false,
+      userData: this.props.userData
     }
 
   }
@@ -128,6 +134,22 @@ export default class Dashboard extends Component {
         console.log(error);
       })
     console.log(this.state.posts);
+  }
+
+  handleComment = id => {
+
+    const data = {
+      comment: this.state.comment,
+      comment_from: this.state.userData
+    }
+    axios.put('http://localhost:4000/to/addComment/' + id, data)
+      .then((res) => {
+        console.log(res.data)
+        console.log('Comment successfully added.')
+        this.setState({ comment: '' })
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   loadPost = () => {
@@ -187,23 +209,16 @@ export default class Dashboard extends Component {
                           <Typography style={usestyles.heading}>Comment</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                          {post.comments.map(comment => (
-                            <div>
-                              <CardHeader
-                                avatar={
-                                  <Avatar aria-label={post.user_name}>
-                                    R
-                                </Avatar>
-
-                                }
-                                title={
-                                  <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
-                                }
-                              >
-                              </CardHeader>
-                              <Typography>{comment.comment}</Typography>
-                            </div>
-                          ))}
+                          <List style={usestyles.rootList}>
+                            {post.comments.map(comment => (
+                              <ListItem>
+                                <ListItemAvatar>
+                                  <Avatar><ImageIcon></ImageIcon></Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
+                              </ListItem>
+                            ))}
+                          </List>
                         </ExpansionPanelDetails>
                         <Divider />
                         <ExpansionPanelActions>
@@ -211,7 +226,8 @@ export default class Dashboard extends Component {
                             <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
                             </TextField>
                             <Button onClick={() => {
-                              this.handleComment(post._id)
+                              this.handleComment(post._id);
+                              this.setState({ comment: "" })
                             }}>
                               <Send>Comment</Send>
                             </Button>

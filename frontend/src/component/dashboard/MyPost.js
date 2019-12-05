@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { Grid, Typography, TextField, IconButton, ListItemAvatar } from "@material-ui/core";
+import {  } from "@material-ui/core";
 import {
   Card, CardActionArea, CardActions, CardContent, Button, CardHeader, Avatar,
-  Menu, MenuItem, styles as makeStyles, ExpansionPanel, ExpansionPanelSummary,
-  ExpansionPanelDetails, ExpansionPanelActions, Divider, List, ListItem, ListItemText
+  Menu, MenuItem, ExpansionPanel, ExpansionPanelSummary,
+  ExpansionPanelDetails, ExpansionPanelActions, Divider, List, ListItem, ListItemText,Grid, 
+  Typography, TextField, IconButton, ListItemAvatar
 } from '@material-ui/core'
 import {
   Send, Favorite as FavoriteIcon, Share as ShareIcon, ExpandMore as ExpandMoreIcon,
@@ -19,6 +20,7 @@ styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css
 document.head.appendChild(styleLink);
 // import EditBody from './EditBody'
 import Edit from './Edit';
+import { makeStyles } from '@material-ui/core/styles';
 
 const usestyles = makeStyles(theme => ({
   root: {

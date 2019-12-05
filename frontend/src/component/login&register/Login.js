@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Avatar, Button, CssBaseline, TextField, Grid, Typography, Paper,InputAdornment, } from '@material-ui/core'
-import {AccountCircleIcon, AccountCircle, Lock as LockIcon, Done as DoneIcon} from '@material-ui/icons';
+import {AccountCircle, Lock as LockIcon, Done as DoneIcon} from '@material-ui/icons';
 import axios from 'axios'
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
@@ -109,7 +109,7 @@ export default class Login extends Component {
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
             <div style={paper}>
               <Avatar style={avatar}>
-                <AccountCircleIcon />
+                <AccountCircle />
               </Avatar>
               <Typography component="h1" variant="h5">Login</Typography>
               <form style={form} onSubmit={this.onSubmit}>

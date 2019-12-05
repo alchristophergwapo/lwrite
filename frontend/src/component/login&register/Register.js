@@ -59,24 +59,29 @@ class Register extends Component {
             password: this.state.password
         };
 
-        const registerStatus = await UserRegistration(data);
-        if (registerStatus === 200) {
-            console.log("Successfull")
-            this.setState({
-                firstname: '',
-                lastname: '',
-                user_name: '',
-                password: '',
-                password2: '',
-                register: true,
-                error: false
-            });
-        } else {
-            alert("Username already exist");
-            this.setState({
-                error: true,
-                register: false
-            });
+        if (this.state.password === this.state.password2) {
+            const registerStatus = await UserRegistration(data);
+            if (registerStatus === 200) {
+                console.log("Successfull")
+                this.setState({
+                    firstname: '',
+                    lastname: '',
+                    user_name: '',
+                    password: '',
+                    password2: '',
+                    register: true,
+                    error: false
+                });
+            } else {
+                alert("Username already exist");
+                this.setState({
+                    error: true,
+                    register: false
+                });
+            }
+        }
+        else {
+            alert("Password don't match")
         }
     };
 
@@ -138,7 +143,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <CreateIcon color="primary"/>
+                                                        <CreateIcon color="primary" />
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -176,7 +181,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <AccountCircle color="primary"/>
+                                                        <AccountCircle color="primary" />
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -198,7 +203,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <LockIcon color="primary"/>
+                                                        <LockIcon color="primary" />
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -219,7 +224,7 @@ class Register extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <LockIcon color="primary"/>
+                                                        <LockIcon color="primary" />
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -234,9 +239,9 @@ class Register extends Component {
                                     style={button}
                                     onClick={this.handleRegister}
                                 >
-                                    Sign Up 
-                                    <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
-                                    </Button>
+                                    Sign Up
+                                    <DoneIcon style={{ marginLeft: '10%', position: 'relative' }} />
+                                </Button>
                                 <div>
                                     <div style={{ marginTop: '1vh' }}>Already have an account?
                                             <Button variant="outlined">
