@@ -32,7 +32,6 @@ export default class AddPost extends Component {
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
-            comments: []
         };
 
         const postStatus = await addPost(data);

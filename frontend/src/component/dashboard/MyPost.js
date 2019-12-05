@@ -195,19 +195,22 @@ export default class MyPost extends Component {
                         <ExpansionPanelDetails>
                           {post.comments.map(comment => (
                             <div>
-                              <CardHeader 
-                              avatar={
-                                <Avatar aria-label={post.user_name}>
-                                  R
+                              <CardHeader
+                                avatar={
+                                  <Avatar aria-label={post.user_name}>
+                                    R
                                 </Avatar>
-                              
-                              }
-                              title = {
-                                <Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography>
-                              }
+
+                                }
+                                title={
+                                  <div><Typography>{comment.comment_from.first_name} {comment.comment_from.last_name}</Typography></div>
+                                }
                               >
                               </CardHeader>
-                              <Typography>{comment.comment}</Typography>
+                              <div>
+                                <Typography>{comment.comment}</Typography>
+                              </div>
+                              <br/>
                             </div>
                           ))}
                         </ExpansionPanelDetails>
