@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardContent,CardActions,Button,TextField} from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField } from '@material-ui/core';
 import { addPost } from '../../services/PostServices';
-import Link from 'react-router-dom';
+import MyPost from './MyPost';
 // import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export default class AddPost extends Component {
@@ -65,41 +65,47 @@ export default class AddPost extends Component {
         const marginTop = {
             marginTop: '2vh',
         }
-        console.log(this.state.user)
-        return (
-            <center style={{ marginTop: '5vh' }}>
-                <Card style={modalCard}>
-                    <form onSubmit={this.onSubmit}>
-                        <CardContent style={modalCardContent}>
-                            <TextField
-                                label="Title"
-                                id="title"
-                                onChange={this.onChange}
-                            />
-                            <TextField
-                                label="What can you say about this?"
-                                multiline rows={3}
-                                id="description"
-                                onChange={this.onChange}
-                            />
-                            <TextField
-                                style={marginTop}
-                                label="Body"
-                                multiline
-                                rows={15}
-                                id="body"
-                                required
-                                onChange={this.onChange}
-                            />
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small" color="primary" onClick={this.onSubmit} component={Link} to="/home">Save</Button>
-                            <Button size="small" >Cancel</Button>
-                        </CardActions>
-                    </form>
-                </Card>
-            </center>
-        )
+        if(!this.state.added) {
+            return (
+                <center style={{ marginTop: '5vh' }}>
+                    <Card style={modalCard}>
+                        <form onSubmit={this.onSubmit}>
+                            <CardContent style={modalCardContent}>
+                                <TextField
+                                    label="Title"
+                                    id="title"
+                                    onChange={this.onChange}
+                                />
+                                <TextField
+                                    label="What can you say about this?"
+                                    multiline rows={3}
+                                    id="description"
+                                    onChange={this.onChange}
+                                />
+                                <TextField
+                                    style={marginTop}
+                                    label="Body"
+                                    multiline
+                                    rows={15}
+                                    id="body"
+                                    required
+                                    onChange={this.onChange}
+                                />
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small" color="primary" onClick={this.onSubmit}>Save</Button>
+                                <Button size="small" >Cancel</Button>
+                            </CardActions>
+                        </form>
+                    </Card>
+                </center>
+    
+            )
+        }else {
+            return(
+                <MyPost></MyPost>
+            )
+        }
     }
 }
 

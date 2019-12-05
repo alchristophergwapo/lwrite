@@ -152,7 +152,7 @@ export default class Dashboard extends Component {
           <Grid container spacing={10} justify="center" style={{ marginTop: '1vh' }}>
             {this.state.posts.map(post => (
               <Grid item key={post.title}>
-                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '70%' }}>
+                <div style={{ marginBottom: "20px", marginLeft: "10px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '70%' }}>
                   <Card>
                     <CardActionArea>
                       <div>

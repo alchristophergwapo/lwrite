@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardContent, CardActions, Button, TextField } from '@material-ui/core';
 import Link from 'react-router-dom';
 import axios from 'axios'
+import MyPost from './MyPost';
 // import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export default class AddPost extends Component {
@@ -11,7 +12,8 @@ export default class AddPost extends Component {
       title: "",
       description: "",
       body: "",
-      data: this.props.data
+      data: this.props.data,
+      updated: false
     }
   }
 
@@ -37,7 +39,8 @@ export default class AddPost extends Component {
         this.setState({
           title: '',
           description: '',
-          body: ''
+          body: '',
+          updated: true
         })
       });
 
@@ -55,43 +58,49 @@ export default class AddPost extends Component {
     const marginTop = {
       marginTop: '2vh',
     }
-    return (
-      <center style={{ marginTop: '5vh' }}>
-        <Card style={modalCard}>
-          <form onSubmit={e => this.onSubmit(this.state.data.id,e)}>
-            <CardContent style={modalCardContent}>
-              <TextField
-                label="Title"
-                id="title"
-                onChange={this.onChange}
-                placeholder={this.state.data.title}
-                />
-              <TextField
-                label="What can you say about this?"
-                multiline rows={3}
-                id="description"
-                onChange={this.onChange}
-                placeholder={this.state.data.description}
-                />
-              <TextField
-                style={marginTop}
-                label="Body"
-                multiline
-                rows={15}
-                id="body"
-                required
-                onChange={this.onChange}
-                placeholder={this.state.data.body}
-                />
-            </CardContent>
-            <CardActions>
-              <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
-              <Button size="small" >Cancel</Button>
-            </CardActions>
-          </form>
-        </Card>
-      </center>
-    )
+    if (!this.state.updated) {
+      return (
+        <center style={{ marginTop: '5vh' }}>
+          <Card style={modalCard}>
+            <form onSubmit={e => this.onSubmit(this.state.data.id,e)}>
+              <CardContent style={modalCardContent}>
+                <TextField
+                  label="Title"
+                  id="title"
+                  onChange={this.onChange}
+                  placeholder={this.state.data.title}
+                  />
+                <TextField
+                  label="What can you say about this?"
+                  multiline rows={3}
+                  id="description"
+                  onChange={this.onChange}
+                  placeholder={this.state.data.description}
+                  />
+                <TextField
+                  style={marginTop}
+                  label="Body"
+                  multiline
+                  rows={15}
+                  id="body"
+                  required
+                  onChange={this.onChange}
+                  placeholder={this.state.data.body}
+                  />
+              </CardContent>
+              <CardActions>
+                <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
+                <Button size="small" >Cancel</Button>
+              </CardActions>
+            </form>
+          </Card>
+        </center>
+      )
+    } else {
+      return(
+        <MyPost></MyPost>
+      )
+    }
   }
 }
 
