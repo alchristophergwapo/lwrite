@@ -5,6 +5,7 @@ import { Grid, Typography, CardHeader, TextField, Card, CardActionArea, CardActi
 import {Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon,Image as ImageIcon} from '@material-ui/icons'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
 
 const usestyles = makeStyles(theme => ({
   root: {
@@ -165,8 +166,8 @@ export default class Dashboard extends Component {
                       <div>
                         <CardHeader
                           avatar={
-                            <Avatar aria-label="">
-                              R
+                            <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label="">
+                              W
                         </Avatar>
                           }
                           title={
@@ -200,12 +201,12 @@ export default class Dashboard extends Component {
                     <CardActions>
                       <ExpansionPanel style={{backgroundColor:"rgb(144, 202, 249)"}} >
                         <ExpansionPanelSummary
-                          expandIcon={<ExpandMoreIcon />}
+                          expandIcon={<ExpandMoreIcon style={{color: pink [500] }}/>}
                           aria-controls="panel2a-content"
                           id="panel2a-header"
                         >
-                          <Button size="small" color="primary"><FavoriteIcon />Love</Button>
-                          <Button size="small" color="primary"><ShareIcon />Share</Button>
+                          <Button size="small" ><FavoriteIcon style={{ color: pink [500] }}/></Button>
+                          <Button size="small" ><ShareIcon style={{ color: pink [500] }}/></Button>
                           <Typography style={usestyles.heading}>Comment</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
@@ -229,7 +230,7 @@ export default class Dashboard extends Component {
                               this.handleComment(post._id);
                               this.setState({ comment: "" })
                             }}>
-                              <Send>Comment</Send>
+                              <Send style={{ color: pink [500] }}>Comment</Send>
                             </Button>
 
                           </form>

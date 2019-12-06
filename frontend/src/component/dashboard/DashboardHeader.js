@@ -12,7 +12,8 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Login from '../login&register/Login';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
-import {makeStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -52,7 +53,7 @@ export default class DashboardHeader extends Component {
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar style={{ backgroundColor: '#2196F3'}} position="static">
+                            <AppBar style={{ backgroundColor: '#B39DDB'}} position="static">
                                 <Toolbar>
                                     <IconButton
                                         aria-label="account of current user"
@@ -66,7 +67,7 @@ export default class DashboardHeader extends Component {
                                     </IconButton >
 
 
-                                    <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
+                                    {/* <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
                                     <div className={usestyles.searchIcon}>
                                         <SearchIcon />
                                     </div>
@@ -77,10 +78,10 @@ export default class DashboardHeader extends Component {
                                             input: usestyles.inputInput,
                                         }}
                                         inputProps={{ 'aria-label': 'search' }}
-                                    />
+                                    /> */}
                                     <List component="nav">
                                         <ListItem>
-                                            <Button variant="contained" color="primary" style={{ marginLeft: "10%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/home'><HomeOutlinedIcon />Home</Button >
+                                            <Button style={{ marginLeft: "10%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/home'><HomeOutlinedIcon style={{color: pink [500] }} /></Button >
                                             <Button variant="contained" color="primary" style={{ marginLeft: "20%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/post'><Book /> Posts</Button>
                                             {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
                                         </ListItem>
