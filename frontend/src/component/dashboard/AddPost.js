@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardActions, Button, TextField } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField, Divider } from '@material-ui/core';
 import { addPost } from '../../services/PostServices';
 import MyPost from './MyPost';
-// import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import DoneIcon from '@material-ui/icons/Done';
+import ClearIcon from '@material-ui/icons/Clear';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    input: {
+      display: 'none',
+    },
+  }));
 
 export default class AddPost extends Component {
     constructor(props) {
@@ -64,7 +80,7 @@ export default class AddPost extends Component {
         const marginTop = {
             marginTop: '2vh',
         }
-        if(!this.state.added) {
+        if (!this.state.added) {
             return (
                 <center style={{ marginTop: '5vh' }}>
                     <Card style={modalCard}>
@@ -81,27 +97,34 @@ export default class AddPost extends Component {
                                     id="description"
                                     onChange={this.onChange}
                                 />
-                                <TextField
+                                <TextareaAutosize
                                     style={marginTop}
                                     label="Body"
-                                    multiline
                                     rows={15}
+                                    placeholder="Body"
                                     id="body"
                                     required
                                     onChange={this.onChange}
                                 />
+                                <input accept="image/*" style={useStyles.input} id="icon-button-file" type="file" />
+                                <label htmlFor="icon-button-file">
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </label>
                             </CardContent>
+                            <Divider />
                             <CardActions>
-                                <Button size="small" color="primary" onClick={this.onSubmit}>Save</Button>
-                                <Button size="small" >Cancel</Button>
+                                <Button size="small" color="primary" onClick={this.onSubmit} endIcon={<DoneIcon>send</DoneIcon>}>Save</Button>
+                                <Button size="small" endIcon={<ClearIcon>send</ClearIcon>}>Cancel</Button>
                             </CardActions>
                         </form>
                     </Card>
                 </center>
-    
+
             )
-        }else {
-            return(
+        } else {
+            return (
                 <MyPost></MyPost>
             )
         }
