@@ -9,12 +9,10 @@ let Posts = new Schema({
 		type: String
 	},
 	body: {
-		required: true,
 		type: String
 	},
 	background_image: {
-	  data: Buffer, 
-	  contentType: String 
+	  type: String 
 	},
 	likes: {
 		type: Number

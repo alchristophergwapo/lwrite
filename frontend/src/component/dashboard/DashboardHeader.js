@@ -1,6 +1,8 @@
 import React, { Fragment, Component } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, ListItem, List,
-    InputBase, Fab, Menu, MenuItem } from '@material-ui/core';
+import {
+    AppBar, Toolbar, Typography, Button, IconButton, Avatar, ListItem, List,
+    InputBase, Fab, Menu, MenuItem
+} from '@material-ui/core';
 import { Book, Add as AddIcon, Search as SearchIcon, } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import Dashboard from './Dashboard';
@@ -12,7 +14,8 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Login from '../login&register/Login';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
+import AddPostImage from './AddPostImage';
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -29,7 +32,7 @@ const usestyles = makeStyles(theme => ({
 }));
 const avatar = {
     backgroundColor: '#3F51B5',
-  }
+}
 
 export default class DashboardHeader extends Component {
     constructor(props) {
@@ -52,7 +55,7 @@ export default class DashboardHeader extends Component {
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar style={{ backgroundColor: '#2196F3'}} position="static">
+                            <AppBar style={{ backgroundColor: '#2196F3' }} position="static">
                                 <Toolbar>
                                     <IconButton
                                         aria-label="account of current user"
@@ -104,7 +107,7 @@ export default class DashboardHeader extends Component {
                                 <Route path='/profile' render={() => <div><Profile userData={this.state.user}></Profile></div>} />
                                 <Route path="editProfile" render={() => <EditProfile></EditProfile>}></Route>
                                 <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-
+                                <Route exact path="/uploadImage" render={() => <AddPostImage></AddPostImage>} />
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>

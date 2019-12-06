@@ -1,4 +1,11 @@
-const DIR = '../../frontend/src/component/dashboard/images';
+const express = require('express'),
+	multer = require('multer'),
+	uuidv4 = require('uuid/v4');
+const routePost = express.Router();
+let Posts = require('./postSchema');
+
+const DIR = './public/';
+
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, DIR);
@@ -22,62 +29,62 @@ var upload = multer({
 });
 
 
-routes.route('/updateProfile/:_id', upload.single('profileImg')).post(function (req, res, next) {
-	Registration.findById(req.params._id)
-		.then(user => {
-			const url = req.protocol + '://' + req.get('host')
+// routePost.route('/uploadPostImage', upload.single('background_image')).post(function (req, res, next) {
+// 	const url = req.protocol + '://' + req.get('host')
+// 	const user = new Posts({
+// 		title: req.body.title,
+// 		body: req.body.body,
+// 		background_image: url + '/images/' + req.file.filename
+// 	});
+// 	user.save().then(result => {
+// 		res.status(201).json({
+// 			message: "Post added successfully!",
+// 			userCreated: {
+// 				user: user
+// 			}
+// 		})
+// 	}).catch(err => {
+// 		console.log(err),
+// 			res.status(500).json({
+// 				error: err
+// 			});
+// 	})
+// })
 
-			user.first_name = req.body.first_name;
-			user.last_name = req.body.last_name;
-			user.user_name = req.body.user_name;
-			user.password = req.body.password;
-			profile_image = url + '../../frontend/src/component/dashboard/images' + req.body.profile_image
-
-			user.save().then(result => {
-				res.status(201).json({
-					message: "User profile updated successfully!",
-					userUpdated: {
-						result: result
-					}
-				})
-			}).catch(err => {
-				console.log(err),
-					res.status(500).json({
-						error: err
-					});
-			})
+routePost.post('/uploadPostImage', upload.single('background_image'), (req, res, next) => {
+	const url = req.protocol + '://' + req.get('host')
+	console.log(req.body)
+	const post = new Posts({
+		// user_name: req.body.user_name,
+        // user: req.body.user,
+		// title: req.body.title,
+		// body: req.body.body,
+		background_image: url + '/public/' + req.file.filename
+	});
+	console.log(post);
+	post.save().then(result => {
+		console.log(result)
+		res.status(201).json({
+			message: "Post added successfully!",
+			userCreated: {
+				post: post
+			}
 		})
-		.catch(err => res.status(400).json('Error: ' + err));
+	}).catch(err => {
+		console.log(err),
+			res.status(500).json({
+				error: err
+			});
+	})
 })
 
-router.post('/addPost', upload.single('profileImg'), (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host')
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        profileImg: url + '/public/' + req.file.filename
-    });
-    user.save().then(result => {
-        res.status(201).json({
-            message: "User registered successfully!",
-            userCreated: {
-                _id: result._id,
-                profileImg: result.profileImg
-            }
-        })
-    }).catch(err => {
-        console.log(err),
-            res.status(500).json({
-                error: err
-            });
-    })
-})
+// routePost.get("/", (req, res, next) => {
+// 	User.find().then(data => {
+// 		res.status(200).json({
+// 			message: "User list retrieved successfully!",
+// 			users: data
+// 		});
+// 	});
+// });
 
-router.get("/", (req, res, next) => {
-    User.find().then(data => {
-        res.status(200).json({
-            message: "User list retrieved successfully!",
-            users: data
-        });
-    });
-});
+module.exports = routePost;
