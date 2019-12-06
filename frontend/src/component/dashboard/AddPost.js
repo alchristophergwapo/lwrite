@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import {
-    Card,
-    CardContent,
-    CardActions,
-    Modal,
-    Button,
-    TextField,
-} from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField } from '@material-ui/core';
 import { addPost } from '../../services/PostServices';
-import Link from 'react-router-dom';
+import MyPost from './MyPost';
+// import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export default class AddPost extends Component {
     constructor(props) {
@@ -17,11 +11,10 @@ export default class AddPost extends Component {
             title: "",
             description: "",
             body: "",
-            post: [],
             added: false,
             error: true,
             user: this.props.userData,
-            username: this.props.username
+            user_name: this.props.username
         }
     }
 
@@ -34,7 +27,8 @@ export default class AddPost extends Component {
     onSubmit = async e => {
         e.preventDefault();
         const data = {
-            user: this.state.username,
+            user_name: this.state.user_name,
+            user: this.state.user,
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
@@ -46,7 +40,6 @@ export default class AddPost extends Component {
                 title: '',
                 description: '',
                 body: '',
-                post: [],
                 added: true,
                 error: false
             });
@@ -59,6 +52,7 @@ export default class AddPost extends Component {
     }
 
     render() {
+        console.log(this.state.user)
         const modalCard = {
             width: '100%',
             maxWidth: 500,
@@ -70,39 +64,47 @@ export default class AddPost extends Component {
         const marginTop = {
             marginTop: '2vh',
         }
-        return (
-            <center style={{ marginTop: '5vh' }}>
-                <Card style={modalCard}>
-                    <form onSubmit={this.onSubmit}>
-                        <CardContent style={modalCardContent}>
-                            <TextField
-                                label="Title"
-                                id="title"
-                                onChange={this.onChange}
-                            />
-                            <TextField
-                                label="What can you say about this?"
-                                multiline rows={3}
-                                id="description"
-                                onChange={this.onChange}
-                            />
-                            <TextField
-                                style={marginTop}
-                                label="Body"
-                                multiline
-                                rows={15}
-                                id="body"
-                                onChange={this.onChange}
-                            />
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small" color="primary" onClick={this.onSubmit} component={Link} to="/home">Save</Button>
-                            <Button size="small" >Cancel</Button>
-                        </CardActions>
-                    </form>
-                </Card>
-            </center>
-        )
+        if(!this.state.added) {
+            return (
+                <center style={{ marginTop: '5vh' }}>
+                    <Card style={modalCard}>
+                        <form onSubmit={this.onSubmit}>
+                            <CardContent style={modalCardContent}>
+                                <TextField
+                                    label="Title"
+                                    id="title"
+                                    onChange={this.onChange}
+                                />
+                                <TextField
+                                    label="What can you say about this?"
+                                    multiline rows={3}
+                                    id="description"
+                                    onChange={this.onChange}
+                                />
+                                <TextField
+                                    style={marginTop}
+                                    label="Body"
+                                    multiline
+                                    rows={15}
+                                    id="body"
+                                    required
+                                    onChange={this.onChange}
+                                />
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small" color="primary" onClick={this.onSubmit}>Save</Button>
+                                <Button size="small" >Cancel</Button>
+                            </CardActions>
+                        </form>
+                    </Card>
+                </center>
+    
+            )
+        }else {
+            return(
+                <MyPost></MyPost>
+            )
+        }
     }
 }
 

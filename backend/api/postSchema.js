@@ -12,7 +12,22 @@ let Posts = new Schema({
 		required: true,
 		type: String
 	},
-	
+	background_image: {
+	  data: Buffer, 
+	  contentType: String 
+	},
+	likes: {
+		type: Number
+	},
+	comments: {
+		type: Array
+	},
+	user_name: {
+		type: String
+	},
+	user:{
+		type: Array
+	},
 }, {
 		collection: 'Posts'
 	})

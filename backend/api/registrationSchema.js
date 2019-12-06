@@ -22,6 +22,9 @@ let Registration = new Schema({
 		required: true,
 		trim: true
 	},
+	profile_image: {
+		type: String
+	}
 },{
 		collection: 'Registration'
 });
