@@ -30,7 +30,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "Love Lost",
           description: "This is my first post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
           body: "",
           comments: [{
             comment: '',
@@ -45,7 +45,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "Journey",
           description: "This is my second post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
           body: "",
           comments: [{
             comment: '',
@@ -60,7 +60,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "Love",
           description: "This is my third post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
           body: "",
           comments: [{
             comment: '',
@@ -75,7 +75,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
           body: "",
           comments: [{
             comment: '',
@@ -90,7 +90,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "Allow me",
           description: "This is my fifth post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
           body: "",
           comments: [{
             comment: '',
@@ -105,7 +105,7 @@ export default class Dashboard extends Component {
           user: [{ first_name: "Developers" }],
           title: "Closure and A Small Consolation",
           description: "This is my sixth post with more content inside",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
+          background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
           body: "",
           comments: [{
             comment: '',
@@ -133,7 +133,6 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.log(error);
       })
-    console.log(this.state.posts);
   }
 
   handleComment = id => {
@@ -144,7 +143,6 @@ export default class Dashboard extends Component {
     }
     axios.put('http://localhost:4000/to/addComment/' + id, data)
       .then((res) => {
-        console.log(res.data)
         console.log('Comment successfully added.')
         this.setState({ comment: '' })
       }).catch((error) => {
@@ -191,7 +189,7 @@ export default class Dashboard extends Component {
                         component="img"
                         alt=" "
                         height='auto'
-                        image={post.image}
+                        image={post.background_image}
                         title=" "
                         // style={{height: '350px', border: '1px solid black'}}
                       />

@@ -4,7 +4,7 @@ const express = require('express'),
 const routePost = express.Router();
 let Posts = require('./postSchema');
 
-const DIR = './public/';
+const DIR = './public/images/';
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
@@ -52,18 +52,18 @@ var upload = multer({
 // })
 
 routePost.post('/uploadPostImage', upload.single('background_image'), (req, res, next) => {
-	const url = req.protocol + '://' + req.get('host')
-	console.log(req.body)
+	const url = 'http://localhost:4000/public/images/'
 	const post = new Posts({
-		// user_name: req.body.user_name,
-        // user: req.body.user,
-		// title: req.body.title,
-		// body: req.body.body,
-		background_image: url + '/public/' + req.file.filename
+		user_name: req.body.user_name,
+        user: req.body.user[0],
+		title: req.body.title,
+		description: req.body.description,
+		body: req.body.body,
+		background_image: url + req.file.filename
 	});
-	console.log(post);
+	console.log("post : ",post);
 	post.save().then(result => {
-		console.log(result)
+		console.log("reslut : ", result)
 		res.status(201).json({
 			message: "Post added successfully!",
 			userCreated: {

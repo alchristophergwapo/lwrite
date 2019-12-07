@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardActions, Button, TextField, Divider } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField, Divider, CardMedia } from '@material-ui/core';
 import { addPost } from '../../services/PostServices';
 import MyPost from './MyPost';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -33,16 +33,22 @@ export default class AddPostImage extends Component {
 
     onSubmit = async e => {
         e.preventDefault();
-        const data = new FormData()
-        data.append('background_image', this.state.image)
-        data.append('username', this.state.username)
-        data.append('user', this.state.user)
-        data.append('title', this.state.title)
-        data.append('body', this.state.body)
-        data.append('background_image', this.state.image)
 
+        // const user = [{
+        //     _id: this.state.user._id,
+        //     first_name: this.state.first_name,
+        //     last_name: this.state.last_name,
+        //     user_name: this.state.user_name,
+        //     password: this.state.password
+        // }]
+        const formData = new FormData()
+        formData.append('background_image', this.state.image)
+        formData.append("title",this.state.title,)
+        formData.append("description",this.state.description,)
+        formData.append("user",this.state.user)
+        formData.append("user_name",this.state.user_name)
 
-        axios.post('http://localhost:4000/addPost/uploadPostImage', data)
+        axios.post('http://localhost:4000/addPost/uploadPostImage', formData)
             .then(res => {
                 this.setState({
                     title: '',
@@ -80,7 +86,8 @@ export default class AddPostImage extends Component {
     }
 
     render() {
-        console.log("user data : " + this.state.user)
+        const {user} = this.state;
+        // console.log("user data : " , user)
         const modalCard = {
             width: '100%',
             maxWidth: 500,
@@ -93,13 +100,13 @@ export default class AddPostImage extends Component {
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} />);
+            $imagePreview = (<CardMedia component='img' alt=' ' src={imagePreviewUrl} style={{width: '450px', maxWidth: '100%', height: 'auto'}}/>);
         } else {
             $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
 
         if (!this.state.added) {
-            return (
+            return ( 
                 <center style={{ marginTop: '5vh' }}>
                     <Card style={modalCard}>
                         <form onSubmit={this.onSubmit}>

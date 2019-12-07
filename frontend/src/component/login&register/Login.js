@@ -29,7 +29,7 @@ export default class Login extends Component {
     axios.get('http://localhost:4000/to/getUser/' + this.state.user_name)
       .then(res => {
         if (res.data != null) {
-          this.setState({ loginSuccess: false, error: true, user: res.data })
+          this.setState({ loginSuccess: false, error: true, user: Array(res.data) })
           console.log(this.state.user)
         }
         else {
@@ -67,8 +67,8 @@ export default class Login extends Component {
   }
 
   render() {
-
-    console.log(this.state.user)
+    const {user} = this.state;
+    console.log(user[user.length - 1])
     const root = {
       height: '100vh'
     }
@@ -205,7 +205,7 @@ export default class Login extends Component {
       )
     } else {
       return (
-        <DashboardHeader user={this.state.user}></DashboardHeader>
+        <DashboardHeader user={user[user.length - 1]}></DashboardHeader>
       )
     }
 

@@ -45,7 +45,8 @@ export default class DashboardHeader extends Component {
     }
 
     render() {
-        console.log(this.state.user)
+        const {user} = this.state;
+        console.log(user)
         if (this.state.logout) {
             return (
                 <Login></Login>
@@ -102,12 +103,12 @@ export default class DashboardHeader extends Component {
                             style={{ marginTop: '1vh' }}
                         >
                             <Switch>
-                                <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={this.state.user}></Dashboard></div>} />
-                                <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
-                                <Route path='/profile' render={() => <div><Profile userData={this.state.user}></Profile></div>} />
+                                <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={user}></Dashboard></div>} />
+                                <Route path='/post' render={() => <div><MyPost username={user.user_name} post={this.state.posts}></MyPost></div>} />
+                                <Route path='/profile' render={() => <div><Profile userData={user}></Profile></div>} />
                                 <Route path="editProfile" render={() => <EditProfile></EditProfile>}></Route>
-                                <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-                                <Route exact path="/uploadImage" render={() => <AddPostImage></AddPostImage>} />
+                                <Route path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name}></AddPost></div>} />
+                                <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name}></AddPostImage>} />
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import {  } from "@material-ui/core";
+import { } from "@material-ui/core";
 import {
   Card, CardActionArea, CardActions, CardContent, Button, CardHeader, Avatar,
-  Menu, MenuItem, ExpansionPanel, ExpansionPanelSummary,
-  ExpansionPanelDetails, ExpansionPanelActions, Divider, List, ListItem, ListItemText,Grid, 
+  Menu, MenuItem, ExpansionPanel, ExpansionPanelSummary,CardMedia,
+  ExpansionPanelDetails, ExpansionPanelActions, Divider, List, ListItem, ListItemText, Grid,
   Typography, TextField, IconButton, ListItemAvatar
 } from '@material-ui/core'
 import {
@@ -68,9 +68,9 @@ export default class MyPost extends Component {
           if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
             this.setState({ userData: response.data[index].user[0] })
-            console.log("Okay")
+            // console.log("Okay")
           } else {
-            console.log("NOT")
+            // console.log("NOT")
           }
         }
         this.setState({ readyToLoad: true });
@@ -170,6 +170,14 @@ export default class MyPost extends Component {
                             {post.title}
                           </Typography>
                           <Typography component="p">{post.description}</Typography>
+                          <CardMedia
+                            component="img"
+                            alt=" "
+                            height='auto'
+                            image={post.background_image}
+                            title=" "
+                          // style={{height: '350px', border: '1px solid black'}}
+                          />
                           <Typography component="p">{post.body}</Typography>
                         </CardContent>
                       </div>
