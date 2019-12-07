@@ -115,12 +115,12 @@ export default class MyPost extends Component {
   loadMyPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ marginTop: 20, padding: 20, }}>
+        <center style={{ marginTop: 20, padding: 20}}>
           <Grid container spacing={5} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
                 <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
-                  <Card >
+                  <Card style ={{border :"3px solid #2196F3"}}>
                     <CardHeader
                       avatar={
                         <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
@@ -164,9 +164,10 @@ export default class MyPost extends Component {
                       subheader="September 14, 2016"
                     />
                     <CardActionArea >
-                      <div>
+
+                       <div>
                        
-                        <CardContent  style={{ backgroundColor:'#EEEEEE'}}>
+                        <CardContent  style={{ border :'3px',backgroundColor:'#EEEEEE'}}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {post.title}
                           </Typography>

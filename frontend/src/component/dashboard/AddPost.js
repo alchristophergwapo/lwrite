@@ -72,6 +72,7 @@ export default class AddPost extends Component {
         const modalCard = {
             width: '100%',
             maxWidth: 500,
+            border :"3px solid #2196F3",
         }
         const modalCardContent = {
             display: 'flex',

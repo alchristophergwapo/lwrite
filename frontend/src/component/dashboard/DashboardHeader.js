@@ -13,7 +13,7 @@ import Login from '../login&register/Login';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
 import {makeStyles} from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/pink';
+import indigo from '@material-ui/core/colors/indigo';
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -53,48 +53,31 @@ export default class DashboardHeader extends Component {
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar style={{ backgroundColor: '#B39DDB'}} position="static">
+                            <AppBar style={{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}} position="static">
                                 <Toolbar>
                                     <IconButton
                                         aria-label="account of current user"
                                         aria-controls="primary-search-account-menu"
                                         aria-haspopup="true"
                                         color="secondary"
-                                        fontSize="30"
+                                        // fontSize="30"
                                         component={Link} to='/profile'
                                     >
                                         <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"></Avatar>
                                     </IconButton >
-
-
-                                    {/* <Typography variant="h6" className={usestyles.title}>Lwrite</Typography>
-                                    <div className={usestyles.searchIcon}>
-                                        <SearchIcon />
-                                    </div>
-                                    <InputBase
-                                        placeholder="Search…"
-                                        usestyles={{
-                                            root: usestyles.inputRoot,
-                                            input: usestyles.inputInput,
-                                        }}
-                                        inputProps={{ 'aria-label': 'search' }}
-                                    /> */}
                                     <List component="nav">
                                         <ListItem>
-                                            <Button style={{ marginLeft: "10%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/home'><HomeOutlinedIcon style={{color: pink [500] }} /></Button >
-                                            <Button variant="contained" color="primary" style={{ marginLeft: "20%", padding: "1vh", width: '150px', maxWidth: '100%' }} component={Link} to='/post'><Book /> Posts</Button>
-                                            {/* <Button variant="contained" color="primary"  style={{ marginLeft: "30%" , paddingTop:"10%", paddingLeft:"20%", paddingRight:"20%"}} component={Link} to='/users'><InboxIcon /> Users</Button> */}
+                                            <Button  component={Link} to='/home'><HomeOutlinedIcon style={{ fontSize: 40, color: indigo [50] }} />HOME</Button >
+                                            <Button  component={Link} to='/post'><Book style={{fontSize: 40,color: indigo [50] }} />POST</Button>
+                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"style={{ marginLeft :'88%' ,position: 'fixed' }}> <AddIcon /> </Fab>
                                         </ListItem>
                                     </List>
 
                                 </Toolbar>
                             </AppBar>
 
-                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"
-                                style={{ position: 'fixed', marginTop: '1vh' }}
-                            >
-                                <AddIcon />
-                            </Fab>
+                           
+                               
                         </div>
                         <main
                             style={{ marginTop: '1vh' }}
