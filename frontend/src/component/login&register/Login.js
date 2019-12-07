@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Avatar, Button, CssBaseline, TextField, Grid, Typography, Paper,InputAdornment, } from '@material-ui/core'
-import {AccountCircle, Lock as LockIcon, Done as DoneIcon} from '@material-ui/icons';
+import { Avatar, Button, CssBaseline, TextField, Grid, Typography, Paper, InputAdornment, } from '@material-ui/core'
+import { AccountCircle, Lock as LockIcon, Done as DoneIcon } from '@material-ui/icons';
 import axios from 'axios'
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
@@ -74,14 +74,13 @@ export default class Login extends Component {
     }
 
     const image = {
-      backgroundImage: 'url(http://cm1.narvii.com/6946/adf78c28c6e7ee73f5d55ba9fc59df1a29720e25_00.jpg)',
+      backgroundImage: 'url(https://quotefancy.com/media/wallpaper/1600x900/208553-C-S-Lewis-Quote-You-can-make-anything-by-writing.jpg)',
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
+      backgroundSize: '980px 850px',
       textAlign: 'center',
       backgroundColor: 'white',
     }
     const paper = {
-      // marginTop: '5vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -92,9 +91,8 @@ export default class Login extends Component {
     }
     const form = {
       width: '100%', // Fix IE 11 issue.
-      // marginTop: '3vh',
-      justify:'center',
-      alignItems:'center',
+      justify: 'center',
+      alignItems: 'center',
     }
     const button = {
       width: '20vh',
@@ -147,7 +145,7 @@ export default class Login extends Component {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="start">
-                            <LockIcon color="primary"/>
+                            <LockIcon color="primary" />
                           </InputAdornment>
                         ),
                       }}
@@ -185,7 +183,7 @@ export default class Login extends Component {
                   }}
                 >
                   Login
-                  <DoneIcon style={{marginLeft: '10%', position: 'relative'}}/>
+                  <DoneIcon style={{ marginLeft: '10%', position: 'relative' }} />
                 </Button>
                 <div style={{ marginTop: '1vh' }}>Don't have an account?
                     <Button variant="outlined" /*color="outlined-primary"*/ style={button}>

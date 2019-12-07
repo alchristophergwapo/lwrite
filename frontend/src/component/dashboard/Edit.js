@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardActions, Button, TextField } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField, Divider } from '@material-ui/core';
 import Link from 'react-router-dom';
 import axios from 'axios'
 import MyPost from './MyPost';
@@ -89,6 +89,7 @@ export default class AddPost extends Component {
                   placeholder={this.state.data.body}
                   />
               </CardContent>
+              <Divider></Divider>
               <CardActions>
                 <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
                 <Button size="small" >Cancel</Button>

@@ -12,15 +12,15 @@ import {
 } from '@material-ui/icons'
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import axios from 'axios'
-// import deletePost from '../../services/PostServices';
-// import Edit from './Edit';
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
-// import EditBody from './EditBody'
 import Edit from './Edit';
 import { makeStyles } from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
+
+
 
 const usestyles = makeStyles(theme => ({
   root: {
@@ -115,12 +115,12 @@ export default class MyPost extends Component {
   loadMyPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ marginTop: 20, padding: 20, }}>
+        <center style={{ marginTop: 20, padding: 20}}>
           <Grid container spacing={5} justify="center">
             {this.state.posts.map(post => (
               <Grid item key={post._id}>
                 <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
-                  <Card>
+                  <Card style ={{border :"3px solid #2196F3"}}>
                     <CardHeader
                       avatar={
                         <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
@@ -131,7 +131,7 @@ export default class MyPost extends Component {
                         <PopupState variant="popover" popupId="demo-popup-menu">
                           {popupState => (
                             <div>
-                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon /></IconButton>
+                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon style={{ color: pink [500] }}/></IconButton>
                               <Menu {...bindMenu(popupState)}>
                                 <MenuItem onClick={popupState.close}></MenuItem>
                                 <MenuItem onClick={() => {
@@ -163,9 +163,11 @@ export default class MyPost extends Component {
                       }
                       subheader="September 14, 2016"
                     />
-                    <CardActionArea>
-                      <div>
-                        <CardContent>
+                    <CardActionArea >
+
+                       <div>
+                       
+                        <CardContent  style={{ border :'3px',backgroundColor:'#EEEEEE'}}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {post.title}
                           </Typography>
@@ -180,20 +182,21 @@ export default class MyPost extends Component {
                           />
                           <Typography component="p">{post.body}</Typography>
                         </CardContent>
+                        
                       </div>
 
                     </CardActionArea>
 
-                    <CardActions>
+                    <CardActions style={{ backgroundColor: '#EEEEEE'}}>
 
-                      <ExpansionPanel>
+                      <ExpansionPanel style={{ backgroundColor: '#90CAF9'}}>
                         <ExpansionPanelSummary
-                          expandIcon={<ExpandMoreIcon />}
+                          expandIcon={<ExpandMoreIcon style={{ color: pink [500] }}/>}
                           aria-controls="panel2a-content"
                           id="panel2a-header"
                         >
-                          <Button size="small" color="primary"><FavoriteIcon />Love</Button>
-                          <Button size="small" color="primary"><ShareIcon />Share</Button>
+                          <Button size="small" ><FavoriteIcon style={{color: pink [500] }}/></Button>
+                          <Button size="small" ><ShareIcon style={{ color: pink [500] }}/></Button>
                           <Typography style={usestyles.heading}>Comment</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
@@ -209,7 +212,7 @@ export default class MyPost extends Component {
                           </List>
                         </ExpansionPanelDetails>
                         <Divider />
-                        <ExpansionPanelActions>
+                        <ExpansionPanelActions >
                           <form onSubmit={this.handleSubmit}>
                             <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
                             </TextField>
@@ -217,7 +220,7 @@ export default class MyPost extends Component {
                               this.handleComment(post._id);
                               this.setState({ comment: "" })
                             }}>
-                              <Send />Comment
+                              <Send />
                             </Button>
 
                           </form>

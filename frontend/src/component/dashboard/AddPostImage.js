@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardContent, CardActions, Button, TextField, Divider, CardMedia } from '@material-ui/core';
-import { addPost } from '../../services/PostServices';
 import MyPost from './MyPost';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
