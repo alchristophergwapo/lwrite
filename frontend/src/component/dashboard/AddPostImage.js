@@ -43,9 +43,10 @@ export default class AddPostImage extends Component {
         // }]
         const formData = new FormData()
         formData.append('background_image', this.state.image)
-        formData.append("title",this.state.title,)
-        formData.append("description",this.state.description,)
-        formData.append("user",this.state.user)
+        formData.append("title",this.state.title)
+        formData.append("description",this.state.description)
+        formData.append("first_name",this.state.user.first_name)
+        formData.append("last_name",this.state.user.last_name)
         formData.append("user_name",this.state.user_name)
 
         axios.post('http://localhost:4000/addPost/uploadPostImage', formData)
@@ -87,7 +88,8 @@ export default class AddPostImage extends Component {
 
     render() {
         const {user} = this.state;
-        // console.log("user data : " , user)
+        console.log("first name : " , user.first_name)
+        console.log("last name : " , user.last_name)
         const modalCard = {
             width: '100%',
             maxWidth: 500,

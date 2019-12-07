@@ -53,9 +53,15 @@ var upload = multer({
 
 routePost.post('/uploadPostImage', upload.single('background_image'), (req, res, next) => {
 	const url = 'http://localhost:4000/public/images/'
+	const user = [{
+		first_name : req.body.first_name,
+		last_name : req.body.last_name
+	}]
+	console.log("first name : ",req.body.first_name)
+	console.log("last name : ",req.body.first_name)
 	const post = new Posts({
 		user_name: req.body.user_name,
-        user: req.body.user[0],
+        user: user,
 		title: req.body.title,
 		description: req.body.description,
 		body: req.body.body,
