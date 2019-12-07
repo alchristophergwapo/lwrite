@@ -1,6 +1,8 @@
 import React, { Fragment, Component } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, ListItem, List,
-    InputBase, Fab, Menu, MenuItem } from '@material-ui/core';
+import {
+    AppBar, Toolbar, Typography, Button, IconButton, Avatar, ListItem, List,
+    InputBase, Fab, Menu, MenuItem
+} from '@material-ui/core';
 import { Book, Add as AddIcon, Search as SearchIcon, } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import Dashboard from './Dashboard';
@@ -14,6 +16,7 @@ import Profile from './Profile';
 import EditProfile from './EditProfile';
 import {makeStyles} from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
+import AddPostImage from './AddPostImage';
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -30,7 +33,7 @@ const usestyles = makeStyles(theme => ({
 }));
 const avatar = {
     backgroundColor: '#3F51B5',
-  }
+}
 
 export default class DashboardHeader extends Component {
     constructor(props) {
@@ -43,7 +46,8 @@ export default class DashboardHeader extends Component {
     }
 
     render() {
-        console.log(this.state.user)
+        const {user} = this.state;
+        console.log(user)
         if (this.state.logout) {
             return (
                 <Login></Login>
@@ -83,12 +87,12 @@ export default class DashboardHeader extends Component {
                             style={{ marginTop: '1vh' }}
                         >
                             <Switch>
-                                <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={this.state.user}></Dashboard></div>} />
-                                <Route path='/post' render={() => <div><MyPost username={this.state.user.user_name} post={this.state.posts}></MyPost></div>} />
-                                <Route path='/profile' render={() => <div><Profile userData={this.state.user}></Profile></div>} />
+                                <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={user}></Dashboard></div>} />
+                                <Route path='/post' render={() => <div><MyPost username={user.user_name} post={this.state.posts}></MyPost></div>} />
+                                <Route path='/profile' render={() => <div><Profile userData={user}></Profile></div>} />
                                 <Route path="editProfile" render={() => <EditProfile></EditProfile>}></Route>
-                                <Route path='/addPost' render={() => <div><AddPost userData={this.state.user} username={this.state.user.user_name}></AddPost></div>} />
-
+                                <Route path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name}></AddPost></div>} />
+                                <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name}></AddPostImage>} />
                                 <Redirect from="/login" to="home" ></Redirect>
                             </Switch>
                         </main>

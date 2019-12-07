@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import {Grid ,InputAdornment} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MoodIcon from '@material-ui/icons/Mood';
@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import LockIcon from '@material-ui/icons/Lock';
 import axios from 'axios'
-import {Card, CardContent, CardActions} from '@material-ui/core'
+import { Card, CardContent, CardActions } from '@material-ui/core'
 const useStyles = makeStyles(theme => ({
   input: {
     display: 'none'
@@ -54,24 +54,20 @@ export default class EditProfile extends Component {
     super(props);
     this.state = {
       userData: this.props.userData,
-      profileImg: '',
       first_name: '',
       last_name: '',
       user_name: '',
       password: '',
-      password1: ''
+      password1: '',
+      image: '',
+      imagePreviewUrl: ''
     }
   }
   onChange = e => {
-    this.setState({[e.target.id] : e.target.value})
-  }
-  onFileChange(e) {
-    // console.log(e.target.files[0].name)
-    e.preventDefault();
-    this.setState({ profileImg: String(e.target.files[0].name) })
+    this.setState({ [e.target.id]: e.target.value })
   }
 
-  changeProfilePicture = id => {
+  onSubmit = id => {
     const data = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -83,6 +79,22 @@ export default class EditProfile extends Component {
       .then(res => {
         console.log(res)
       })
+  }
+
+  handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        image: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
   }
   render() {
     console.log(this.state.profileImg)
@@ -99,83 +111,119 @@ export default class EditProfile extends Component {
       marginTop: '2vh',
     }
     const { userData } = this.state;
+
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<Avatar src={imagePreviewUrl}
+        style={{
+          columnSpan: "100px",
+          margin: "10px",
+          width: "150px",
+          height: "150px",
+          marginLeft: "10px",
+        }} />);
+    } else {
+      $imagePreview = (<Avatar alt=" " component="span" src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"
+
+        style={{
+          columnSpan: "100px",
+          margin: "10px",
+          width: "80px",
+          height: "80px",
+          marginLeft: "10px",
+        }}
+      />);
+    }
     return (
-      
+
       <center style={{ marginTop: '5vh' }}>
         <Card style={modalCard}>
           <form onSubmit={e => this.onSubmit(this.state.data.id, e)}>
             <CardContent style={modalCardContent}>
-              <div style={useStyles.div}>
                 <Grid>
                   <Grid item>
-                    <label htmlFor="icon-button-photo">
-                      <Avatar alt=" " component="span" src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"
 
-                        style={{
-                          columnSpan: "100px",
-                          margin: "10px",
-                          width: "80px",
-                          height: "80px",
-                          marginLeft: "10px",
-                        }}
-                      />
-                    </label>
-                    <IconButton color="primary" component="span" htmlFor='single'>
-                      <PhotoCamera />
-                    </IconButton>
-                    <input type='file' id='single' onChange={e => this.onFileChange(e)} />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} alignItems="flex-end">
-                  First name
-                  <Grid item>
-                    <AccountCircle />
-                  </Grid>
-                  <Grid item>
-                    <TextField id="first_name" />
-                  </Grid>
-                </Grid>
-
-                <Grid container spacing={1} alignItems="flex-end">
-                  Last name <Grid item>
-                    <AccountCircle />
+                    <div className="imgPreview" >
+                      {$imagePreview}
+                      <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
+                      <label htmlFor="icon-button-file">
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                          <PhotoCamera />
+                        </IconButton>
+                      </label>
+                    </div>
 
                   </Grid>
-                  <Grid item><TextField id="last_name" />
-                  </Grid>
                 </Grid>
-                <Grid container spacing={1} alignItems="flex-end">
-                  Username
-                  <Grid item>
-                    <AlternateEmailIcon />
-                  </Grid>
-                  <Grid item><TextField id="user_name" />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} alignItems="flex-end">
-                  Password
-                  <Grid item>
-                    <LockIcon />
-                  </Grid>
-                  <Grid item>
-                    <TextField id="password" type="password" />
-                  </Grid>
-
-                </Grid>
-                <Grid container spacing={1} alignItems="flex-end">
-                  Password
-                  <Grid item>
-                    <LockIcon />
-                  </Grid>
-                  <Grid item>
-                    <TextField id="password1" type="password" />
-                  </Grid>
-
-                </Grid>
-                 </div>
+                <TextField
+                  id="first_name"
+                  label="First name"
+                  id="first_name"
+                  onChange={this.onChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircle />
+                      </InputAdornment>
+                    ),
+                  }}
+                  />
+                <TextField
+                  id="last_name"
+                  label="Last name"
+                  id="last_name"
+                  onChange={this.onChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircle />
+                      </InputAdornment>
+                    ),
+                  }}
+                  />
+                <TextField
+                  id="username"
+                  label="Username"
+                  id="user_name"
+                  onChange={this.onChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <AlternateEmailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  />
+                <TextField
+                  id="password1" type="password"
+                  label="Password"
+                  id="password"
+                  onChange={this.onChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  />
+                <TextField
+                  id="password2" type="password"
+                  label="Repeat Password"
+                  id="password2"
+                  onChange={this.onChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  />
             </CardContent>
             <CardActions>
-              <Button size="small" color="primary" onClick={e => this.changeProfilePicture(userData._id)}><NavigationIcon/>Save</Button>
+              <Button size="small" color="primary" onClick={e => this.onSubmit(userData._id)}><NavigationIcon />Save</Button>
               <Button size="small" >Cancel</Button>
             </CardActions>
           </form>
