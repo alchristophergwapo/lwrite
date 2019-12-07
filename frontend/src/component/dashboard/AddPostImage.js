@@ -47,7 +47,7 @@ export default class AddPostImage extends Component {
         formData.append("last_name",this.state.user.last_name)
         formData.append("user_name",this.state.user_name)
 
-        axios.post('http://localhost:4000/addPost/uploadPostImage', formData)
+        axios.post('http://localhost:4000/post/uploadPostImage', formData)
             .then(res => {
                 this.setState({
                     title: '',

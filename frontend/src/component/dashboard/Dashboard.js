@@ -124,7 +124,7 @@ export default class Dashboard extends Component {
   }
   componentDidMount() {
     // const datas = [];
-    axios.get('http://localhost:4000/to/getPosts/')
+    axios.get('http://localhost:4000/post/getPosts/')
       .then(response => {
         for (let index = 0; index < response.data.length; index++) {
           this.state.posts.push(response.data[index]);
@@ -142,7 +142,7 @@ export default class Dashboard extends Component {
       comment: this.state.comment,
       comment_from: this.state.userData
     }
-    axios.put('http://localhost:4000/to/addComment/' + id, data)
+    axios.put('http://localhost:4000/post/addComment/' + id, data)
       .then((res) => {
         console.log('Comment successfully added.')
         this.setState({ comment: '' })

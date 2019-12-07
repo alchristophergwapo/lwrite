@@ -26,7 +26,7 @@ export default class Login extends Component {
 
   handleOnClick = async e => {
 
-    axios.get('http://localhost:4000/to/getUser/' + this.state.user_name)
+    axios.get('http://localhost:4000/authenticate/getUser/' + this.state.user_name)
       .then(res => {
         if (res.data != null) {
           this.setState({ loginSuccess: false, error: true, user: Array(res.data) })
@@ -45,7 +45,7 @@ export default class Login extends Component {
       password: this.state.password
     };
 
-    axios.post('http://localhost:4000/to/login', data)
+    axios.post('http://localhost:4000/authenticate/login/', data)
       .then(res => {
         if (res.status !== 200) {
           this.setState({

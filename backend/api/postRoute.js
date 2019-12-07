@@ -84,13 +84,59 @@ routePost.post('/uploadPostImage', upload.single('background_image'), (req, res,
 	})
 })
 
-// routePost.get("/", (req, res, next) => {
-// 	User.find().then(data => {
-// 		res.status(200).json({
-// 			message: "User list retrieved successfully!",
-// 			users: data
-// 		});
-// 	});
-// });
+routePost.route('/addPost').post(function (req, res) {
+	let post = new Posts(req.body);
+
+	post.save()
+		.then(post => {
+			res.sendStatus(200);
+			console.log(post)
+		})
+		.catch(err => {
+			res.status(400).send("Failed to add post");
+		})
+})
+// 
+routePost.route('/getPosts').get(function (req, res) {
+	Posts.find()
+		.then(posts => res.send(posts))
+		.catch(err => res.status(400).json('Error: ' + err));
+});
+
+routePost.route('/deletePost/:id').delete(function (req, res) {
+	console.log(req.params.id)
+	Posts.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Exercise deleted.'))
+		.catch(err => res.status(400).json('Error: ' + err));
+})
+
+routePost.route('/updatePost/:_id').post(function (req, res) {
+	Posts.findById(req.params._id)
+		.then(post => {
+			post.title = req.body.title;
+			post.description = req.body.description;
+			post.body = req.body.body;
+
+			post.save()
+				.then(() => res.json('Post updated!'))
+				.catch(err => res.status(400).json('Error: ' + err));
+		})
+		.catch(err => res.status(400).json('Error: ' + err));
+});
+
+routePost.route('/addComment/:_id').put(function (req, res) {
+	Posts.findByIdAndUpdate(req.params._id,
+		{ $push: { comments: req.body } },
+		{ safe: true, upsert: true },
+		// console.log(req.body.comment),
+		function (err, comments) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(comments)
+				console.log(req.body)
+			}
+		})
+})
 
 module.exports = routePost;

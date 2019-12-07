@@ -30,12 +30,12 @@ mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true, useCreate
   process.exit(-1)
 })
 
-const routes = require('./api/route');
+const authenticate = require('./api/authentication');
 const postRoute = require('./api/postRoute')
-const profile = require('./api/profileImageRoute')
+const profile = require('./api/profile')
 
-app.use('/to', routes)
-app.use('/addPost', postRoute)
+app.use('/authenticate', authenticate)
+app.use('/post', postRoute)
 app.use('/profile', profile)
 
 app.use('/public', express.static('public'));

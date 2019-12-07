@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
-import {Grid ,InputAdornment} from '@material-ui/core';
+import { Grid, InputAdornment, CardMedia } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MoodIcon from '@material-ui/icons/Mood';
@@ -75,7 +75,7 @@ export default class EditProfile extends Component {
       password: this.state.password,
       profile_image: this.profileImg
     }
-    axios.post("http://localhost:4000/to/updateProfile/" + id, data)
+    axios.post("http://localhost:4000/account/updateProfile/" + id, data)
       .then(res => {
         console.log(res)
       })
@@ -113,9 +113,8 @@ export default class EditProfile extends Component {
     const { userData } = this.state;
 
     let { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<Avatar src={imagePreviewUrl}
+    let $imagePreview = 
+      $imagePreview = (<CardMedia component='img' alt=' ' image={userData.profile_image}
         style={{
           columnSpan: "100px",
           margin: "10px",
@@ -123,104 +122,83 @@ export default class EditProfile extends Component {
           height: "150px",
           marginLeft: "10px",
         }} />);
-    } else {
-      $imagePreview = (<Avatar alt=" " component="span" src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"
-
-        style={{
-          columnSpan: "100px",
-          margin: "10px",
-          width: "80px",
-          height: "80px",
-          marginLeft: "10px",
-        }}
-      />);
-    }
+    
     return (
 
       <center style={{ marginTop: '5vh' }}>
         <Card style={modalCard}>
           <form onSubmit={e => this.onSubmit(this.state.data.id, e)}>
             <CardContent style={modalCardContent}>
-                <Grid>
-                  <Grid item>
+              <Grid item>
 
-                    <div className="imgPreview" >
-                      {$imagePreview}
-                      <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
-                      <label htmlFor="icon-button-file">
-                        <IconButton color="primary" aria-label="upload picture" component="span">
-                          <PhotoCamera />
-                        </IconButton>
-                      </label>
-                    </div>
+               
 
-                  </Grid>
-                </Grid>
-                <TextField
-                  id="first_name"
-                  label="First name"
-                  id="first_name"
-                  onChange={this.onChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircle />
-                      </InputAdornment>
-                    ),
-                  }}
-                  />
-                <TextField
-                  id="last_name"
-                  label="Last name"
-                  id="last_name"
-                  onChange={this.onChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircle />
-                      </InputAdornment>
-                    ),
-                  }}
-                  />
-                <TextField
-                  id="username"
-                  label="Username"
-                  id="user_name"
-                  onChange={this.onChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <AlternateEmailIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  />
-                <TextField
-                  id="password1" type="password"
-                  label="Password"
-                  id="password"
-                  onChange={this.onChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <LockIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  />
-                <TextField
-                  id="password2" type="password"
-                  label="Repeat Password"
-                  id="password2"
-                  onChange={this.onChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">
-                        <LockIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  />
+              </Grid>
+              <TextField
+                id="first_name"
+                label="First name"
+                id="first_name"
+                onChange={this.onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                id="last_name"
+                label="Last name"
+                id="last_name"
+                onChange={this.onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                id="username"
+                label="Username"
+                id="user_name"
+                onChange={this.onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <AlternateEmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                id="password1" type="password"
+                label="Password"
+                id="password"
+                onChange={this.onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                id="password2" type="password"
+                label="Repeat Password"
+                id="password2"
+                onChange={this.onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </CardContent>
             <CardActions>
               <Button size="small" color="primary" onClick={e => this.onSubmit(userData._id)}><NavigationIcon />Save</Button>

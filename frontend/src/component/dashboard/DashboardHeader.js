@@ -12,7 +12,6 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 // import MediaCapture from './MediaCapture';
 // import ChatList from './chatList/App/index'
 import Login from '../login&register/Login';
-import Profile from './Profile';
 import EditProfile from './EditProfile';
 import {makeStyles} from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
@@ -65,15 +64,16 @@ export default class DashboardHeader extends Component {
                                         aria-haspopup="true"
                                         color="secondary"
                                         // fontSize="30"
-                                        component={Link} to='/profile'
+                                        component={Link} to='/post'
+                                        style={{marginLeft: '5%',marginRight: '5%'}}
                                     >
-                                        <Avatar src="https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"></Avatar>
+                                        <Avatar src={user.profile_image}></Avatar>
                                     </IconButton >
                                     <List component="nav">
                                         <ListItem>
-                                            <Button  component={Link} to='/home'><HomeOutlinedIcon style={{ fontSize: 40, color: indigo [50] }} />HOME</Button >
-                                            <Button  component={Link} to='/post'><Book style={{fontSize: 40,color: indigo [50] }} />POST</Button>
-                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"style={{ marginLeft :'88%' ,position: 'fixed' }}> <AddIcon /> </Fab>
+                                            <Button  component={Link} to='/home'><HomeOutlinedIcon style={{marginRight: '5%', fontSize: 40, color: indigo [50] }} />HOME</Button >
+                                            {/* <Button  component={Link} to='/post'><Book style={{fontSize: 40,color: indigo [50] }} />POST</Button> */}
+                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"style={{ marginLeft: '5%',marginRight: '5%', position: '//#endregion' }}> <AddIcon /> </Fab>
                                         </ListItem>
                                     </List>
 
@@ -88,9 +88,8 @@ export default class DashboardHeader extends Component {
                         >
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={user}></Dashboard></div>} />
-                                <Route path='/post' render={() => <div><MyPost username={user.user_name} post={this.state.posts}></MyPost></div>} />
-                                <Route path='/profile' render={() => <div><Profile userData={user}></Profile></div>} />
-                                <Route path="editProfile" render={() => <EditProfile></EditProfile>}></Route>
+                                <Route path='/post' render={() => <div><MyPost username={user.user_name} userData={user}></MyPost></div>} />
+                                <Route path="/editProfile" render={() => <EditProfile></EditProfile>}></Route>
                                 <Route path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name}></AddPost></div>} />
                                 <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name}></AddPostImage>} />
                                 <Redirect from="/login" to="home" ></Redirect>
