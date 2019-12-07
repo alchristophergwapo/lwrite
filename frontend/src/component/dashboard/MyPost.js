@@ -211,7 +211,7 @@ export default class MyPost extends Component {
             </Grid>
           </Paper>
         </Grid>
-        <Grid container spacing={5} justify="center">
+        <Grid container spacing={2} justify="center" item xs={12}>
           {this.state.posts.map(post => (
             <Grid item key={post._id}>
               <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
