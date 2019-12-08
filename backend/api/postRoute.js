@@ -55,7 +55,8 @@ routePost.post('/uploadPostImage', upload.single('background_image'), (req, res,
 	const url = 'http://localhost:4000/public/images/'
 	const user = [{
 		first_name : req.body.first_name,
-		last_name : req.body.last_name
+		last_name : req.body.last_name,
+		profile_image: req.body.profile_image
 	}]
 	console.log("first name : ",req.body.first_name)
 	console.log("last name : ",req.body.first_name)

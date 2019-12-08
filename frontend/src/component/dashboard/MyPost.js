@@ -57,7 +57,6 @@ export default class MyPost extends Component {
         for (let index = 0; index < response.data.length; index++) {
           if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
-            this.setState({ userData: response.data[index].user[0] })
             // console.log("Okay")
           } else {
             // console.log("NOT")
@@ -72,7 +71,6 @@ export default class MyPost extends Component {
   }
 
   deletePostHandle = id => {
-
     axios.delete('http://localhost:4000/post/deletePost/' + id)
       .then(response => {
         this.setState({
@@ -83,8 +81,6 @@ export default class MyPost extends Component {
         console.log(error);
       })
   }
-
-
 
   onSubmitProfile = username => {
     const formData = new FormData()
@@ -105,8 +101,8 @@ export default class MyPost extends Component {
       })
 
   }
-  handleComment = id => {
 
+  handleComment = id => {
     const data = {
       comment: this.state.comment,
       comment_from: this.state.userData
@@ -133,15 +129,11 @@ export default class MyPost extends Component {
         imagePreviewUrl: reader.result
       });
     }
-
     reader.readAsDataURL(file)
   }
 
-
   render() {
-
-    const { userData, username } = this.state;
-
+    const { user, username } = this.state;
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl) {
@@ -171,13 +163,11 @@ export default class MyPost extends Component {
       </div>
       );
     }
-
     return (
       <center style={{ marginTop: 20, padding: 20 }}>
         <Grid>
           <Paper>
             <Grid item>
-
               <div className="imgPreview" >
                 <form onSubmit={this.onSubmitProfile}>
                   {$imagePreview}
@@ -187,19 +177,17 @@ export default class MyPost extends Component {
                       <PhotoCamera />
                     </IconButton>
                   </label>
-
                 </form>
               </div>
-
             </Grid>
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography variant="h3" gutterBottom >
-                    {userData.first_name} {userData.last_name}
+                    {user.first_name} {user.last_name}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
-                    {userData.user_name}
+                    {user.user_name}
                   </Typography>
 
                 </Grid>
@@ -253,7 +241,7 @@ export default class MyPost extends Component {
 
 
                     title={
-                      <Typography component="h3">{this.state.userData.first_name} {this.state.userData.last_name}</Typography>
+                      <Typography component="h3">{this.state.user.first_name} {this.state.user.last_name}</Typography>
                     }
                     subheader="September 14, 2016"
                   />
@@ -332,3 +320,4 @@ export default class MyPost extends Component {
     )
   }
 }
+

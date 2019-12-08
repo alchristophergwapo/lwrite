@@ -15,38 +15,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import LockIcon from '@material-ui/icons/Lock';
 import axios from 'axios'
 import { Card, CardContent, CardActions } from '@material-ui/core'
-const useStyles = makeStyles(theme => ({
-  input: {
-    display: 'none'
-  },
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  bigAvatar: {
-    width: 90,
-    height: 90,
-  },
-  inline: {
-    display: 'inline',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  wrapper: {
-    position: 'relative',
-  },
-  div: {
-    position: 'absolute',
-    top: 28,
-    right: 0,
-    left: 0,
-    border: '1px solid',
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+import { Link } from 'react-router-dom'
 
 export default class EditProfile extends Component {
 
@@ -60,44 +29,53 @@ export default class EditProfile extends Component {
       password: '',
       password1: '',
       image: '',
-      imagePreviewUrl: ''
+      imagePreviewUrl: '',
+      success: false
     }
   }
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value })
+    console.log(e.target.id +" : " + e.target.value )
   }
 
-  onSubmit = id => {
+  onSubmitChanges = (id ,e ) => {
+    e.preventDefault()
+    const {password, password1} = this.state;
     const data = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       user_name: this.state.user_name,
-      password: this.state.password,
-      profile_image: this.profileImg
+      password: password,
     }
-    axios.post("http://localhost:4000/account/updateProfile/" + id, data)
-      .then(res => {
-        console.log(res)
-      })
+   
+    console.log(data)
+    // if (password === password1) {
+      axios.post("http://localhost:4000/account/updateAccount/" + id, data)
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              first_name: '',
+              last_name: '',
+              user_name: '',
+              password: '',
+              success: true,
+            })
+          }
+          console.log(res)
+        })
+    // }
   }
 
-  handleImageChange(e) {
-    e.preventDefault();
+  linkcomponent = () => {
+    var link = '/post';
 
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        image: file,
-        imagePreviewUrl: reader.result
-      });
+    if (this.state.success) {
+      return link;
     }
-
-    reader.readAsDataURL(file)
   }
   render() {
-    console.log(this.state.profileImg)
+    const { userData } = this.state;
+    // console.log(this.state.userData)
     const modalCard = {
       width: '100%',
       maxWidth: 500,
@@ -107,33 +85,22 @@ export default class EditProfile extends Component {
       flexDirection: 'column',
       backgroundColor: 'rgb(187, 222, 251)',
     }
-    const marginTop = {
-      marginTop: '2vh',
-    }
-    const { userData } = this.state;
-
-    let { imagePreviewUrl } = this.state;
-    let $imagePreview = 
-      $imagePreview = (<CardMedia component='img' alt=' ' image={userData.profile_image}
-        style={{
-          columnSpan: "100px",
-          margin: "10px",
-          width: "150px",
-          height: "150px",
-          marginLeft: "10px",
-        }} />);
-    
     return (
-
       <center style={{ marginTop: '5vh' }}>
         <Card style={modalCard}>
-          <form onSubmit={e => this.onSubmit(this.state.data.id, e)}>
-            <CardContent style={modalCardContent}>
-              <Grid item>
-
-               
-
-              </Grid>
+        <form onSubmit={(e)=> this.onSubmitChanges(userData._id, e)}>
+          <CardContent style={modalCardContent}>
+            <Grid item>
+              <CardMedia component='img' alt=' ' image={userData.profile_image}
+                style={{
+                  columnSpan: "100px",
+                  margin: "10px",
+                  width: "200px",
+                  height: "auto",
+                  marginLeft: "10px",
+                }} />
+            </Grid>
+            
               <TextField
                 id="first_name"
                 label="First name"
@@ -201,7 +168,11 @@ export default class EditProfile extends Component {
               />
             </CardContent>
             <CardActions>
-              <Button size="small" color="primary" onClick={e => this.onSubmit(userData._id)}><NavigationIcon />Save</Button>
+              <Button onClick={ (e)=>
+                this.onSubmitChanges(userData._id, e)
+              } component={Link}
+                to={this.linkcomponent}>Save
+              </Button>
               <Button size="small" >Cancel</Button>
             </CardActions>
           </form>

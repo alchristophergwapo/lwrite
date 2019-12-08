@@ -14,13 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-       next();
-});
-
 const uri = "mongodb://127.0.0.1/lwrite";
 mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true, useCreateIndex: true }
 ).then(()=>{
@@ -36,7 +29,7 @@ const profile = require('./api/profile')
 
 app.use('/authenticate', authenticate)
 app.use('/post', postRoute)
-app.use('/profile', profile)
+app.use('/account', profile)
 
 app.use('/public', express.static('public'));
 

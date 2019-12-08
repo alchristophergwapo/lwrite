@@ -164,8 +164,8 @@ export default class Dashboard extends Component {
                       <div>
                         <CardHeader
                           avatar={
-                            <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label="">
-                              W
+                            <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label="" src={post.user.map(data => (data.profile_image))}>
+                              
                         </Avatar>
                           }
                           title={

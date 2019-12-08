@@ -3,6 +3,7 @@ const express = require('express'),
 	uuidv4 = require('uuid/v4');
 const routeProfile = express.Router();
 let Registration = require('./registrationSchema');
+const bcrypt = require('bcryptjs');
 
 const DIR = './public/images/';
 
@@ -30,26 +31,31 @@ var upload = multer({
 
 routeProfile.post('/updateProfileImage/:_username', upload.single('profile_image'), (req, res, next) => {
 	const url = 'http://localhost:4000/public/images/'
-	Registration.findOneAndUpdate(req.params._username)
-	.then(user => {
-		user.profile_image = url + req.file.filename;
-		user.save()
-			.then(() => res.send(user))
-			.catch(err => res.status(400).json('Error: ' + err));
-	})
-	.catch(err => res.status(400).json('Error: ' + err));
-	
+	Registration.findOne({user_name : req.params._username})
+		.then(user => {
+			user.profile_image = url + req.file.filename;
+			user.save()
+				.then(() => res.send(user))
+				.catch(err => res.status(400).json('Error: ' + err));
+		})
+		.catch(err => res.status(400).json('Error: ' + err));
+
 })
 
-routeProfile.route('/updateProfle/:_id').post(function (req, res) {
-	Posts.findById(req.params._id)
-		.then(post => {
-			post.title = req.body.title;
-			post.description = req.body.description;
-			post.body = req.body.body;
+routeProfile.route('/updateAccount/:_id').post(function (req, res) {
+	Registration.findByIdAndUpdate(req.params._id)
+		.then(user => {
+			const password = req.body.password;
+			const salt = bcrypt.genSaltSync(10);
+			const hash = bcrypt.hashSync(password, salt);
 
-			post.save()
-				.then(() => res.json('Post updated!'))
+			user.first_name = req.body.first_name;
+			user.last_name = req.body.last_name;
+			user.user_name = req.body.user_name;
+			user.password = hash;
+			console.log(user)
+			user.save()
+				.then(() => res.send(user))
 				.catch(err => res.status(400).json('Error: ' + err));
 		})
 		.catch(err => res.status(400).json('Error: ' + err));

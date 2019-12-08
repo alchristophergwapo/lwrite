@@ -2,7 +2,6 @@ const express = require('express')
 const routes = express.Router();
 const bcrypt = require('bcryptjs');
 let Registration = require('./registrationSchema');
-let Posts = require('./postSchema');
 
 
 // Registration route

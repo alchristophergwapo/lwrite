@@ -9,11 +9,11 @@ import Dashboard from './Dashboard';
 import MyPost from './MyPost';
 import AddPost from './AddPost';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-// import MediaCapture from './MediaCapture';
+import axios from 'axios';
 // import ChatList from './chatList/App/index'
 import Login from '../login&register/Login';
-import EditProfile from './EditProfile';
-import {makeStyles} from '@material-ui/core/styles';
+import EditProfile from './EditProfile'
+import { makeStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import AddPostImage from './AddPostImage';
 // import EditBody from './EditBody';
@@ -38,14 +38,25 @@ export default class DashboardHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.user,
+            user: [],
             posts: [],
-            logout: false
+            logout: false,
+            user_name: this.props.user_name
         }
     }
 
+    componentWillMount() {
+        axios.get('http://localhost:4000/authenticate/getUser/' + this.state.user_name)
+            .then(res => {
+                if (res.data != null) {
+                    this.setState({ user: res.data })
+                }
+                
+            })
+    }
+
     render() {
-        const {user} = this.state;
+        const { user } = this.state;
         console.log(user)
         if (this.state.logout) {
             return (
@@ -56,7 +67,7 @@ export default class DashboardHeader extends Component {
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar style={{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}} position="static">
+                            <AppBar style={{ background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }} position="static">
                                 <Toolbar>
                                     <IconButton
                                         aria-label="account of current user"
@@ -65,23 +76,23 @@ export default class DashboardHeader extends Component {
                                         color="secondary"
                                         // fontSize="30"
                                         component={Link} to='/post'
-                                        style={{marginLeft: '5%',marginRight: '5%'}}
+                                        style={{ marginLeft: '5%', marginRight: '5%' }}
                                     >
                                         <Avatar src={user.profile_image}></Avatar>
                                     </IconButton >
                                     <List component="nav">
                                         <ListItem>
-                                            <Button  component={Link} to='/home'><HomeOutlinedIcon style={{marginRight: '5%', fontSize: 40, color: indigo [50] }} />HOME</Button >
+                                            <Button component={Link} to='/home'><HomeOutlinedIcon style={{ marginRight: '5%', fontSize: 40, color: indigo[50] }} />HOME</Button >
                                             {/* <Button  component={Link} to='/post'><Book style={{fontSize: 40,color: indigo [50] }} />POST</Button> */}
-                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost"style={{ marginLeft: '5%',marginRight: '5%', position: '//#endregion' }}> <AddIcon /> </Fab>
+                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost" style={{ marginLeft: '5%', marginRight: '5%', position: '//#endregion' }}> <AddIcon /> </Fab>
                                         </ListItem>
                                     </List>
 
                                 </Toolbar>
                             </AppBar>
 
-                           
-                               
+
+
                         </div>
                         <main
                             style={{ marginTop: '1vh' }}
@@ -89,7 +100,7 @@ export default class DashboardHeader extends Component {
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={user}></Dashboard></div>} />
                                 <Route path='/post' render={() => <div><MyPost username={user.user_name} userData={user}></MyPost></div>} />
-                                <Route path="/editProfile" render={() => <EditProfile></EditProfile>}></Route>
+                                <Route path="/editProfile" render={() => <EditProfile userData={user}></EditProfile>}></Route>
                                 <Route path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name}></AddPost></div>} />
                                 <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name}></AddPostImage>} />
                                 <Redirect from="/login" to="home" ></Redirect>
