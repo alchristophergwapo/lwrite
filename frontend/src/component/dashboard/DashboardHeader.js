@@ -67,7 +67,7 @@ export default class DashboardHeader extends Component {
                 <Router>
                     <Fragment >
                         <div style={usestyles.root}>
-                            <AppBar style={{ background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }} position="static">
+                            <AppBar style={{ background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }} position="fixed">
                                 <Toolbar>
                                     <IconButton
                                         aria-label="account of current user"
@@ -95,15 +95,15 @@ export default class DashboardHeader extends Component {
 
                         </div>
                         <main
-                            style={{ marginTop: '1vh' }}
+                            style={{ marginTop: '7vh' }}
                         >
                             <Switch>
                                 <Route exact path='/home' render={() => <div><Dashboard post={this.state.posts} userData={user}></Dashboard></div>} />
-                                <Route path='/post' render={() => <div><MyPost username={user.user_name} userData={user}></MyPost></div>} />
-                                <Route path="/editProfile" render={() => <EditProfile userData={user}></EditProfile>}></Route>
-                                <Route path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name}></AddPost></div>} />
-                                <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name}></AddPostImage>} />
-                                <Redirect from="/login" to="home" ></Redirect>
+                                <Route exact path='/post' render={() => <div><MyPost username={user.user_name} userData={user}></MyPost></div>} />
+                                <Route exact path="/editProfile" render={() => <EditProfile userData={user} style={{marginTop: '7vh'}}></EditProfile>}></Route>
+                                <Route exact path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name} style={{marginTop: '7vh'}}> </AddPost></div>} />
+                                <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name} style={{marginTop: '7vh'}}></AddPostImage>} />
+                                <Redirect from="/" to="home" ></Redirect>
                             </Switch>
                         </main>
                     </Fragment>

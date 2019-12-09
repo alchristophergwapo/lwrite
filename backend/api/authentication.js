@@ -1,6 +1,7 @@
 const express = require('express')
 const routes = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 let Registration = require('./registrationSchema');
 
 
@@ -26,8 +27,21 @@ routes.route('/login').post(function (req, res) {
 			// res.send(user)
 			if (!user) res.sendStatus(204);
 			else {
-				bcrypt.compare(req.body.password, user.password)
-					.then(passwordMatch => passwordMatch ? res.sendStatus(200) : res.sendStatus(204))
+				var passwordValid = bcrypt.compare(req.body.password, user.password)
+				if(!passwordValid){
+					return res.status(401).json({auth : false, token : null, message : "Not Authorised User"});
+				}else{
+					let payload = {
+						user_id : user._id,
+						username : user.username
+					}
+					console.log(config.secrets.session);
+					let token = jwt.sign(payload, config.secrets.session,{
+						expiresIn : 1000
+					});
+					
+					res.sendStatus(200).json({auth : true, token : token, message : "User Logged In Successfully"});
+				}
 			}
 		})
 });

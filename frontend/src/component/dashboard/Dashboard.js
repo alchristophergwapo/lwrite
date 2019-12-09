@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Grid, Typography, CardHeader, TextField, Card, CardActionArea, CardActions, CardContent, CardMedia, 
-  Button, Avatar ,ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, 
-  ExpansionPanelActions, Divider, List, ListItem, ListItemAvatar,ListItemText} from "@material-ui/core";
-import {Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon,Image as ImageIcon} from '@material-ui/icons'
+import {
+  Grid, Typography, CardHeader, TextField, Card, CardActionArea, CardActions, CardContent, CardMedia,
+  Button, Avatar, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
+  ExpansionPanelActions, Divider, List, ListItem, ListItemAvatar, ListItemText
+} from "@material-ui/core";
+import { Send, ExpandMore as ExpandMoreIcon, Favorite as FavoriteIcon, Share as ShareIcon, Image as ImageIcon } from '@material-ui/icons'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
@@ -28,9 +30,10 @@ export default class Dashboard extends Component {
     this.state = {
       posts: [
         {
-          user: [{ first_name: "Developers",
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-        }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "Love Lost",
           description: "This is my first post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
@@ -38,16 +41,17 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         },
 
         {
-          user: [{ first_name: "Developers",
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-        }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "Journey",
           description: "This is my second post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
@@ -55,16 +59,17 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         },
 
         {
-          user: [{ first_name: "Developers" ,
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-        }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "Love",
           description: "This is my third post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
@@ -72,16 +77,17 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         },
 
         {
-          user: [{ first_name: "Developers",
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-        }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
@@ -89,16 +95,17 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         },
 
         {
-          user: [{ first_name: "Developers",
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-         }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "Allow me",
           description: "This is my fifth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
@@ -106,16 +113,17 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         },
 
         {
-          user: [{ first_name: "Developers",
-          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
-         }],
+          user: [{
+            first_name: "Developers",
+            profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+          }],
           title: "Closure and A Small Consolation",
           description: "This is my sixth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
@@ -123,8 +131,8 @@ export default class Dashboard extends Component {
           comments: [{
             comment: '',
             comment_from: {
-              first_name:'',
-              last_name:''
+              first_name: '',
+              last_name: ''
             }
           }],
         }
@@ -166,89 +174,87 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ padding: '1vh' ,background:'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}}>
-          <Grid container spacing={2} justify="center" style={{ marginTop: '1vh'}}>
+        <center style={{ padding: '1vh', background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }}>
+          <Grid container spacing={2} justify="center" style={{ marginTop: '1vh' }}>
             {this.state.posts.map(post => (
-              <Grid item key={post.title}>
-                <div style={{ marginBottom: "10px", marginLeft: "10px", width: '300px', maxWidth: '100%' }}>
-                  <Card style ={{border :"3px solid #212121"}}>
-                    <CardActionArea >
-                      <div>
-                        <CardHeader
-                          avatar={
-                            <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label="" src={post.user.map(data => (data.profile_image))}>
-                              
-                        </Avatar>
-                          }
-                          title={
-                            <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
-                          }
-                          subheader={
-                            <Typography>
+              <Grid item key={post.title} style={{ marginBottom: "5px", marginLeft: "5px", width: '300px', maxWidth: '100%' }}>
+                <Card style={{ border: "3px solid #212121" }}>
+                  <CardActionArea >
+                    <div>
+                      <CardHeader
+                        avatar={
+                          <Avatar style={{ backgroundColor: "#3F51B5" }} aria-label="" src={post.user.map(data => (data.profile_image))}>
 
-                            </Typography>
-                          }
-                        />
-                        <CardContent>
+                          </Avatar>
+                        }
+                        title={
+                          <Typography component="h3">{post.user.map(data => (data.first_name))} {post.user.map(data => (data.last_name))}</Typography>
+                        }
+                        subheader={
+                          <Typography>
 
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {post.title}
                           </Typography>
-                          <Typography component="p">{post.description}</Typography>
-
-                        </CardContent>
-                      </div>
-                      <CardMedia
-                        component="img"
-                        alt=" "
-                        height='auto'
-                        image={post.background_image}
-                        title=" "
-                        // style={{height: '350px', border: '1px solid black'}}
+                        }
                       />
-                      <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
-                    </CardActionArea>
-                    <CardActions>
-                      <ExpansionPanel style={{backgroundColor:"rgb(144, 202, 249)"}} >
-                        <ExpansionPanelSummary
-                          expandIcon={<ExpandMoreIcon style={{color: pink [500] }}/>}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Button size="small" ><FavoriteIcon style={{ color: pink [500] }}/></Button>
-                          <Button size="small" ><ShareIcon style={{ color: pink [500] }}/></Button>
-                          <Typography style={usestyles.heading}>Comment</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                          <List style={usestyles.rootList}>
-                            {post.comments.map(comment => (
-                              <ListItem>
-                                <ListItemAvatar>
-                                  <Avatar><ImageIcon></ImageIcon></Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
-                              </ListItem>
-                            ))}
-                          </List>
-                        </ExpansionPanelDetails>
-                        <Divider />
-                        <ExpansionPanelActions>
-                          <form onSubmit={this.handleSubmit}>
-                            <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
-                            </TextField>
-                            <Button onClick={() => {
-                              this.handleComment(post._id);
-                              this.setState({ comment: "" })
-                            }}>
-                              <Send style={{ color: pink [500] }}>Comment</Send>
-                            </Button>
+                      <CardContent>
 
-                          </form>
-                        </ExpansionPanelActions>
-                      </ExpansionPanel>
-                    </CardActions>
-                  </Card>
-                </div>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {post.title}
+                        </Typography>
+                        <Typography component="p">{post.description}</Typography>
+
+                      </CardContent>
+                    </div>
+                    <CardMedia
+                      component="img"
+                      alt=" "
+                      height='auto'
+                      image={post.background_image}
+                      title=" "
+                    // style={{height: '350px', border: '1px solid black'}}
+                    />
+                    <Typography style={{ backgroundImage: post.image }}>{post.body}</Typography>
+                  </CardActionArea>
+                  <CardActions>
+                    <ExpansionPanel style={{ backgroundColor: "rgb(144, 202, 249)" }} >
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon style={{ color: pink[500] }} />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                      >
+                        <Button size="small" ><FavoriteIcon style={{ color: pink[500] }} /></Button>
+                        <Button size="small" ><ShareIcon style={{ color: pink[500] }} /></Button>
+                        <Typography style={usestyles.heading}>Comment</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <List style={usestyles.rootList}>
+                          {post.comments.map(comment => (
+                            <ListItem>
+                              <ListItemAvatar>
+                                <Avatar><ImageIcon></ImageIcon></Avatar>
+                              </ListItemAvatar>
+                              <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </ExpansionPanelDetails>
+                      <Divider />
+                      <ExpansionPanelActions>
+                        <form onSubmit={this.handleSubmit}>
+                          <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                          </TextField>
+                          <Button onClick={() => {
+                            this.handleComment(post._id);
+                            this.setState({ comment: "" })
+                          }}>
+                            <Send style={{ color: pink[500] }}>Comment</Send>
+                          </Button>
+
+                        </form>
+                      </ExpansionPanelActions>
+                    </ExpansionPanel>
+                  </CardActions>
+                </Card>
               </Grid>
 
             ))}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardActions, Button, TextField, Divider } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField, Divider, Grid } from '@material-ui/core';
 import Link from 'react-router-dom';
 import axios from 'axios'
 import MyPost from './MyPost';
@@ -62,6 +62,7 @@ export default class AddPost extends Component {
     if (!this.state.updated) {
       return (
         <center style={{ marginTop: '5vh' }}>
+        <Grid style={{ marginTop: '12vh' }} xs={12}>
           <Card style={modalCard}>
             <form onSubmit={e => this.onSubmit(this.state.data.id,e)}>
               <CardContent style={modalCardContent}>
@@ -96,6 +97,7 @@ export default class AddPost extends Component {
               </CardActions>
             </form>
           </Card>
+          </Grid>
         </center>
       )
     } else {

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import AppBody from './AppBody';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import Login from '../login&register/Login';
+import Registration from '../login&register/Register';
+import DashboardHeader from '../dashboard/DashboardHeader'
+import ProtectedRoute from '../../authentication/protected.route'
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +15,16 @@ class App extends Component {
 
   render() {
     return (
-      <AppBody></AppBody>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path="/register" component={Registration} />
+            <Route exact path="/" component={Login} />
+            {/* <ProtectedRoute exact path="/home" component={DashboardHeader} /> */}
+            {/* <Route path="*" component={() => "404 NOT FOUND"} /> */}
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

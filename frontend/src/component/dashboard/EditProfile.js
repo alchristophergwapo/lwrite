@@ -59,9 +59,10 @@ export default class EditProfile extends Component {
               user_name: '',
               password: '',
               success: true,
+              userData: res.data
             })
           }
-          console.log(res)
+          console.log(res.data)
         })
     // }
   }
@@ -86,7 +87,8 @@ export default class EditProfile extends Component {
       backgroundColor: 'rgb(187, 222, 251)',
     }
     return (
-      <center style={{ marginTop: '5vh' }}>
+      <center>
+      <Grid style={{ marginTop: '12vh' }} xs={12}>
         <Card style={modalCard}>
         <form onSubmit={(e)=> this.onSubmitChanges(userData._id, e)}>
           <CardContent style={modalCardContent}>
@@ -177,6 +179,7 @@ export default class EditProfile extends Component {
             </CardActions>
           </form>
         </Card>
+        </Grid>
       </center>
     )
   }

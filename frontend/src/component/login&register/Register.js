@@ -16,6 +16,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import CreateIcon from '@material-ui/icons/Create';
 import DoneIcon from '@material-ui/icons/Done';
+import {connect} from 'reaact-redux';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
     constructor(props) {
@@ -27,7 +30,8 @@ class Register extends Component {
             password: "",
             password2: "",
             register: false,
-            error: false
+            error: false,
+            errors: {}
         }
 
     }
@@ -60,7 +64,7 @@ class Register extends Component {
         };
 
         if (this.state.password === this.state.password2) {
-            const registerStatus = await UserRegistration(data);
+            const registerStatus = await UserRegistration(data, this.props.history);
             if (registerStatus === 200) {
                 console.log("Successfull")
                 this.setState({
@@ -84,6 +88,23 @@ class Register extends Component {
             alert("Password don't match")
         }
     };
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.auth.isAuthenticated) {
+            this.props.history.push('/')
+        }
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    }
 
     render() {
         const root = {
@@ -245,7 +266,7 @@ class Register extends Component {
                                 <div>
                                     <div style={{ marginTop: '1vh' }}>Already have an account?
                                             <Button variant="outlined">
-                                            <Link to="/login">Cancel</Link>
+                                            <Link to="/">Cancel</Link>
                                         </Button>
                                     </div>
 
@@ -264,4 +285,14 @@ class Register extends Component {
     }
 }
 
-export default Register;
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps,{ registerUser })(withRouter(Register))

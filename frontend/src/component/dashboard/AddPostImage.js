@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardActions, Button, TextField, Divider, CardMedia } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, TextField, Divider, CardMedia, Grid } from '@material-ui/core';
 import MyPost from './MyPost';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -101,38 +101,40 @@ export default class AddPostImage extends Component {
 
         return (
             <center style={{ marginTop: '5vh' }}>
-                <Card style={modalCard}>
-                    <form onSubmit={this.onSubmit}>
-                        <CardContent style={modalCardContent}>
-                            <TextField
-                                label="Title"
-                                id="title"
-                                onChange={this.onChange}
-                            />
-                            <TextField
-                                label="What can you say about this?"
-                                multiline rows={3}
-                                id="description"
-                                onChange={this.onChange}
-                            />
-                            <div className="imgPreview" >
-                                {$imagePreview}
-                            </div>
-                            <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
-                            <label htmlFor="icon-button-file">
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                    <PhotoCamera />
-                                </IconButton>
-                            </label>
+                <Grid style={{ marginTop: '12vh' }} xs={12}>
+                    <Card style={modalCard}>
+                        <form onSubmit={this.onSubmit}>
+                            <CardContent style={modalCardContent}>
+                                <TextField
+                                    label="Title"
+                                    id="title"
+                                    onChange={this.onChange}
+                                />
+                                <TextField
+                                    label="What can you say about this?"
+                                    multiline rows={3}
+                                    id="description"
+                                    onChange={this.onChange}
+                                />
+                                <div className="imgPreview" >
+                                    {$imagePreview}
+                                </div>
+                                <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
+                                <label htmlFor="icon-button-file">
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </label>
 
-                        </CardContent>
-                        <Divider />
-                        <CardActions>
-                            <Button size="small" color="primary" onClick={this.onSubmit} endIcon={<DoneIcon>send</DoneIcon>}>Save</Button>
-                            <Button size="small" endIcon={<ClearIcon>send</ClearIcon>}>Cancel</Button>
-                        </CardActions>
-                    </form>
-                </Card>
+                            </CardContent>
+                            <Divider />
+                            <CardActions>
+                                <Button size="small" color="primary" onClick={this.onSubmit} endIcon={<DoneIcon>send</DoneIcon>}>Save</Button>
+                                <Button size="small" endIcon={<ClearIcon>send</ClearIcon>}>Cancel</Button>
+                            </CardActions>
+                        </form>
+                    </Card>
+                </Grid>
             </center>
         )
     }

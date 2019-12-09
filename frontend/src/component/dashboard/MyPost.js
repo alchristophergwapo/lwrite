@@ -19,19 +19,34 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import InfoIcon from '@material-ui/icons/Info';
 
 const usestyles = makeStyles(theme => ({
   root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  rootList: {
-    width: '100%',
-    maxWidth: 360,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+  titleBar: {
+    height: 'auto',
+    background:
+      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
+  icon: {
+    color: 'white',
   },
 }));
 
@@ -133,7 +148,7 @@ export default class MyPost extends Component {
   }
 
   render() {
-    const { user, username, readyToLoad } = this.state;
+    const { user, username, readyToLoad ,posts} = this.state;
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
     let $preview = null;
@@ -167,11 +182,11 @@ export default class MyPost extends Component {
 
     if (readyToLoad) {
       $preview = (
-        <center style={{ padding: '1vh' }}>
-          <Grid container spacing={2} justify="center" item xs={12} style={{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}}>
+        <div style={{ padding: '1vh' }}>
+          <Grid container spacing={2} justify="center" item xs={12} >
             {this.state.posts.map(post => (
-              <Grid item key={post._id} style={{width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>  
-                <Card style={{ border: "3px solid #2196F3", marginBottom: '10px', marginLeft: "20px"}}>
+              <Grid item key={post._id}>
+                <Card style={{ border: "3px solid #2196F3", marginBottom: '10px', marginLeft: "20px", marginBottom: "5px", marginLeft: "5px", width: '300px', maxWidth: '100%' }}>
                   <CardHeader
                     avatar={
                       <Avatar src={post.profile_image} style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
@@ -212,9 +227,7 @@ export default class MyPost extends Component {
                     subheader="September 14, 2016"
                   />
                   <CardActionArea >
-
                     <div>
-
                       <CardContent style={{ border: '3px', backgroundColor: '#EEEEEE' }}>
                         <Typography gutterBottom variant="h5" component="h2">
                           {post.title}
@@ -230,7 +243,6 @@ export default class MyPost extends Component {
                         />
                         <Typography component="p">{post.body}</Typography>
                       </CardContent>
-
                     </div>
                   </CardActionArea>
                   <CardActions style={{ backgroundColor: '#EEEEEE' }}>
@@ -268,7 +280,6 @@ export default class MyPost extends Component {
                           }}>
                             <Send />
                           </Button>
-
                         </form>
                       </ExpansionPanelActions>
                     </ExpansionPanel>
@@ -277,7 +288,7 @@ export default class MyPost extends Component {
               </Grid>
             ))}
           </Grid>
-        </center>
+        </div>
       )
     }
     return (
@@ -317,10 +328,9 @@ export default class MyPost extends Component {
 
           </Paper>
         </Grid>
-        <Grid xs={12}>
+        <Grid >
           {$preview}
         </Grid>
-
       </center>
     )
   }
