@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Login from '../login&register/Login';
 import Registration from '../login&register/Register';
-import DashboardHeader from '../dashboard/DashboardHeader'
-import ProtectedRoute from '../../authentication/protected.route'
 
 class App extends Component {
   constructor(props) {
