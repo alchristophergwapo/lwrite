@@ -32,21 +32,14 @@ export default class AddPostImage extends Component {
     onSubmit = async e => {
         e.preventDefault();
 
-        // const user = [{
-        //     _id: this.state.user._id,
-        //     first_name: this.state.first_name,
-        //     last_name: this.state.last_name,
-        //     user_name: this.state.user_name,
-        //     password: this.state.password
-        // }]
         const formData = new FormData()
         formData.append('background_image', this.state.image)
-        formData.append("title",this.state.title)
-        formData.append("description",this.state.description)
-        formData.append("first_name",this.state.user.first_name)
-        formData.append("last_name",this.state.user.last_name)
-        formData.append("user_name",this.state.user_name)
-        formData.append("profile_image",this.state.user.profile_image)
+        formData.append("title", this.state.title)
+        formData.append("description", this.state.description)
+        formData.append("first_name", this.state.user.first_name)
+        formData.append("last_name", this.state.user.last_name)
+        formData.append("user_name", this.state.user_name)
+        formData.append("profile_image", this.state.user.profile_image)
 
         axios.post('http://localhost:4000/post/uploadPostImage', formData)
             .then(res => {
@@ -86,9 +79,9 @@ export default class AddPostImage extends Component {
     }
 
     render() {
-        const {user} = this.state;
-        console.log("first name : " , user.first_name)
-        console.log("last name : " , user.last_name)
+        const { user } = this.state;
+        console.log("first name : ", user.first_name)
+        console.log("last name : ", user.last_name)
         const modalCard = {
             width: '100%',
             maxWidth: 500,
@@ -101,54 +94,47 @@ export default class AddPostImage extends Component {
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (imagePreviewUrl) {
-            $imagePreview = (<CardMedia component='img' alt=' ' src={imagePreviewUrl} style={{width: '450px', maxWidth: '100%', height: 'auto'}}/>);
+            $imagePreview = (<CardMedia component='img' alt=' ' src={imagePreviewUrl} style={{ width: '450px', maxWidth: '100%', height: 'auto' }} />);
         } else {
             $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
 
-        if (!this.state.added) {
-            return ( 
-                <center style={{ marginTop: '5vh' }}>
-                    <Card style={modalCard}>
-                        <form onSubmit={this.onSubmit}>
-                            <CardContent style={modalCardContent}>
-                                <TextField
-                                    label="Title"
-                                    id="title"
-                                    onChange={this.onChange}
-                                />
-                                <TextField
-                                    label="What can you say about this?"
-                                    multiline rows={3}
-                                    id="description"
-                                    onChange={this.onChange}
-                                />
-                                <div className="imgPreview" >
-                                    {$imagePreview}
-                                </div>
-                                <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
-                                <label htmlFor="icon-button-file">
-                                    <IconButton color="primary" aria-label="upload picture" component="span">
-                                        <PhotoCamera />
-                                    </IconButton>
-                                </label>
+        return (
+            <center style={{ marginTop: '5vh' }}>
+                <Card style={modalCard}>
+                    <form onSubmit={this.onSubmit}>
+                        <CardContent style={modalCardContent}>
+                            <TextField
+                                label="Title"
+                                id="title"
+                                onChange={this.onChange}
+                            />
+                            <TextField
+                                label="What can you say about this?"
+                                multiline rows={3}
+                                id="description"
+                                onChange={this.onChange}
+                            />
+                            <div className="imgPreview" >
+                                {$imagePreview}
+                            </div>
+                            <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
+                            <label htmlFor="icon-button-file">
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                    <PhotoCamera />
+                                </IconButton>
+                            </label>
 
-                            </CardContent>
-                            <Divider />
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={this.onSubmit} endIcon={<DoneIcon>send</DoneIcon>}>Save</Button>
-                                <Button size="small" endIcon={<ClearIcon>send</ClearIcon>}>Cancel</Button>
-                            </CardActions>
-                        </form>
-                    </Card>
-                </center>
-
-            )
-        } else {
-            return (
-                <MyPost></MyPost>
-            )
-        }
+                        </CardContent>
+                        <Divider />
+                        <CardActions>
+                            <Button size="small" color="primary" onClick={this.onSubmit} endIcon={<DoneIcon>send</DoneIcon>}>Save</Button>
+                            <Button size="small" endIcon={<ClearIcon>send</ClearIcon>}>Cancel</Button>
+                        </CardActions>
+                    </form>
+                </Card>
+            </center>
+        )
     }
 }
 

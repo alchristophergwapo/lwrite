@@ -48,14 +48,15 @@ export default class MyPost extends Component {
     user: this.props.userData
   };
 
-  componentDidMount() {
+  componentWillMount() {
     // const datas = [];
     axios.get('http://localhost:4000/post/getPosts')
       .then(response => {
+        console.log(response.data)
         for (let index = 0; index < response.data.length; index++) {
           if (response.data[index].user_name === this.state.username) {
             this.state.posts.push(response.data[index]);
-            this.setState({readyToLoad: true})
+            this.setState({ readyToLoad: true })
             // console.log("Okay")
           } else {
             // console.log("NOT")
@@ -66,7 +67,6 @@ export default class MyPost extends Component {
       .catch((error) => {
         console.log(error);
       })
-    console.log(this.state.user);
   }
 
   deletePostHandle = id => {
@@ -88,7 +88,7 @@ export default class MyPost extends Component {
       .then(res => {
         this.setState({
           image: "",
-          userData: res.data
+          userData: res.data,
         });
         console.log(res)
       })
@@ -136,6 +136,7 @@ export default class MyPost extends Component {
     const { user, username, readyToLoad } = this.state;
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
+    let $preview = null;
     if (imagePreviewUrl) {
       $imagePreview = (
         <div>
@@ -163,161 +164,165 @@ export default class MyPost extends Component {
       </div>
       );
     }
-      return (
-        <center style={{ marginTop: 20, padding: 20 }}>
-          <Grid>
-            <Paper>
-              <Grid item>
-                <div className="imgPreview" >
-                  <form onSubmit={this.onSubmitProfile}>
-                    {$imagePreview}
-                    <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
-                    <label htmlFor="icon-button-file">
-                      <IconButton color="primary" aria-label="upload picture" component="span">
-                        <PhotoCamera />
-                      </IconButton>
-                    </label>
-                  </form>
-                </div>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography variant="h3" gutterBottom >
-                      {user.first_name} {user.last_name}
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      {user.user_name}
-                    </Typography>
-  
-                  </Grid>
-                  <Grid item xs>
-                    <Button component={Link} to='/editProfile' variant="contained" size="medium" color="primary" style={usestyles.margin} onClick={this.editProfile}> Edit Account </Button>
-                  </Grid>
-                </Grid>
-  
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid container spacing={2} justify="center" item xs={12}>
+
+    if (readyToLoad) {
+      $preview = (
+        <center style={{ padding: '1vh' }}>
+          <Grid container spacing={2} justify="center" item xs={12} style={{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'}}>
             {this.state.posts.map(post => (
-              <Grid item key={post._id}>
-                <div style={{ marginBottom: "20px", marginLeft: "20px", width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>
-                  <Card style={{ border: "3px solid #2196F3" }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar src={post.profile_image} style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
-                              </Avatar>
-                      }
-                      action={
-                        <PopupState variant="popover" popupId="demo-popup-menu">
-                          {popupState => (
-                            <div>
-                              <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon style={{ color: pink[500] }} /></IconButton>
-                              <Menu {...bindMenu(popupState)}>
-                                <MenuItem onClick={popupState.close}></MenuItem>
-                                <MenuItem onClick={() => {
-                                  popupState.close;
-                                  this.deletePostHandle(post._id);
-  
-                                }} >Delete</MenuItem>
-                                <MenuItem onClick={() => {
-                                  popupState.close;
-                                  this.handleClickOpen({
-                                    user: this.state.userData,
-                                    title: post.title,
-                                    description: post.description,
-                                    body: post.body,
-                                    id: post._id,
-                                  });
-  
-                                }}
-                                >Edit</MenuItem>
-                              </Menu>
-                            </div>
-                          )}
-                        </PopupState>
-                      }
-  
-  
-                      title={
-                        <Typography component="h3">{this.state.user.first_name} {this.state.user.last_name}</Typography>
-                      }
-                      subheader="September 14, 2016"
-                    />
-                    <CardActionArea >
-  
-                      <div>
-  
-                        <CardContent style={{ border: '3px', backgroundColor: '#EEEEEE' }}>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {post.title}
-                          </Typography>
-                          <Typography component="p">{post.description}</Typography>
-                          <CardMedia
-                            component="img"
-                            alt=" "
-                            height='auto'
-                            image={post.background_image}
-                            title=" "
-                          // style={{height: '350px', border: '1px solid black'}}
-                          />
-                          <Typography component="p">{post.body}</Typography>
-                        </CardContent>
-  
-                      </div>
-  
-                    </CardActionArea>
-  
-                    <CardActions style={{ backgroundColor: '#EEEEEE' }}>
-  
-                      <ExpansionPanel style={{ backgroundColor: '#90CAF9' }}>
-                        <ExpansionPanelSummary
-                          expandIcon={<ExpandMoreIcon style={{ color: pink[500] }} />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Button size="small" ><FavoriteIcon style={{ color: pink[500] }} /></Button>
-                          <Button size="small" ><ShareIcon style={{ color: pink[500] }} /></Button>
-                          <Typography style={usestyles.heading}>Comment</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                          <List style={usestyles.rootList}>
-                            {post.comments.map(comment => (
-                              <ListItem>
-                                <ListItemAvatar>
-                                  <Avatar><ImageIcon></ImageIcon></Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
-                              </ListItem>
-                            ))}
-                          </List>
-                        </ExpansionPanelDetails>
-                        <Divider />
-                        <ExpansionPanelActions >
-                          <form onSubmit={this.handleSubmit}>
-                            <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
-                            </TextField>
-                            <Button onClick={() => {
-                              this.handleComment(post._id);
-                              this.setState({ comment: "" })
-                            }}>
-                              <Send />
-                            </Button>
-  
-                          </form>
-                        </ExpansionPanelActions>
-                      </ExpansionPanel>
-                    </CardActions>
-                    <CardActions disableSpacing>
-                    </CardActions>
-                  </Card>
-                </div>
+              <Grid item key={post._id} style={{width: '300px', maxWidth: '100%', height: 'auto', maxHeight: '350px' }}>  
+                <Card style={{ border: "3px solid #2196F3", marginBottom: '10px', marginLeft: "20px"}}>
+                  <CardHeader
+                    avatar={
+                      <Avatar src={post.profile_image} style={{ backgroundColor: "#3F51B5" }} aria-label={post.user_name}>
+                      </Avatar>
+                    }
+                    action={
+                      <PopupState variant="popover" popupId="demo-popup-menu">
+                        {popupState => (
+                          <div>
+                            <IconButton variant="contained" {...bindTrigger(popupState)}><MoreVertIcon style={{ color: pink[500] }} /></IconButton>
+                            <Menu {...bindMenu(popupState)}>
+                              <MenuItem onClick={popupState.close}></MenuItem>
+                              <MenuItem onClick={() => {
+                                popupState.close;
+                                this.deletePostHandle(post._id);
+
+                              }} >Delete</MenuItem>
+                              <MenuItem onClick={() => {
+                                popupState.close;
+                                this.handleClickOpen({
+                                  user: this.state.userData,
+                                  title: post.title,
+                                  description: post.description,
+                                  body: post.body,
+                                  id: post._id,
+                                });
+
+                              }}
+                              >Edit</MenuItem>
+                            </Menu>
+                          </div>
+                        )}
+                      </PopupState>
+                    }
+                    title={
+                      <Typography component="h3">{this.state.user.first_name} {this.state.user.last_name}</Typography>
+                    }
+                    subheader="September 14, 2016"
+                  />
+                  <CardActionArea >
+
+                    <div>
+
+                      <CardContent style={{ border: '3px', backgroundColor: '#EEEEEE' }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {post.title}
+                        </Typography>
+                        <Typography component="p">{post.description}</Typography>
+                        <CardMedia
+                          component="img"
+                          alt=" "
+                          height='auto'
+                          image={post.background_image}
+                          title=" "
+                        // style={{height: '350px', border: '1px solid black'}}
+                        />
+                        <Typography component="p">{post.body}</Typography>
+                      </CardContent>
+
+                    </div>
+                  </CardActionArea>
+                  <CardActions style={{ backgroundColor: '#EEEEEE' }}>
+
+                    <ExpansionPanel style={{ backgroundColor: '#90CAF9' }}>
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon style={{ color: pink[500] }} />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                      >
+                        <Button size="small" ><FavoriteIcon style={{ color: pink[500] }} /></Button>
+                        <Button size="small" ><ShareIcon style={{ color: pink[500] }} /></Button>
+                        <Typography style={usestyles.heading}>Comment</Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <List style={usestyles.rootList}>
+                          {post.comments.map(comment => (
+                            <ListItem>
+                              <ListItemAvatar>
+                                <Avatar><ImageIcon></ImageIcon></Avatar>
+                              </ListItemAvatar>
+                              <ListItemText primary={comment.comment_from.first_name + " " + comment.comment_from.last_name} secondary={comment.comment} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </ExpansionPanelDetails>
+                      <Divider />
+                      <ExpansionPanelActions >
+                        <form onSubmit={this.handleSubmit}>
+                          <TextField style={{ width: "70%" }} onChange={e => this.setState({ comment: e.target.value })} placeholder="Comment" >
+                          </TextField>
+                          <Button onClick={() => {
+                            this.handleComment(post._id);
+                            this.setState({ comment: "" })
+                          }}>
+                            <Send />
+                          </Button>
+
+                        </form>
+                      </ExpansionPanelActions>
+                    </ExpansionPanel>
+                  </CardActions>
+                </Card>
               </Grid>
             ))}
           </Grid>
         </center>
       )
+    }
+    return (
+      <center style={{ marginTop: 20, padding: 20 }}>
+        <Grid>
+          <Paper>
+            <Grid item>
+              <div className="imgPreview" >
+                <form onSubmit={this.onSubmitProfile}>
+                  {$imagePreview}
+                  <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
+                  <label htmlFor="icon-button-file">
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                      <PhotoCamera />
+                    </IconButton>
+                  </label>
+                </form>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography variant="h3" gutterBottom >
+                    {user.first_name} {user.last_name}
+                  </Typography>
+                  <Typography variant="h5" gutterBottom>
+                    {user.user_name}
+                  </Typography>
+
+                </Grid>
+                <Grid item xs>
+                  <Button component={Link} to='/editProfile' variant="contained" size="medium" color="primary" style={usestyles.margin} onClick={this.editProfile}> Edit Account </Button>
+                </Grid>
+              </Grid>
+
+            </Grid>
+
+          </Paper>
+        </Grid>
+        <Grid xs={12}>
+          {$preview}
+        </Grid>
+
+      </center>
+    )
   }
 }
 

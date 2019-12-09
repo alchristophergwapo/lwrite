@@ -84,7 +84,7 @@ export default class AddPost extends Component {
             marginTop: '2vh',
         }
 
-        // if (!this.state.added) {
+        if (!this.state.added) {
         return (
             <center style={{ marginTop: '5vh' }}>
                 <Card style={modalCard}>
@@ -122,11 +122,11 @@ export default class AddPost extends Component {
 
             </center>
         )
-        // } else {
-        //     return (
-        //         <MyPost></MyPost>
-        //     )
-        // }
+        } else {
+            return (
+                <MyPost></MyPost>
+            )
+        }
     }
 }
 
