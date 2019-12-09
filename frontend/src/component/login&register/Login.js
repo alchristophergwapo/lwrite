@@ -4,7 +4,6 @@ import { AccountCircle, Lock as LockIcon, Done as DoneIcon } from '@material-ui/
 import axios from 'axios'
 import DashboardHeader from '../dashboard/DashboardHeader'
 import { Link } from "react-router-dom";
-import auth from '../../authentication/AuthContext'
 // import IconButton from '@material-ui/core/IconButton';
 
 export default class Login extends Component {

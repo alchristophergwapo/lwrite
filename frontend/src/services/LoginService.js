@@ -2,6 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 import { GET_ERRORS, SET_CURRENT_USER } from '../authentication/types';
+import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
 export const LoginService = (data) => dispatch => (
 	axios.post('http://localhost:4000/authenticate/login', data)
@@ -26,11 +27,16 @@ export const GetUser = data => (
 		.then(res => res)
 )
 
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
-
 export const setCurrentUser = decoded => {
-	return {
-		type: SET_CURRENT_USER,
-		payload: decoded
-	}
+    return {
+        type: SET_CURRENT_USER,
+        payload: decoded
+    }
+}
+
+export const logoutUser = (history) => dispatch => {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(false);
+    dispatch(setCurrentUser({}));
+    history.push('/login');
 }
