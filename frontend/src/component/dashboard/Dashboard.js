@@ -28,7 +28,9 @@ export default class Dashboard extends Component {
     this.state = {
       posts: [
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers",
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+        }],
           title: "Love Lost",
           description: "This is my first post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUh8Vw2CMarBf4IhzzD9Iu9RDgFDLhampfMmhLqScja8HWYXsL",
@@ -39,11 +41,13 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         },
 
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers",
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+        }],
           title: "Journey",
           description: "This is my second post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQp1PeuwQtnwMQ2r_i0x5ztFzJH0DaePQIIXeOV0N13f4qd4e6S",
@@ -54,11 +58,13 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         },
 
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers" ,
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+        }],
           title: "Love",
           description: "This is my third post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnP2iCBPQmX_jAx1KQIRRhYBKy_g_3YgQ5tGjDdVV3J3HIQpbF",
@@ -69,11 +75,13 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         },
 
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers",
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+        }],
           title: "You are my reason for life",
           description: "This is my fourth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRV82se8NdkhIMflZnKFjBTopZO3DZtRMWl-idP271-iPABR9e6",
@@ -84,11 +92,13 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         },
 
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers",
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+         }],
           title: "Allow me",
           description: "This is my fifth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrfA-ZqxWqS9GeRJ7ameS9XAqAJDwOHx68Gq6tkdZq-wnXZUno",
@@ -99,11 +109,13 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         },
 
         {
-          user: [{ first_name: "Developers" }],
+          user: [{ first_name: "Developers",
+          profile_image: 'http://localhost:4000/public/images/0fd8f511-f357-4490-bc6b-8e5d390b4824-thumbs-up-4007573__340.png'
+         }],
           title: "Closure and A Small Consolation",
           description: "This is my sixth post with more content inside",
           background_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRjzBeVVUtSZOV8XyM4ZgjWSuwQK7YW46s0XNyXmXengQ-dRT9",
@@ -114,7 +126,7 @@ export default class Dashboard extends Component {
               first_name:'',
               last_name:''
             }
-          }]
+          }],
         }
       ],
       readyToLoad: false,
@@ -122,7 +134,7 @@ export default class Dashboard extends Component {
     }
 
   }
-  componentDidMount() {
+  componentWillMount() {
     // const datas = [];
     axios.get('http://localhost:4000/post/getPosts/')
       .then(response => {
