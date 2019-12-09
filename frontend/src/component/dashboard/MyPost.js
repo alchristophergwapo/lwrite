@@ -19,11 +19,6 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import InfoIcon from '@material-ui/icons/Info';
 
 const usestyles = makeStyles(theme => ({
   root: {
@@ -60,7 +55,8 @@ export default class MyPost extends Component {
     setOpen: false,
     open: false,
     data: [],
-    user: this.props.userData
+    user: this.props.userData,
+    edit: false
   };
 
   componentWillMount() {
@@ -115,6 +111,16 @@ export default class MyPost extends Component {
         console.log(err)
       })
 
+  }
+
+  handleClickOpen = data => {
+    console.log(data)
+    this.setState({edit : true})
+    return(
+      <Edit data={data}>
+
+      </Edit>
+    )
   }
 
   handleComment = id => {
@@ -214,7 +220,10 @@ export default class MyPost extends Component {
                                   id: post._id,
                                 });
 
+
                               }}
+                              component={Link} to='/editPost'
+
                               >Edit</MenuItem>
                             </Menu>
                           </div>
@@ -291,48 +300,57 @@ export default class MyPost extends Component {
         </div>
       )
     }
-    return (
-      <center style={{ marginTop: 20, padding: 20 }}>
-        <Grid>
-          <Paper>
-            <Grid item>
-              <div className="imgPreview" >
-                <form onSubmit={this.onSubmitProfile}>
-                  {$imagePreview}
-                  <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
-                  <label htmlFor="icon-button-file">
-                    <IconButton color="primary" aria-label="upload picture" component="span">
-                      <PhotoCamera />
-                    </IconButton>
-                  </label>
-                </form>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography variant="h3" gutterBottom >
-                    {user.first_name} {user.last_name}
-                  </Typography>
-                  <Typography variant="h5" gutterBottom>
-                    {user.user_name}
-                  </Typography>
-
-                </Grid>
-                <Grid item xs>
-                  <Button component={Link} to='/editProfile' variant="contained" size="medium" color="primary" style={usestyles.margin} onClick={this.editProfile}> Edit Account </Button>
-                </Grid>
+    if(!this.state.edit) {
+      return (
+        <center style={{ marginTop: 20, padding: 20, marginTop: '12vh' }}>
+          <Grid>
+            <Paper>
+              <Grid item>
+                <div className="imgPreview" >
+                  <form onSubmit={this.onSubmitProfile}>
+                    {$imagePreview}
+                    <input accept="image/*" style={{ display: 'none' }} id="icon-button-file" type="file" onChange={(e) => this.handleImageChange(e)} />
+                    <label htmlFor="icon-button-file">
+                      <IconButton color="primary" aria-label="upload picture" component="span">
+                        <PhotoCamera />
+                      </IconButton>
+                    </label>
+                  </form>
+                </div>
               </Grid>
-
-            </Grid>
-
-          </Paper>
-        </Grid>
-        <Grid >
-          {$preview}
-        </Grid>
-      </center>
-    )
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                    <Typography variant="h3" gutterBottom >
+                      {user.first_name} {user.last_name}
+                    </Typography>
+                    <Typography variant="h5" gutterBottom>
+                      {user.user_name}
+                    </Typography>
+  
+                  </Grid>
+                  <Grid item xs>
+                    <Button component={Link} to='/editProfile' variant="contained" size="medium" color="primary" style={usestyles.margin} onClick={this.editProfile}> Edit Account </Button>
+                  </Grid>
+                </Grid>
+  
+              </Grid>
+  
+            </Paper>
+          </Grid>
+          <Grid >
+            {$preview}
+          </Grid>
+        </center>
+      )
+    }
+    if(this.state.edit) {
+      return(
+        <div>
+        {this.handleClickOpen}
+        </div>
+      )
+    }
   }
 }
 

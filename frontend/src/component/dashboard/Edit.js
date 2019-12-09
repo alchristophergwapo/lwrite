@@ -5,7 +5,7 @@ import axios from 'axios'
 import MyPost from './MyPost';
 // import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
-export default class AddPost extends Component {
+export default class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,46 +62,46 @@ export default class AddPost extends Component {
     if (!this.state.updated) {
       return (
         <center style={{ marginTop: '5vh' }}>
-        <Grid style={{ marginTop: '12vh' }} xs={12}>
-          <Card style={modalCard}>
-            <form onSubmit={e => this.onSubmit(this.state.data.id,e)}>
-              <CardContent style={modalCardContent}>
-                <TextField
-                  label="Title"
-                  id="title"
-                  onChange={this.onChange}
-                  placeholder={this.state.data.title}
+          <Grid style={{ marginTop: '12vh' }} xs={12}>
+            <Card style={modalCard}>
+              <form onSubmit={e => this.onSubmit(this.state.data.id, e)}>
+                <CardContent style={modalCardContent}>
+                  <TextField
+                    label="Title"
+                    id="title"
+                    onChange={this.onChange}
+                    placeholder={this.state.data.title}
                   />
-                <TextField
-                  label="What can you say about this?"
-                  multiline rows={3}
-                  id="description"
-                  onChange={this.onChange}
-                  placeholder={this.state.data.description}
+                  <TextField
+                    label="What can you say about this?"
+                    multiline rows={3}
+                    id="description"
+                    onChange={this.onChange}
+                    placeholder={this.state.data.description}
                   />
-                <TextField
-                  style={marginTop}
-                  label="Body"
-                  multiline
-                  rows={15}
-                  id="body"
-                  required
-                  onChange={this.onChange}
-                  placeholder={this.state.data.body}
+                  <TextField
+                    style={marginTop}
+                    label="Body"
+                    multiline
+                    rows={15}
+                    id="body"
+                    required
+                    onChange={this.onChange}
+                    placeholder={this.state.data.body}
                   />
-              </CardContent>
-              <Divider></Divider>
-              <CardActions>
-                <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id,e)}>Save</Button>
-                <Button size="small" >Cancel</Button>
-              </CardActions>
-            </form>
-          </Card>
+                </CardContent>
+                <Divider></Divider>
+                <CardActions>
+                  <Button size="small" color="primary" onClick={e => this.onSubmit(this.state.data.id, e)}>Save</Button>
+                  <Button size="small" >Cancel</Button>
+                </CardActions>
+              </form>
+            </Card>
           </Grid>
         </center>
       )
     } else {
-      return(
+      return (
         <MyPost></MyPost>
       )
     }

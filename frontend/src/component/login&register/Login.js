@@ -15,7 +15,6 @@ export default class Login extends Component {
       error: false,
       loginSuccess: false,
       user: [],
-      loggedIn: false
     }
   }
 

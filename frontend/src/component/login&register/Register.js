@@ -16,11 +16,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import CreateIcon from '@material-ui/icons/Create';
 import DoneIcon from '@material-ui/icons/Done';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+// import {connect} from 'react-redux';
+// import PropTypes from 'prop-types';
+// import { withRouter } from 'react-router-dom';
 
-class Register extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,7 +64,7 @@ class Register extends Component {
         };
 
         if (this.state.password === this.state.password2) {
-            const registerStatus = await UserRegistration(data, this.props.history);
+            const registerStatus = await UserRegistration(data);
             if (registerStatus === 200) {
                 console.log("Successfull")
                 this.setState({
@@ -77,7 +77,7 @@ class Register extends Component {
                     error: false
                 });
             } else {
-                alert("Username already exist");
+                // alert("Username already exist");
                 this.setState({
                     error: true,
                     register: false
@@ -89,22 +89,22 @@ class Register extends Component {
         }
     };
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.auth.isAuthenticated) {
-            this.props.history.push('/')
-        }
-        if(nextProps.errors) {
-            this.setState({
-                errors: nextProps.errors
-            });
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if(nextProps.auth.isAuthenticated) {
+    //         this.props.history.push('/')
+    //     }
+    //     if(nextProps.errors) {
+    //         this.setState({
+    //             errors: nextProps.errors
+    //         });
+    //     }
+    // }
 
-    componentDidMount() {
-        if(this.props.auth.isAuthenticated) {
-            this.props.history.push('/');
-        }
-    }
+    // componentDidMount() {
+    //     if(this.props.auth.isAuthenticated) {
+    //         this.props.history.push('/');
+    //     }
+    // }
 
     render() {
         const root = {
@@ -285,14 +285,14 @@ class Register extends Component {
     }
 }
 
-Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
+// Register.propTypes = {
+//     registerUser: PropTypes.func.isRequired,
+//     auth: PropTypes.object.isRequired
+// };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
-});
+// const mapStateToProps = state => ({
+//     auth: state.auth,
+//     errors: state.errors
+// });
 
-export default connect(mapStateToProps,{ UserRegistration })(withRouter(Register))
+// export default connect(mapStateToProps,{ UserRegistration })(withRouter(Register))

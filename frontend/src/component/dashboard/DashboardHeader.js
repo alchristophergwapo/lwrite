@@ -3,7 +3,7 @@ import {
     AppBar, Toolbar, Typography, Button, IconButton, Avatar, ListItem, List,
     InputBase, Fab, Menu, MenuItem
 } from '@material-ui/core';
-import { Book, Add as AddIcon, Search as SearchIcon, } from '@material-ui/icons'
+import { Book, Add as AddIcon, Search as SearchIcon, Edit, } from '@material-ui/icons'
 import { Switch, Route, Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 import Dashboard from './Dashboard';
 import MyPost from './MyPost';
@@ -16,6 +16,7 @@ import EditProfile from './EditProfile'
 import { makeStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import AddPostImage from './AddPostImage';
+import EditPost from './Edit'
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -103,6 +104,7 @@ export default class DashboardHeader extends Component {
                                 <Route exact path="/editProfile" render={() => <EditProfile userData={user} style={{marginTop: '7vh'}}></EditProfile>}></Route>
                                 <Route exact path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name} style={{marginTop: '7vh'}}> </AddPost></div>} />
                                 <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name} style={{marginTop: '7vh'}}></AddPostImage>} />
+                                <Route exact path='/editPost' render={() => <EditPost data={this.props.data}></EditPost>}></Route>
                                 <Redirect from="/" to="home" ></Redirect>
                             </Switch>
                         </main>
