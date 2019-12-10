@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import AddPostImage from './AddPostImage';
 import EditPost from './Edit'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import EditBody from './EditBody';
 
 const usestyles = makeStyles(theme => ({
@@ -56,6 +57,9 @@ export default class DashboardHeader extends Component {
             })
     }
 
+    onLogout = () => {
+        this.setState({logout: true})
+    }
     render() {
         const { user } = this.state;
         console.log(user)
@@ -83,12 +87,12 @@ export default class DashboardHeader extends Component {
                                     </IconButton >
                                     <List component="nav">
                                         <ListItem>
-                                            <Button component={Link} to='/home'><HomeOutlinedIcon style={{ marginRight: '5%', fontSize: 40, color: indigo[50] }} />HOME</Button >
-                                            {/* <Button  component={Link} to='/post'><Book style={{fontSize: 40,color: indigo [50] }} />POST</Button> */}
-                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost" style={{ marginLeft: '5%', marginRight: '5%', position: '//#endregion' }}> <AddIcon /> </Fab>
+                                            <Button component={Link} to='/home'><HomeOutlinedIcon style={{ marginRight: '10%', fontSize: 40, color: indigo[50] }} /></Button >
+                                            <Fab color="secondary" aria-label="add" component={Link} to="/addPost" style={{  marginRight: '5%', position: '//#endregion' }}> <AddIcon /> </Fab>
                                         </ListItem>
                                     </List>
-
+                                    <Typography variant="h4"style={{marginLeft:'65%' }}>LWrite</Typography>
+                                    <Button onClick={this.onLogout} ><ExitToAppIcon style={{  fontSize: 40, color: indigo[50] }} /></Button >
                                 </Toolbar>
                             </AppBar>
 
@@ -105,7 +109,9 @@ export default class DashboardHeader extends Component {
                                 <Route exact path='/addPost' render={() => <div><AddPost userData={user} username={user.user_name} style={{marginTop: '7vh'}}> </AddPost></div>} />
                                 <Route exact path="/uploadImage" render={() => <AddPostImage userData={user} username={user.user_name} style={{marginTop: '7vh'}}></AddPostImage>} />
                                 <Route exact path='/editPost' render={() => <EditPost data={this.props.data}></EditPost>}></Route>
+                                {/* <Route exact path='/login' render={() => <div><Login ></Login></div>} /> */}
                                 <Redirect from="/" to="home" ></Redirect>
+                               
                             </Switch>
                         </main>
                     </Fragment>

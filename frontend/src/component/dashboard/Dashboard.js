@@ -174,11 +174,11 @@ export default class Dashboard extends Component {
   loadPost = () => {
     if (this.state.readyToLoad) {
       return (
-        <center style={{ padding: '1vh', background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' }}>
+        <center style={{ padding: '1vh'}}>
           <Grid container spacing={2} justify="center" style={{ marginTop: '1vh' }}>
             {this.state.posts.map(post => (
               <Grid item key={post.title} style={{ marginBottom: "5px", marginLeft: "5px", width: '300px', maxWidth: '100%' }}>
-                <Card style={{ border: "3px solid #212121" }}>
+                <Card style={{ border: "3px solid #03A9F4" }}>
                   <CardActionArea >
                     <div>
                       <CardHeader

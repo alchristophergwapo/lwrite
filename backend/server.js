@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-// const uri = "mongodb://127.0.0.1/lwrite";
-const uri = "mongodb+srv://cccjlwrite:groupcccj@lwrite-dtqee.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb://127.0.0.1/lwrite";
+// const uri = "mongodb+srv://cccjlwrite:groupcccj@lwrite-dtqee.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true, useCreateIndex: true }
 ).then(()=>{
